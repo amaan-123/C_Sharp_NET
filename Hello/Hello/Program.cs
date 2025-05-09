@@ -19,6 +19,7 @@ namespace Hello
         }
         static void Main()
         {
+            //Note the double quotes in the string
             //Console.Write("Hello World by amaan-123. ");
             //Console.WriteLine("Console.Write() writes next line in same line!");
             //Console.Write("Console.WriteLine() writes next line to new line!");
@@ -138,12 +139,12 @@ namespace Hello
             //    Console.WriteLine(i);
             //}
             //// Output: 0, 1, 3, 4 (2 & 5 onwards skipped)
-            
+
             // Methods:
             // The compiler knows which Average method to call based on the number of arguments
             double avg1 = Average(10.0, 20.0);
             double avg2 = Average(10.0, 20.0, 30.0);
-            Console.WriteLine(avg2);
+            //Console.WriteLine(avg2);
         }
 
     }
