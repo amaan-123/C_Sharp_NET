@@ -370,7 +370,7 @@ Console.WriteLine("Line 1\nLine 2"); // Output: Line 1 followed by Line 2 on a n
 
 - Decision control statements allow your program to execute different blocks of code based on conditions.
 
-1. **If-Else If-Else**:
+1.**If-Else If-Else**:
     - The `if` statement executes a block of code if a condition is `true`.
     - An optional `else if` statement can be used to check another condition if the previous `if` or `else if` conditions were `false`. You can have multiple `else if` blocks.
     - An optional `else` statement executes a block of code if all preceding `if` and `else if` conditions were `false`.
@@ -395,7 +395,7 @@ else // This block executes if age is NOT >= 18 AND NOT >= 16
 }
 ```
 
-2. **Switch Case**:
+2.**Switch Case**:
     - An alternative to multiple `else if` statements, used to execute different code blocks based on the **value of a single variable**.
     - The variable's value is compared against multiple `case` labels.
     - If a match is found, the code in that `case` block is executed.
@@ -429,7 +429,7 @@ switch (day)
 - Loops allow you to repeat a block of code multiple times.
 - Using loops is a **better alternative for repetitive statements** than writing the same code manually multiple times.
 
-1. **While Loop**:
+1.**While Loop**:
     - Executes a block of code **as long as a condition is `true`**.
     - The condition is checked *before* each iteration. If the condition is initially `false`, the loop body will not execute at all.
 
@@ -445,7 +445,7 @@ while (i < 5)
 // Output: 0, 1, 2, 3, 4
 ```
 
-2. **Do-While Loop**:
+2.**Do-While Loop**:
     - Executes a block of code **at least once**, and then continues to execute as long as a condition is `true`.
     - The condition is checked *after* the first iteration.
 
@@ -470,7 +470,7 @@ do
 // Output: 5
 ```
 
-3. **For Loop**:
+3.**For Loop**:
     - Provides a more structured way to loop, especially when you know the number of iterations or need an index.
     - It has three parts separated by semicolons:
         - **Initialization**: Executed once at the beginning of the loop (e.g., `int i = 0;`).
@@ -652,10 +652,3 @@ public class Player
 - **Caution**: Don't overuse classes for simple tasks. Use classes when they help structure and manage complexity. Follow the DRY principle (Do Not Repeat Yourself).
 
 - **Inheritance**: (Briefly mentioned as a concept for a future course). Inheritance allows a new class (derived class) to inherit properties and methods from an existing class (base class).
-
-### Conclusion
-
-- The video covered C# basics, .NET Framework, development environment setup, data types, operators, decision control, loops, methods, and an introduction to OOP with classes and objects.
-- Practice is essential after watching the video.
-- The source code from the video will be made available.
-- The channel contains other tutorials on various programming languages and technologies.

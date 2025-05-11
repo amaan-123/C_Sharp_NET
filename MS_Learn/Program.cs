@@ -1,4 +1,6 @@
-﻿using System;
+﻿// MS_Learn + FreeCodeCamp Cert
+
+using System;
 
 namespace MS_Learn
 {
@@ -169,52 +171,65 @@ namespace MS_Learn
             ////Console.WriteLine("Zahirah:\t" + zahirahScore + "\tB");
             ////Console.WriteLine("Jeong:\t\t" + jeongScore + "\tA");
 
-            string studentName = "Sophia Johnson";
-            string course1Name = "English 101";
-            string course2Name = "Algebra 101";
-            string course3Name = "Biology 101";
-            string course4Name = "Computer Science I";
-            string course5Name = "Psychology 101";
+            // string studentName = "Sophia Johnson";
+            // string course1Name = "English 101";
+            // string course2Name = "Algebra 101";
+            // string course3Name = "Biology 101";
+            // string course4Name = "Computer Science I";
+            // string course5Name = "Psychology 101";
 
-            int gradeA = 4;
-            int gradeB = 3;
+            // int gradeA = 4;
+            // int gradeB = 3;
 
-            int course1Credit = 3;
-            int course2Credit = 3;
-            int course3Credit = 4;
-            int course4Credit = 4;
-            int course5Credit = 3;
+            // int course1Credit = 3;
+            // int course2Credit = 3;
+            // int course3Credit = 4;
+            // int course4Credit = 4;
+            // int course5Credit = 3;
 
-            int course1Grade = gradeA;
-            int course2Grade = gradeB;
-            int course3Grade = gradeB;
-            int course4Grade = gradeB;
-            int course5Grade = gradeA;
+            // int course1Grade = gradeA;
+            // int course2Grade = gradeB;
+            // int course3Grade = gradeB;
+            // int course4Grade = gradeB;
+            // int course5Grade = gradeA;
 
-            int prod1 = (course1Grade * course1Credit);
-            int prod2 = (course2Grade * course2Credit);
-            int prod3 = (course3Grade * course3Credit);
-            int prod4 = (course4Grade * course4Credit);
-            int prod5 = (course5Grade * course5Credit);
+            // int prod1 = (course1Grade * course1Credit);
+            // int prod2 = (course2Grade * course2Credit);
+            // int prod3 = (course3Grade * course3Credit);
+            // int prod4 = (course4Grade * course4Credit);
+            // int prod5 = (course5Grade * course5Credit);
 
-            int creditHoursTotal = course1Credit + course2Credit + course3Credit + course4Credit + course5Credit;
+            // int creditHoursTotal = course1Credit + course2Credit + course3Credit + course4Credit + course5Credit;
 
-            float initialGPA = (prod1 + prod2 + prod3 + prod4 + prod5) / (float)creditHoursTotal; 
-            float finalGPA = (float)Math.Round(initialGPA, 2);
+            // float initialGPA = (prod1 + prod2 + prod3 + prod4 + prod5) / (float)creditHoursTotal; 
+            // float finalGPA = (float)Math.Round(initialGPA, 2);
 
 
-            Console.WriteLine($"Student: {studentName}");
+            // Console.WriteLine($"Student: {studentName}");
 
-            Console.WriteLine("Course".PadRight(24) + "Grade".PadRight(8) + "Credit Hours");
+            // Console.WriteLine("Course".PadRight(24) + "Grade".PadRight(8) + "Credit Hours");
 
-            Console.WriteLine($"{course1Name}".PadRight(24) + $"{course1Grade}".PadRight(8) + $"{course1Credit}");
-            Console.WriteLine($"{course2Name}".PadRight(24) + $"{course2Grade}".PadRight(8) + $"{course2Credit}");
-            Console.WriteLine($"{course3Name}".PadRight(24) + $"{course3Grade}".PadRight(8) + $"{course3Credit}");
-            Console.WriteLine($"{course4Name}".PadRight(24) + $"{course4Grade}".PadRight(8) + $"{course4Credit}");
-            Console.WriteLine($"{course5Name}".PadRight(24) + $"{course5Grade}".PadRight(8) + $"{course5Credit}");
+            // Console.WriteLine($"{course1Name}".PadRight(24) + $"{course1Grade}".PadRight(8) + $"{course1Credit}");
+            // Console.WriteLine($"{course2Name}".PadRight(24) + $"{course2Grade}".PadRight(8) + $"{course2Credit}");
+            // Console.WriteLine($"{course3Name}".PadRight(24) + $"{course3Grade}".PadRight(8) + $"{course3Credit}");
+            // Console.WriteLine($"{course4Name}".PadRight(24) + $"{course4Grade}".PadRight(8) + $"{course4Credit}");
+            // Console.WriteLine($"{course5Name}".PadRight(24) + $"{course5Grade}".PadRight(8) + $"{course5Credit}");
             
-            Console.WriteLine("Final GPA:".PadRight(24) + $"{finalGPA}");
+            // Console.WriteLine("Final GPA:".PadRight(24) + $"{finalGPA}");
 
+            //// .NET 6 and later templates:
+            //// See https://aka.ms/new-console-template for more information
+            // Random dice = new Random();
+            // int roll = dice.Next(1, 7);
+            // Console.WriteLine(roll);
+
+            //// On the fourth code line, you include a reference to the Console class and call the Console.WriteLine() method directly. However, you use a different technique for calling the Random.Next() method. The reason why you're using two different techniques is because some methods are "stateful" and others are "stateless". 
+            //// see error if you only do: 
+            // int result = Random.Next();
+
+            Random dice = new Random();
+            int roll = dice.Next();
+            Console.WriteLine(roll);
 
         }
     }

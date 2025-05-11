@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Code With Harry 2hrs
+
+using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
@@ -89,6 +91,8 @@ namespace Hello
             //string sentence = "This is a test";
             //Console.WriteLine(sentence.IndexOf("is")); // Output: 2 (index of the first 'i' in "is")
             //string data = "abcdefgh";
+            //bool b = data.EndsWith("fgh");
+            //Console.WriteLine(b); // Output: True (because "abcdefgh" ends with "fgh")
             //Console.WriteLine(data.Substring(3)); // Output: defgh (starts from index 3 to the end)
             //Console.WriteLine(data.Substring(3, 2)); // Output: de (starts from index 3, takes 2 characters)
             //Console.WriteLine("He said,\t \"Hello!\""); // Output: He said,     "Hello!"
@@ -144,8 +148,21 @@ namespace Hello
             // The compiler knows which Average method to call based on the number of arguments
             double avg1 = Average(10.0, 20.0);
             double avg2 = Average(10.0, 20.0, 30.0);
-            //Console.WriteLine(avg2);
-        }
+            Console.WriteLine(avg1);
+            Console.WriteLine(avg2);
 
+            // Creating an object (instance) of the Player class
+            Player tommy = new Player();
+            tommy.Name = "Tommy Vercetti"; // Accessing and setting a public property
+            tommy.SetHealth(100); // Calling a public method
+
+            //// Cannot access private members directly:
+            // Console.WriteLine(tommy.Health); // Error! Health is private
+
+            // Access private member using a public method:
+            Console.WriteLine(tommy.GetHealth()); // Output is: 100
+
+            
+        }
     }
 }
