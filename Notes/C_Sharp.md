@@ -1,8 +1,8 @@
 # C# Notes
 
-> Source: Code With Harry <https://www.youtube.com/watch?v=SuLiu5AK9Ps>
+## C# Tutorial: Code With Harry 
 
-## C# Tutorial: Starting from Scratch
+<https://www.youtube.com/watch?v=SuLiu5AK9Ps>
 
 This video provides a comprehensive introduction to the C# programming language and the .NET Framework. The goal is to become comfortable with the .NET Framework and learn C# programming.
 
@@ -652,3 +652,133 @@ public class Player
 - **Caution**: Don't overuse classes for simple tasks. Use classes when they help structure and manage complexity. Follow the DRY principle (Do Not Repeat Yourself).
 
 - **Inheritance**: (Briefly mentioned as a concept for a future course). Inheritance allows a new class (derived class) to inherit properties and methods from an existing class (base class).
+
+## MS_Learn: Create and run simple C# console applications (Get started with C#, Part 2) 
+
+## What is the .NET Class Library?
+
+The .NET Class Library is a collection of thousands of classes containing tens of thousands of methods. For example, the .NET Class Library includes the `Console` class for developers working on console applications. The `Console` class includes methods for input and output operations such as `Write()`, `WriteLine()`, `Read()`, `ReadLine()`, and many others.
+
+### Even data types are part of the .NET Class Library
+
+C# data types (such as `string` and `int`) are actually made available through classes in the .NET Class Library. The C# language masks the connection between the data types and the .NET classes in order to simplify your work.
+
+## Stateful versus stateless methods
+
+In software development projects, the term **state** is used to describe the condition of the execution environment at a specific moment in time. As your code executes line by line, values are stored in variables. At any moment during execution, the current state of the application is the collection of all values stored in memory.
+
+Some methods don't rely on the current state of the application to work properly. In other words, **stateless methods** are implemented so that they can work without referencing or changing any values already stored in memory. Stateless methods are also known as **static methods**.
+
+```c#
+Random dice = new Random();
+int roll = dice.Next(1, 7);
+Console.WriteLine(roll);
+```
+
+On the third code line, you include a reference to the `Console` class and call the `Console.WriteLine()` method directly. However, you use a different technique for calling the `Random.Next()` method. The reason why you're using two different techniques is because some methods are "stateful" and others are "stateless". You examine the difference between stateful and stateless methods in the next section.
+
+The `Console.WriteLine()` method doesn't rely on any values stored in memory. It performs its function and finishes without impacting the state of the application in any way.
+
+Other methods, however, must have access to the state of the application to work properly. In other words, **stateful methods** are built in such a way that they rely on values stored in memory by previous lines of code that have already been executed. Or they modify the state of the application by updating values or storing new values in memory. They're also known as **instance methods**.
+
+Stateful (instance) methods keep track of their state in _fields_, which are variables defined on the class. Each new instance of the class gets its own copy of those fields in which to store state.
+
+A single class can support both stateful and stateless methods. However, when you need to call stateful methods, you must first create an _instance_ of the class so that the method can access state.
+
+## Creating an instance of a class
+
+An instance of a class is called an _object_. To create a new instance of a class, you use the `new` operator. Consider the following line of code that creates a new instance of the `Random` class to create a new object called `dice`:
+
+```
+Random dice = new Random();
+```
+
+The `new` operator does several important things:
+
+-   It first requests an address in the computer's memory large enough to store a new object based on the `Random` class.
+-   It creates the new object, and stores it at the memory address.
+-   It returns the memory address so that it can be saved in the `dice` object.
+
+From that point on, when the `dice` object is referenced in code, the .NET Runtime performs a lookup behind the scenes to give the illusion that you're working directly with the object itself.
+
+Your code uses the `dice` object like a variable that stores the state of the `Random` class. When you call the `Next()` method on the `dice` object, the method uses the state stored in the `dice` object to generate a random number.
+
+The latest version of the .NET Runtime enables you to instantiate an object without having to repeat the type name (target-typed constructor invocation). For example, the following code will create a new instance of the `Random` class:
+
+c# Copy
+
+```
+Random dice = new();
+```
+
+The intention is to simplify code readability. You always use parentheses when writing a target-typed `new` expression.
+
+## Why is the Next() method stateful?
+
+You might be wondering why the `Next()` method was implemented as a stateful method? Couldn't the .NET Class Library designers figure out a way to generate a random number without requiring state? And what exactly is being stored or referenced by the `Next()` method?
+
+These are fair questions. At a high level, computers are good at following specific instructions to create a reliable and repeatable outcome. To create the illusion of randomness, the developers of the `Next()` method decided to capture the date and time down to the fraction of a millisecond and use that to seed an algorithm that produces a different number each time. While not entirely random, it suffices for most applications. The state that is captured and maintained through the lifetime of the `dice` object is the seed value. Each subsequent call to the `Next()` method is rerunning the algorithm, but ensures that the seed changes so that the same value isn't (necessarily) returned.
+
+To use the `Random.Next()` method, however, you don't have to understand _how_ it works. The important thing to know is that some methods require you to create an instance of a class before you call them, while others do not.
+
+## How can you determine whether you need to create an instance of a class before calling its methods?
+
+One approach for determining whether a method is stateful or stateless is to consult the documentation. The documentation includes examples that show whether the method must be called from the object instance or directly from the class.
+
+Note
+
+You may need to scroll down on the documentation page to find the code examples.
+
+As an alternative to searching through product documentation, you can attempt to access the method directly from the class itself. If it works, you know that it's a stateless method. The worst that can happen is that you'll get a compilation error.
+
+Try accessing the `Random.Next()` method directly and see what happens.
+
+1.  Enter the following line of code into the Visual Studio Code Editor:
+    
+    c# Copy
+    
+    ```
+    int result = Random.Next();
+    
+    ```
+    
+    You already know that `Next()` is a stateful method, however this example demonstrates how the Visual Studio Code Editor reacts when you try to access a method incorrectly.
+    
+2.  Notice that a red squiggly line appears under `Random.Next`, indicating that you have a compilation error.
+    
+    If the method that you're interested in using is stateless, no red squiggly line will appear.
+    
+3.  Hover your mouse pointer over the red squiggly line.
+    
+    A popup window should appear with the following message:
+    
+    Output Copy
+    
+    ```
+    (1,14): error CS0120: An object reference is required for the non-static field, method, or property 'Random.Next()'
+    
+    ```
+    
+    As you saw in the code at the beginning of the unit, you can fix this error by creating an instance of the `Random` class before accessing the `Next()` method. For example:
+    
+    c# Copy
+    
+    ```
+    Random dice = new Random();
+    int roll = dice.Next();
+    
+    ```
+    
+    In this case, the `Next()` method is called without input parameters.
+    
+
+## Recap
+
+-   To call methods of a class in the .NET Class Library, you use the format `ClassName.MethodName()`, where the `.` symbol is the member access operator to access a method defined on the class, and the `()` symbols are the method invocation operators.
+-   When calling a stateless method, you don't need to create a new instance of its class first.
+-   When calling a stateful method, you need to create an instance of the class, and access the method on the object.
+-   Use the `new` operator to create a new instance of a class.
+-   An instance of a class is called an _object_.
+
+
+

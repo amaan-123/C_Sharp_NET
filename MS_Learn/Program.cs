@@ -164,7 +164,7 @@ namespace MS_Learn
 
             ////// \t is the tab character. It doesn’t insert a fixed number of spaces — instead, it jumps the cursor to the next "tab stop".
             ////// Tab stops are usually set every 8 characters
-            
+
             ////Console.WriteLine("Student\t\tGrade\n");
             ////Console.WriteLine("Sophia:\t\t" + sophiaScore + "\tA");
             ////Console.WriteLine("Nicolas:\t" + nicolasScore + "\tB");
@@ -214,18 +214,18 @@ namespace MS_Learn
             // Console.WriteLine($"{course3Name}".PadRight(24) + $"{course3Grade}".PadRight(8) + $"{course3Credit}");
             // Console.WriteLine($"{course4Name}".PadRight(24) + $"{course4Grade}".PadRight(8) + $"{course4Credit}");
             // Console.WriteLine($"{course5Name}".PadRight(24) + $"{course5Grade}".PadRight(8) + $"{course5Credit}");
-            
+
             // Console.WriteLine("Final GPA:".PadRight(24) + $"{finalGPA}");
 
             //// .NET 6 and later templates:
             //// See https://aka.ms/new-console-template for more information
             // Random dice = new Random();
             // int roll = dice.Next(1, 7);
-            // Console.WriteLine(roll);
+            // Console.WriteLine(roll); // you include a reference to the Console class and call the Console.WriteLine() method directly.
 
-            //// On the fourth code line, you include a reference to the Console class and call the Console.WriteLine() method directly. However, you use a different technique for calling the Random.Next() method. The reason why you're using two different techniques is because some methods are "stateful" and others are "stateless". 
-            //// see error if you only do: 
-            // int result = Random.Next();
+            // However, you use a different technique for calling the Random.Next() method. The reason why you're using two different techniques is because some methods are "stateful" and others are "stateless". 
+            // see error if you only do: 
+            int result = Random.Next();
 
             Random dice = new Random();
             int roll = dice.Next();
