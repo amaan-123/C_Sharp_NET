@@ -5,7 +5,8 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## Immediate TO-DO's
 
 - C#
-  - C_Sharp.md OOPS read
+  - 7.3 vs 12 for array(should I download newer?)
+  - dotnet 6 before & after templates diff
 - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman)
 <!-- - backend as suggested in  -->
 

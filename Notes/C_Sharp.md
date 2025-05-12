@@ -761,6 +761,37 @@ Try accessing the `Random.Next()` method directly and see what happens.
     
     In this case, the `Next()` method is called without input parameters.
 
+    Here are detailed notes from the provided source on getting started with array basics:
+
+## Exercise - Get started with array basics
+
+### Declare a new array
+
+- To declare a new array of strings that can hold three elements, you enter the following code:
+
+```csharp
+string[] fraudulentOrderIDs = new string;
+```
+- The `new` operator creates a **new instance of an array in the computer's memory** that can hold three string values.
+- The first set of square brackets `[]` tells the compiler that the variable `fraudulentOrderIDs` is an array.
+- The second set of square brackets `` indicates the **number of elements that the array can hold**.
+- While this example uses strings, arrays can be created for **every data type**, including primitives like `int` and `bool`, and more complex types like classes. Strings are used here for simplicity.
+
+### Initialize an array
+
+- You can **initialize an array during declaration**.
+- Comment out the lines where the `fraudulentOrderIDs` variable is declared and the lines used to assign values to elements using a multi-line comment (`/* ... */`).
+- To declare and initialize values in a single statement using the C# 12 **Collection expression** syntax, enter the following code:
+
+```csharp
+string[] fraudulentOrderIDs = [ "A123", "B456", "C789" ];
+```
+- An older syntax using curly braces `{}` is also valid:
+
+```csharp
+string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
+```
+
 
 
 

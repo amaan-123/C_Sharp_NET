@@ -1,8 +1,6 @@
 ﻿// MS_Learn + FreeCodeCamp Cert
 
 using System;
-using System.Data;
-using System.Security.Cryptography;
 
 namespace MS_Learn
 {
@@ -326,40 +324,147 @@ namespace MS_Learn
             ////Challenge: Improve renewal rate of subscriptions
             //// Rule 1: Your code should only display one message.
 
-            Random random = new Random();
-            int daysUntilExpiration = random.Next(12);
-            int discountPercentage = 0;
-            Console.WriteLine($"Days till expiry: {daysUntilExpiration}");
+            //Random random = new Random();
+            //int daysUntilExpiration = random.Next(12);
+            //int discountPercentage = 0;
+            //Console.WriteLine($"Days till expiry: {daysUntilExpiration}");
 
-            if (daysUntilExpiration == 0)
-            {
-                Console.WriteLine("Your subscription has expired.");
-            }
-            else if (daysUntilExpiration == 1)
-            {
-                Console.WriteLine("Your subscription expires within a day!");
-                discountPercentage = 20;
-            }
-            else if (daysUntilExpiration <= 5)
-            {
-                Console.WriteLine($"Your subscription expires in {daysUntilExpiration} days.");
-                discountPercentage = 10;
-            }
-            else if (daysUntilExpiration <= 10)
-            {
-                Console.WriteLine("Your subscription will expire soon. Renew now!");
-            }
-            else
-            {
-                ////Rule 6: If the user's subscription doesn't expire in 10 days or less, display nothing
-                Console.WriteLine();
-            }
+            //if (daysUntilExpiration == 0)
+            //{
+            //    Console.WriteLine("Your subscription has expired.");
+            //}
+            //else if (daysUntilExpiration == 1)
+            //{
+            //    Console.WriteLine("Your subscription expires within a day!");
+            //    discountPercentage = 20;
+            //}
+            //else if (daysUntilExpiration <= 5)
+            //{
+            //    Console.WriteLine($"Your subscription expires in {daysUntilExpiration} days.");
+            //    discountPercentage = 10;
+            //}
+            //else if (daysUntilExpiration <= 10)
+            //{
+            //    Console.WriteLine("Your subscription will expire soon. Renew now!");
+            //}
+            //else
+            //{
+            //    ////Rule 6: If the user's subscription doesn't expire in 10 days or less, display nothing
+            //    Console.WriteLine();
+            //}
 
-            if (discountPercentage > 0)
-            {
-                Console.WriteLine($"Renew now and save {discountPercentage}%.");
-            }
+            //if (discountPercentage > 0)
+            //{
+            //    Console.WriteLine($"Renew now and save {discountPercentage}%.");
+            //}
+
+            ////Exercise - Get started with array basics
+            /*
+            //Declaring an array
+            string[] fraudulentOrderIDs = new string[3];
             
+            //assigning values
+            fraudulentOrderIDs[0] = "A123";
+            fraudulentOrderIDs[1] = "B456";
+            fraudulentOrderIDs[2] = "C789";
+            fraudulentOrderIDs[3] = "D000";// Error message: System.IndexOutOfRangeException: Index was outside the bounds of the array
+            */
+
+            //// Initialize an array
+            //// Replace the collection expression(C# 12) with older syntax uses curly braces {} to enclose the values of the array.
+            //string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
+            //Console.WriteLine($"First: {fraudulentOrderIDs[0]}");
+            //Console.WriteLine($"Second: {fraudulentOrderIDs[1]}");
+            //Console.WriteLine($"Third: {fraudulentOrderIDs[2]}");
+
+            //fraudulentOrderIDs[0] = "F000";
+            //Console.WriteLine($"Reassign First: {fraudulentOrderIDs[0]}");
+
+            //Console.WriteLine($"There are {fraudulentOrderIDs.Length} fraudulent orders to process.");
+
+            ////Exercise - Implement the foreach statement
+            //string[] names = { "Rowena", "Robin", "Bao" };
+            //foreach (string name in names)
+            //{
+            //    Console.WriteLine(name);
+            //}
+
+            //int[] inventory = { 200, 450, 700, 175, 250 };
+            //int sum = 0;
+            //int bin = 0;
+            //foreach (int items in inventory)
+            //{
+            //    sum += items;
+            //    bin++;
+            //    Console.WriteLine($"Bin {bin} = {items} items (Running total: {sum})");
+            //}
+            //Console.WriteLine($"We have {sum} items in inventory.");
+
+            //// Challenge - declare an array & get the orders with orderId starting from "B"
+            //string[] orders = { "B123", "C234", "A345", "C15", "B177", "G3003", "C235", "B179" };
+            //foreach (string orderId in orders)
+            //{
+            //    if (orderId.StartsWith("B"))
+            //    {
+            //        Console.WriteLine(orderId);
+            //    }
+            //}
+
+
+            ////Comments:
+
+            //Notice that there are two main problems with the comments in code below:
+            //The code comments unnecessarily explain the obvious functionality of individual lines of code.
+            //These are considered low -quality comments because they merely explain how C# or methods of the.NET Class Library work.If the reader is unfamiliar with these ideas, they can look them up using learn.microsoft.com or IntelliSense.
+            //The code comments don't provide any context to the problem being solved by the code. These are considered low-quality comments because the reader doesn't gain any insight into the purpose of this code, especially as it relates to the larger system.
+            //Random random = new Random();
+            //string[] orderIDs = new string[5];
+            //// Loop through each blank orderID
+            //for (int i = 0; i < orderIDs.Length; i++)
+            //{
+            // Get a random value that equates to ASCII letters A through E
+            //int prefixValue = random.Next(65, 70);
+            //// Convert the random value into a char, then a string
+            //string prefix = Convert.ToChar(prefixValue).ToString();
+            //// Create a random number, pad with zeroes
+            //string suffix = random.Next(1, 1000).ToString("000");
+            //// Combine the prefix and suffix together, then assign to current OrderID
+            //orderIDs[i] = prefix + suffix;
+            //}
+            //// Print out each orderID
+            //foreach (var orderID in orderIDs)
+            //{
+            //    Console.WriteLine(orderID);
+            //}
+
+            //// Useful if at top, we had put:
+            ///*
+            //  The following code creates five random OrderIDs
+            //  to test the fraud detection process.  OrderIDs
+            //  consist of a letter from A to E, and a three
+            //  digit number. Ex. A123.
+            //*/
+
+            ////Whitespaces:
+            //// Code to get individual characters from a string in an array & then reverse the character array. Also, count the number of times a particular character appears in the character array. Print the reversed message string and display count of times a char appears.
+            string str = "The quick brown fox jumps over the lazy dog.";
+
+            char[] charMessage = str.ToCharArray();
+            Array.Reverse(charMessage);
+
+            int x = 0;
+            foreach (char i in charMessage)
+            {
+                if (i == 'o')
+                {
+                    x++;
+                }
+            }
+
+            string new_message = new String(charMessage);
+            Console.WriteLine(new_message);
+
+            Console.WriteLine($"'o' appears {x} times.");
         }
     }
 }
