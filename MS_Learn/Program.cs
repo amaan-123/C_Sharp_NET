@@ -1,6 +1,8 @@
 ﻿// MS_Learn + FreeCodeCamp Cert
 
 using System;
+using System.Data;
+using System.Security.Cryptography;
 
 namespace MS_Learn
 {
@@ -223,14 +225,141 @@ namespace MS_Learn
             // int roll = dice.Next(1, 7);
             // Console.WriteLine(roll); // you include a reference to the Console class and call the Console.WriteLine() method directly.
 
-            // However, you use a different technique for calling the Random.Next() method. The reason why you're using two different techniques is because some methods are "stateful" and others are "stateless". 
-            // see error if you only do: 
-            int result = Random.Next();
+            //// However, you use a different technique for calling the Random.Next() method. The reason why you're using two different techniques is because some methods are "stateful" and others are "stateless". 
+            //// see error if you only do: 
+            //int result = Random.Next();
 
-            Random dice = new Random();
-            int roll = dice.Next();
-            Console.WriteLine(roll);
+            // Random dice = new Random();
+            // int roll = dice.Next();
+            // Console.WriteLine(roll);
 
+
+            //// Exercise - Return values and parameters of methods
+            //// Overloaded methods
+            //Random dice = new Random();
+            //int roll1 = dice.Next();// return values ranging from 0 to 2,147,483,647, which is the maximum value an int can store.
+            //int roll2 = dice.Next(101);// a random value between 0 and 100
+            //int roll3 = dice.Next(50, 101);// random value between 50 and 100
+            //Console.WriteLine($"First roll: {roll1}");
+            //Console.WriteLine($"Second roll: {roll2}");
+            //Console.WriteLine($"Third roll: {roll3}");
+
+            //int firstValue = -600;
+            //int secondValue = -700;
+            //int largerValue = Math.Max(firstValue, secondValue);
+            //Console.WriteLine(largerValue);
+
+            ////Exercise - Create decision logic with if statements
+            ////Write code that generates three random numbers and displays them in output
+
+            //Random dice = new Random();
+            //int roll1 = dice.Next(1, 7);
+            //int roll2 = dice.Next(1, 7);
+            //int roll3 = dice.Next(1, 7);
+
+            //////Hard-coding the values to test for cases:
+            ////roll1 = 1;
+            ////roll2 = 1;
+            ////roll3 = 3;
+            //int total = roll1 + roll2 + roll3;
+            //Console.WriteLine($"Dice roll: {roll1} + {roll2} + {roll3} = {total}");
+
+            //////Commented code bug: both doubles & triples awarded bonus
+            //////Add an if statement to implement the doubles bonus
+            ////if ((roll1 == roll2) || (roll2 == roll3) || (roll1 == roll3))
+            ////{
+            ////    Console.WriteLine("You rolled doubles! +2 bonus to total!");
+            ////    total += 2;
+            ////}
+            //////Add another if statement to implement the triples bonus
+            ////if ((roll1 == roll2) && (roll2 == roll3))
+            ////{
+            ////    Console.WriteLine("You rolled triples! +6 bonus to total!");
+            ////    total += 6;
+            ////}
+
+            //////Modify the commented code above to remove the stacking bonus for doubles and triples using nesting
+            //if ((roll1 == roll2) || (roll2 == roll3) || (roll1 == roll3))
+            //{
+            //    if ((roll1 == roll2) && (roll2 == roll3))
+            //    {
+            //        Console.WriteLine("You rolled triples!  +6 bonus to total!");
+            //        total += 6;
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("You rolled doubles!  +2 bonus to total!");
+            //        total += 2;
+            //    }
+            //}
+
+            //////Add an if else statement to display different messages based on the value of the total variable
+            ////if (total >= 15)
+            ////{
+            ////    Console.WriteLine("You win!");
+            ////}
+            ////else
+            ////{
+            ////    Console.WriteLine("Sorry, you lose.");
+            ////}
+
+            //////Use if, else, and else if statements to give a prize instead of a win-lose message like commented code above
+            //////You can nest if statements to narrow down a possible condition. However, you should consider using the if, else if, and else statements instead.
+            //if (total >= 16)
+            //{
+            //    Console.WriteLine("You win a new car!");
+            //}
+            //else if (total >= 10)
+            //{
+            //    Console.WriteLine("You win a new laptop!");
+            //}
+            //else if (total == 7)
+            //{
+            //    Console.WriteLine("You win a trip for two!");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("You win a kitten!");
+            //}
+
+            ////Exercise - Complete a challenge activity to apply business rules
+            ////Challenge: Improve renewal rate of subscriptions
+            //// Rule 1: Your code should only display one message.
+
+            Random random = new Random();
+            int daysUntilExpiration = random.Next(12);
+            int discountPercentage = 0;
+            Console.WriteLine($"Days till expiry: {daysUntilExpiration}");
+
+            if (daysUntilExpiration == 0)
+            {
+                Console.WriteLine("Your subscription has expired.");
+            }
+            else if (daysUntilExpiration == 1)
+            {
+                Console.WriteLine("Your subscription expires within a day!");
+                discountPercentage = 20;
+            }
+            else if (daysUntilExpiration <= 5)
+            {
+                Console.WriteLine($"Your subscription expires in {daysUntilExpiration} days.");
+                discountPercentage = 10;
+            }
+            else if (daysUntilExpiration <= 10)
+            {
+                Console.WriteLine("Your subscription will expire soon. Renew now!");
+            }
+            else
+            {
+                ////Rule 6: If the user's subscription doesn't expire in 10 days or less, display nothing
+                Console.WriteLine();
+            }
+
+            if (discountPercentage > 0)
+            {
+                Console.WriteLine($"Renew now and save {discountPercentage}%.");
+            }
+            
         }
     }
 }
