@@ -705,8 +705,6 @@ Your code uses the `dice` object like a variable that stores the state of the `R
 
 The latest version of the .NET Runtime enables you to instantiate an object without having to repeat the type name (target-typed constructor invocation). For example, the following code will create a new instance of the `Random` class:
 
-c# Copy
-
 ```
 Random dice = new();
 ```
@@ -725,17 +723,11 @@ To use the `Random.Next()` method, however, you don't have to understand _how_ i
 
 One approach for determining whether a method is stateful or stateless is to consult the documentation. The documentation includes examples that show whether the method must be called from the object instance or directly from the class.
 
-Note
-
-You may need to scroll down on the documentation page to find the code examples.
-
 As an alternative to searching through product documentation, you can attempt to access the method directly from the class itself. If it works, you know that it's a stateless method. The worst that can happen is that you'll get a compilation error.
 
 Try accessing the `Random.Next()` method directly and see what happens.
 
 1.  Enter the following line of code into the Visual Studio Code Editor:
-    
-    c# Copy
     
     ```
     int result = Random.Next();
@@ -761,8 +753,6 @@ Try accessing the `Random.Next()` method directly and see what happens.
     
     As you saw in the code at the beginning of the unit, you can fix this error by creating an instance of the `Random` class before accessing the `Next()` method. For example:
     
-    c# Copy
-    
     ```
     Random dice = new Random();
     int roll = dice.Next();
@@ -770,15 +760,7 @@ Try accessing the `Random.Next()` method directly and see what happens.
     ```
     
     In this case, the `Next()` method is called without input parameters.
-    
 
-## Recap
-
--   To call methods of a class in the .NET Class Library, you use the format `ClassName.MethodName()`, where the `.` symbol is the member access operator to access a method defined on the class, and the `()` symbols are the method invocation operators.
--   When calling a stateless method, you don't need to create a new instance of its class first.
--   When calling a stateful method, you need to create an instance of the class, and access the method on the object.
--   Use the `new` operator to create a new instance of a class.
--   An instance of a class is called an _object_.
 
 
 
