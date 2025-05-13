@@ -447,24 +447,206 @@ namespace MS_Learn
 
             ////Whitespaces:
             //// Code to get individual characters from a string in an array & then reverse the character array. Also, count the number of times a particular character appears in the character array. Print the reversed message string and display count of times a char appears.
-            string str = "The quick brown fox jumps over the lazy dog.";
+            //string str = "The quick brown fox jumps over the lazy dog.";
 
-            char[] charMessage = str.ToCharArray();
-            Array.Reverse(charMessage);
+            //char[] charMessage = str.ToCharArray();
+            //Array.Reverse(charMessage);
 
-            int x = 0;
-            foreach (char i in charMessage)
-            {
-                if (i == 'o')
-                {
-                    x++;
-                }
-            }
+            //int x = 0;
+            //foreach (char i in charMessage)
+            //{
+            //    if (i == 'o')
+            //    {
+            //        x++;
+            //    }
+            //}
 
-            string newMessage = new String(charMessage);
-            Console.WriteLine(newMessage);
+            //string newMessage = new String(charMessage);
+            //Console.WriteLine(newMessage);
 
-            Console.WriteLine($"'o' appears {x} times.");
+            //Console.WriteLine($"'o' appears {x} times.");
+
+            //If you realize you have only one line of code listed within the code blocks of an if-elseif -else statement, you can remove the curly braces of the code block and white space.Microsoft recommends that curly braces be used consistently for all of the code blocks of an if-elseif -else statement(either present or removed consistently).
+            //Only remove the curly braces of a code block when it makes the code more readable.It's always acceptable to include curly braces.
+            //Only remove the line feed if it makes the code more readable.Microsoft suggests that your code will be more readable when each statement is placed on its own code line.
+
+            //// Add logic to C# console applications (Get started with C#, Part 3)
+            //// Evaluate Boolean expressions to make decisions in C#
+            //Console.WriteLine("a" == "a");// True
+            //Console.WriteLine("a" == "A");// False
+            //Console.WriteLine("a" == "a ");// False
+            //Console.WriteLine(1 == 2);// False
+            //string myValue = "a";
+            //Console.WriteLine(myValue == "a");// True
+
+            ////Improve the check for string equality using the string's built-in helper methods
+            //string value1 = " a";
+            //string value2 = "A ";
+            //Console.WriteLine(value1.Trim().ToLower() == value2.Trim().ToLower());
+
+            ////Inequality operator
+            //Console.WriteLine("a" != "a");
+            //Console.WriteLine("a" != "A");
+            //Console.WriteLine(1 != 2);
+            //string myValue = "a";
+            //Console.WriteLine(myValue != "a");
+
+            //string pangram = "The quick brown fox jumps over the lazy dog.";
+            //Console.WriteLine(pangram.Contains("jum"));
+            //Console.WriteLine(pangram.Contains("cow"));
+
+            ////Logical negation
+            //// These two lines of code will create the same output
+            //Console.WriteLine(pangram.Contains("fox") == false);
+            //Console.WriteLine(!pangram.Contains("fox"));
+
+            ////Conditional Ternary Operator
+            //int saleAmount = 1001;
+            //int discount = saleAmount > 1000 ? 100 : 50;
+            //Console.WriteLine($"Discount: {discount}");
+
+            ////Code challenge: write code to display the result of a coin flip
+            //Random coin = new Random();
+            //int flip = coin.Next(0, 2);
+            //Console.WriteLine((flip == 0) ? "heads" : "tails");
+
+            ////Decision logic challenge
+            ////Initialize permission and level values
+            //string permission = "Admin|Manager";
+            //int level = 53;
+
+            //if (permission.Contains("Admin"))
+            //{
+            //    if (level > 55)
+            //    {
+            //        Console.WriteLine("Welcome, Super Admin user.");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Welcome, Admin user.");
+            //    }
+            //}
+            //else if (permission.Contains("Manager"))
+            //{
+            //    if (level >= 20)
+            //    {
+            //        Console.WriteLine("Contact an Admin for access.");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("You do not have sufficient privileges.");
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("You do not have sufficient privileges.");
+
+
+            ////Code blocks impact the scope of a variable declaration
+            ////Create a variable inside of a code block
+            //bool flag = true;
+            //if (flag)
+            //{
+            //    int value = 10;
+            //    Console.WriteLine($"Inside the code block: {value}");
+            //}
+
+            ////Attempt to access a variable outside the code block in which it's declared
+            //Console.WriteLine($"Outside the code block: {value}");
+            ////A variable that's declared in a method code block is referred to as a local variable. You may see the term local variable used when reviewing articles that discuss variable scope.
+
+            ////Move the variable declaration above the code block
+            //bool flag = true;
+            //int value;
+
+            //if (flag)
+            //{
+            //    Console.WriteLine($"Inside the code block: {value}");
+            //}
+
+            //value = 10;
+            //Console.WriteLine($"Outside the code block: {value}");
+
+            ////Initialize a variable as part of variable declaration
+            //bool flag = true;
+            //int value = 0;
+
+            //if (flag)
+            //{
+            //    Console.WriteLine($"Inside the code block: {value}");
+            //}
+
+            //value = 10;
+            //Console.WriteLine($"Outside the code block: {value}");
+
+
+            ////Examine the compiler's interpretation of your code
+            ////You may feel that these two samples should always produce the same result, but the C# compiler interprets these two code samples differently.
+            //// For the first code sample, the compiler interprets flag as a Boolean variable that could be assigned a value of either true or false. The compiler concludes that if flag is false, value will not be initialized when the second Console.WriteLine() is executed.
+            ////Since the compiler considers the `flag = false` path a possibility (for code sample 1), it generates an error message during the build process.
+            //// Code sample 1
+            //bool flag = true;
+            //int value;
+            //if (flag)
+            //{
+            //    value = 10;
+            //    Console.WriteLine($"Inside the code block: {value}");
+            //}
+            //Console.WriteLine($"Outside the code block: {value}");
+
+            //// Code sample 2
+            //int value;
+            //if (true)
+            //{
+            //    value = 10; // can be accessed outside
+            //    Console.WriteLine($"Inside the code block: {value}");
+            //}
+            //Console.WriteLine($"Outside the code block: {value}");
+
+            //Since the first integer is initialized above the if statement code, it's still in-scope after the code block. Also, since both integers are in-scope and initialized with values inside the code block, the addition of the values executes correctly. Finally, even though the second integer doesn't exist outside of the code block, the first integer retains any changes to its value that occurred inside the code block.
+            //int first = 5;
+            //if (first > 0)
+            //{
+            //    int second = 6;
+            //    first = first + second;
+            //}
+            //Console.WriteLine(first);
+
+            ////Notice sum line having "second" variable after code block. Result: build error
+            //int first = 5;
+            //if (first > 0)
+            //{
+            //    int second = 6;
+            //}
+            //first = first + second;
+            //Console.WriteLine(first);
+
+            ////Code challenge: update problematic code in the code editor
+            ////The biggest changes to the problematic code included:
+            //// Moving the declaration of the total and found variables outside of the foreach statement.
+            //// Initializing both the total and found variables with sensible default values.
+            //// Removing the code blocks (curly braces) from the if statements.
+            //int[] numbers = { 4, 8, 15, 16, 23, 42 };
+
+            //int total = 0;
+            //bool found = false;
+
+            //foreach (int number in numbers)
+            //{
+            //    total += number;
+
+            //    if (number == 42)
+            //        found = true;
+            //}
+
+            //if (found)
+            //    Console.WriteLine("Set contains 42");
+
+            //Console.WriteLine($"Total: {total}");
+            //Console.ReadLine();
+
+
         }
     }
 }
+

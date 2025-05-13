@@ -7,6 +7,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 - C#
   - 7.3 vs 12 for array(should I download newer?)
   - dotnet 6 before & after templates diff
+- Video watch shared on Slack
 - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman)
 <!-- - backend as suggested in  -->
 
