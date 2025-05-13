@@ -461,8 +461,8 @@ namespace MS_Learn
                 }
             }
 
-            string new_message = new String(charMessage);
-            Console.WriteLine(new_message);
+            string newMessage = new String(charMessage);
+            Console.WriteLine(newMessage);
 
             Console.WriteLine($"'o' appears {x} times.");
         }
