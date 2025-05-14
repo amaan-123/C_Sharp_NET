@@ -1022,7 +1022,7 @@ namespace MS_Learn
 
             //Console.WriteLine("Enter only one role name from the following three options:");
             //Console.WriteLine("administrator, manager, or user");
-            
+
             //do
             //{
             //    userInput = Console.ReadLine().Trim();
@@ -1035,12 +1035,29 @@ namespace MS_Learn
             //    {   Console.WriteLine(
             //        $"The role name that you entered, {userInput} is not valid.\nEnter your role name (Administrator, Manager, or User)");
             //    }
-                
+
 
             //} while (!roleMatch);
             //Console.WriteLine($"Your input value({userInput}) has been accepted.\nPress enter to exit.");
             //Console.ReadLine();
 
+            ////Code project 3 - Write code that processes the contents of a string array
+            string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+            int periodLocation = 0;
+
+            foreach (var myString in myStrings)
+            {
+                periodLocation = myString.IndexOf(".");
+                Console.WriteLine(periodLocation);
+                Console.ReadLine();
+                do
+                {
+                    Console.WriteLine(myString);
+                
+                    
+                } while (expression);
+
+            }
         }
     }
 }
