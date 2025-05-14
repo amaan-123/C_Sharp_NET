@@ -1,4 +1,6 @@
 ﻿// MS_Learn + FreeCodeCamp Cert
+using System;
+
 namespace MS_Learn
 {
     internal class Program
@@ -369,10 +371,11 @@ namespace MS_Learn
 
             //// Initialize an array
             //// Replace the collection expression(C# 12) with older syntax uses curly braces {} to enclose the values of the array.
-            //string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
+            //string[] fraudulentOrderIDs = ["A123", "B456", "C789"];
             //Console.WriteLine($"First: {fraudulentOrderIDs[0]}");
             //Console.WriteLine($"Second: {fraudulentOrderIDs[1]}");
             //Console.WriteLine($"Third: {fraudulentOrderIDs[2]}");
+            //Console.ReadLine();
 
             //fraudulentOrderIDs[0] = "F000";
             //Console.WriteLine($"Reassign First: {fraudulentOrderIDs[0]}");
@@ -932,6 +935,111 @@ namespace MS_Learn
             //} while (hero > 0 && monster > 0);
 
             //Console.WriteLine(hero > monster ? "Hero wins!" : "Monster wins!");
+
+            ////What you know, or don't know, about the Boolean expression that will be evaluated can sometimes help you to select between the do-while and while statements. You can switch after you start if your first choice isn't working out as well as you had hoped.
+
+            ////The following code sample uses a nullable type string to capture user input. The iteration continues while the user-supplied value is null:
+            //string? readResult;
+            //do
+            //{
+            //    Console.WriteLine("Enter a string:");
+            //    readResult = Console.ReadLine();// Ctrl + Z keeps it null
+            //} while (readResult == null);
+
+            ////The Boolean expression evaluated by the while statement can be used to ensure user input meets a specified requirement. For example, if a prompt asks the user to enter a string that includes at least three characters, the following code could be used:
+            //string? readResult;
+            //bool validEntry = false;
+            //Console.WriteLine("Enter a string containing at least three characters:");
+            //do
+            //{
+            //    readResult = Console.ReadLine();
+            //    if (readResult != null)
+            //    {
+            //        if (readResult.Length >= 3)
+            //        {
+            //            validEntry = true;
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine("Your input is invalid, please try again.");
+            //        }
+            //    }
+            //} while (validEntry == false);
+
+            ////Code project 1 - write code that validates integer input
+            ////If you want to use Console.ReadLine() input for numeric values, you need to convert the string value to a numeric type.
+            //// The int.TryParse() method can be used to convert a string value to an integer. The method uses two parameters, a string that will be evaluated and the name of an integer variable that will be assigned a value. The method returns a Boolean value. The following code sample demonstrates using the int.TryParse() method:
+            // capture user input in a string variable named readResult
+
+            //string? readResult;
+            //int numericValue = 0;
+            //bool validNumber = false;
+
+
+            //Console.WriteLine("Enter an integer b/w 5 & 10:");
+            //do
+            //{
+            //    readResult = Console.ReadLine();
+            //    validNumber = int.TryParse(readResult, out numericValue);
+
+            //    if (readResult != null)
+            //    {
+            //        if (validNumber)
+            //        {
+
+            //            if ((numericValue >= 5) && (numericValue <= 10))
+            //            {
+            //                Console.WriteLine(numericValue);
+            //                break;
+            //            }
+            //            else
+            //            {
+            //                Console.WriteLine(numericValue);
+            //                Console.WriteLine($"You entered {numericValue}. Please enter number b/w 5 & 10.");
+            //                validNumber = false;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine(readResult);
+            //            Console.WriteLine("Sorry, you entered an invalid number, please try again.");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Please enter number b/w 5 & 10.");
+            //    }
+            //} while (validNumber == false);
+
+            //Console.WriteLine($"Your input value ({numericValue}) has been accepted.");
+            //Console.ReadLine();
+
+            ////Code project 2 - write code that validates string input
+            //string[] role = ["administrator","manager", "user"];
+            //string userInput = "";
+            //string refinedUserInput = "";
+            //bool roleMatch = false;
+
+            //Console.WriteLine("Enter only one role name from the following three options:");
+            //Console.WriteLine("administrator, manager, or user");
+            
+            //do
+            //{
+            //    userInput = Console.ReadLine().Trim();
+            //    refinedUserInput = userInput.ToLower();
+            //    if ((refinedUserInput == role[0]) || (refinedUserInput == role[1]) || (refinedUserInput == role[2]))
+            //    {
+            //        roleMatch = true;
+            //    }
+            //    else
+            //    {   Console.WriteLine(
+            //        $"The role name that you entered, {userInput} is not valid.\nEnter your role name (Administrator, Manager, or User)");
+            //    }
+                
+
+            //} while (!roleMatch);
+            //Console.WriteLine($"Your input value({userInput}) has been accepted.\nPress enter to exit.");
+            //Console.ReadLine();
 
         }
     }

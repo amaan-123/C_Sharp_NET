@@ -1,6 +1,6 @@
 # C# Notes
 
-## C# Tutorial: Code With Harry 
+## C# Tutorial: Code With Harry
 
 <https://www.youtube.com/watch?v=SuLiu5AK9Ps>
 
@@ -653,17 +653,17 @@ public class Player
 
 - **Inheritance**: (Briefly mentioned as a concept for a future course). Inheritance allows a new class (derived class) to inherit properties and methods from an existing class (base class).
 
-## MS_Learn: Create and run simple C# console applications (Get started with C#, Part 2) 
+## MS_Learn
 
-## What is the .NET Class Library?
+### What is the .NET Class Library?: Create and run simple C# console applications (Get started with C#, Part 2)
 
 The .NET Class Library is a collection of thousands of classes containing tens of thousands of methods. For example, the .NET Class Library includes the `Console` class for developers working on console applications. The `Console` class includes methods for input and output operations such as `Write()`, `WriteLine()`, `Read()`, `ReadLine()`, and many others.
 
-### Even data types are part of the .NET Class Library
+#### Even data types are part of the .NET Class Library
 
 C# data types (such as `string` and `int`) are actually made available through classes in the .NET Class Library. The C# language masks the connection between the data types and the .NET classes in order to simplify your work.
 
-## Stateful versus stateless methods
+### Stateful versus stateless methods
 
 In software development projects, the term **state** is used to describe the condition of the execution environment at a specific moment in time. As your code executes line by line, values are stored in variables. At any moment during execution, the current state of the application is the collection of all values stored in memory.
 
@@ -681,23 +681,23 @@ The `Console.WriteLine()` method doesn't rely on any values stored in memory. It
 
 Other methods, however, must have access to the state of the application to work properly. In other words, **stateful methods** are built in such a way that they rely on values stored in memory by previous lines of code that have already been executed. Or they modify the state of the application by updating values or storing new values in memory. They're also known as **instance methods**.
 
-Stateful (instance) methods keep track of their state in _fields_, which are variables defined on the class. Each new instance of the class gets its own copy of those fields in which to store state.
+Stateful (instance) methods keep track of their state in *fields*, which are variables defined on the class. Each new instance of the class gets its own copy of those fields in which to store state.
 
-A single class can support both stateful and stateless methods. However, when you need to call stateful methods, you must first create an _instance_ of the class so that the method can access state.
+A single class can support both stateful and stateless methods. However, when you need to call stateful methods, you must first create an *instance* of the class so that the method can access state.
 
-## Creating an instance of a class
+### Creating an instance of a class
 
-An instance of a class is called an _object_. To create a new instance of a class, you use the `new` operator. Consider the following line of code that creates a new instance of the `Random` class to create a new object called `dice`:
+An instance of a class is called an *object*. To create a new instance of a class, you use the `new` operator. Consider the following line of code that creates a new instance of the `Random` class to create a new object called `dice`:
 
-```
+```csharp
 Random dice = new Random();
 ```
 
 The `new` operator does several important things:
 
--   It first requests an address in the computer's memory large enough to store a new object based on the `Random` class.
--   It creates the new object, and stores it at the memory address.
--   It returns the memory address so that it can be saved in the `dice` object.
+- It first requests an address in the computer's memory large enough to store a new object based on the `Random` class.
+- It creates the new object, and stores it at the memory address.
+- It returns the memory address so that it can be saved in the `dice` object.
 
 From that point on, when the `dice` object is referenced in code, the .NET Runtime performs a lookup behind the scenes to give the illusion that you're working directly with the object itself.
 
@@ -705,21 +705,21 @@ Your code uses the `dice` object like a variable that stores the state of the `R
 
 The latest version of the .NET Runtime enables you to instantiate an object without having to repeat the type name (target-typed constructor invocation). For example, the following code will create a new instance of the `Random` class:
 
-```
+```csharp
 Random dice = new();
 ```
 
 The intention is to simplify code readability. You always use parentheses when writing a target-typed `new` expression.
 
-## Why is the Next() method stateful?
+### Why is the Next() method stateful?
 
 You might be wondering why the `Next()` method was implemented as a stateful method? Couldn't the .NET Class Library designers figure out a way to generate a random number without requiring state? And what exactly is being stored or referenced by the `Next()` method?
 
 These are fair questions. At a high level, computers are good at following specific instructions to create a reliable and repeatable outcome. To create the illusion of randomness, the developers of the `Next()` method decided to capture the date and time down to the fraction of a millisecond and use that to seed an algorithm that produces a different number each time. While not entirely random, it suffices for most applications. The state that is captured and maintained through the lifetime of the `dice` object is the seed value. Each subsequent call to the `Next()` method is rerunning the algorithm, but ensures that the seed changes so that the same value isn't (necessarily) returned.
 
-To use the `Random.Next()` method, however, you don't have to understand _how_ it works. The important thing to know is that some methods require you to create an instance of a class before you call them, while others do not.
+To use the `Random.Next()` method, however, you don't have to understand *how* it works. The important thing to know is that some methods require you to create an instance of a class before you call them, while others do not.
 
-## How can you determine whether you need to create an instance of a class before calling its methods?
+### How can you determine whether you need to create an instance of a class before calling its methods?
 
 One approach for determining whether a method is stateful or stateless is to consult the documentation. The documentation includes examples that show whether the method must be called from the object instance or directly from the class.
 
@@ -727,38 +727,38 @@ As an alternative to searching through product documentation, you can attempt to
 
 Try accessing the `Random.Next()` method directly and see what happens.
 
-1.  Enter the following line of code into the Visual Studio Code Editor:
-    
-    ```
+1. Enter the following line of code into the Visual Studio Code Editor:
+
+    ```csharp
     int result = Random.Next();
     
     ```
-    
+
     You already know that `Next()` is a stateful method, however this example demonstrates how the Visual Studio Code Editor reacts when you try to access a method incorrectly.
-    
-2.  Notice that a red squiggly line appears under `Random.Next`, indicating that you have a compilation error.
-    
+
+2. Notice that a red squiggly line appears under `Random.Next`, indicating that you have a compilation error.
+
     If the method that you're interested in using is stateless, no red squiggly line will appear.
-    
-3.  Hover your mouse pointer over the red squiggly line.
-    
+
+3. Hover your mouse pointer over the red squiggly line.
+
     A popup window should appear with the following message:
-    
+
     Output Copy
-    
-    ```
+
+    ```csharp
     (1,14): error CS0120: An object reference is required for the non-static field, method, or property 'Random.Next()'
     
     ```
-    
+
     As you saw in the code at the beginning of the unit, you can fix this error by creating an instance of the `Random` class before accessing the `Next()` method. For example:
-    
-    ```
+
+    ```csharp
     Random dice = new Random();
     int roll = dice.Next();
     
     ```
-    
+
     In this case, the `Next()` method is called without input parameters.
 
     Here are detailed notes from the provided source on getting started with array basics:
@@ -772,6 +772,7 @@ Try accessing the `Random.Next()` method directly and see what happens.
 ```csharp
 string[] fraudulentOrderIDs = new string;
 ```
+
 - The `new` operator creates a **new instance of an array in the computer's memory** that can hold three string values.
 - The first set of square brackets `[]` tells the compiler that the variable `fraudulentOrderIDs` is an array.
 - The second set of square brackets `` indicates the **number of elements that the array can hold**.
@@ -786,12 +787,120 @@ string[] fraudulentOrderIDs = new string;
 ```csharp
 string[] fraudulentOrderIDs = [ "A123", "B456", "C789" ];
 ```
+
 - An older syntax using curly braces `{}` is also valid:
 
 ```csharp
 string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
 ```
 
+## Nullable reference types
 
+In C# 8.0 and later, the language gives you a way to **distinguish** between variables that are allowed to be `null` and those that aren’t. This is called **nullable reference types**. Here’s what you need to know at an entry-level:
 
+---
 
+### 1. Why nullable reference types?
+
+- **Reference types** (like `string`, `object`, your own classes) have always been able to hold `null`, but the compiler couldn’t warn you if you accidentally tried to use a `null` value.
+- This often led to the dreaded **NullReferenceException** at runtime.
+
+C# 8 introduces a simple annotation system so the compiler can help you catch these mistakes **at compile time**.
+
+---
+
+### 2. The two “flavors” of `string`
+
+| Type      | Meaning                                                                                                   |
+| --------- | --------------------------------------------------------------------------------------------------------- |
+| `string`  | **Non-nullable**: the compiler assumes it’s never `null`. If you try to assign `null`, you get a warning. |
+| `string?` | **Nullable**: it **may** be `null`. You have to check before you use it.                                  |
+
+---
+
+### 3. Real-world example: reading user input
+
+The standard `Console.ReadLine()` method returns a `string?` because if the user closes the input stream or presses CTRL+Z, it can return `null`.
+
+```csharp
+// Nullable return type: userInput might be null
+string? userInput = Console.ReadLine();
+
+// Safe check before using it
+if (userInput != null)
+{
+    Console.WriteLine("You typed: " + userInput);
+}
+else
+{
+    Console.WriteLine("No input received.");
+}
+```
+
+- `string? userInput` tells the compiler: “I know this variable might be `null`.”
+- The `if (userInput != null)` block ensures you only call methods on it when it’s non-null.
+
+---
+
+### 4. Common patterns for working with `string?`
+
+#### a) Null-coalescing operator `??`
+
+Provide a default when `null` is encountered:
+
+```csharp
+string? maybeName = Console.ReadLine();
+
+// If maybeName is null, use "<unknown>"
+string nameToUse = maybeName ?? "<unknown>";
+Console.WriteLine($"Hello, {nameToUse}!");
+```
+
+#### b) Null-conditional operator `?.`
+
+Call a method or property only when not `null`:
+
+```csharp
+string? maybeText = GetUserInput();   // could be null
+
+// Length will be an int? (nullable int) — null if maybeText is null
+int? length = maybeText?.Length;
+
+// You can also chain:
+Console.WriteLine("Uppercase: " + maybeText?.ToUpper());
+```
+
+#### c) Null-forgiving operator `!`
+
+Tell the compiler “trust me, this won’t be null” (use sparingly):
+
+```csharp
+string? maybe = GetUserInput();
+// We know by logic it can’t be null here:
+string definitelyNotNull = maybe!;  
+Console.WriteLine(definitelyNotNull.Length);
+```
+
+---
+
+### 5. How to enable nullable reference types
+
+In your project’s `.csproj` file, make sure you have:
+
+```xml
+<PropertyGroup>
+  <Nullable>enable</Nullable>
+</PropertyGroup>
+```
+
+This turns on the compiler’s null-analysis across your code.
+
+---
+
+### 6. Quick recap
+
+1. **`string`** = never `null` (compiler warns if you assign `null` or don’t initialize).
+2. **`string?`** = possibly `null` (you must check before use, or use `??` / `?.`).
+3. **Helps you catch potential null errors** at compile time instead of at runtime.
+
+By using `string?` when a variable truly can be null (like user input), and plain `string` when it shouldn’t be, your code becomes **safer** and **more self-documenting**.
