@@ -1,7 +1,4 @@
 ﻿// MS_Learn + FreeCodeCamp Cert
-
-using System;
-
 namespace MS_Learn
 {
     internal class Program
@@ -840,26 +837,102 @@ namespace MS_Learn
             //Console.WriteLine($"Last number: {current}");
 
             ////Use the continue statement to step directly to the Boolean expression
-            Random random = new Random();
-            int current = random.Next(1, 11);
+            //Random random = new Random();
+            //int current = random.Next(1, 11);
 
-            do
-            {
-                current = random.Next(1, 11);
+            //do
+            //{
+            //    current = random.Next(1, 11);
 
-                if (current >= 8) continue;
+            //    if (current >= 8) continue;
 
-                Console.WriteLine(current);
-            } while (current != 7);
+            //    Console.WriteLine(current);
+            //} while (current != 7);
 
-            /*
-            while (current >= 3)
-            {
-                Console.WriteLine(current);
-                current = random.Next(1, 11);
-            }
-            Console.WriteLine($"Last number: {current}");
-            */
+            ///*
+            //while (current >= 3)
+            //{
+            //    Console.WriteLine(current);
+            //    current = random.Next(1, 11);
+            //}
+            //Console.WriteLine($"Last number: {current}");
+            //*/
+
+
+            ////Role playing game battle challenge using do and while iteration statements
+            ////write code to implement the game rules as below:
+
+            ////You must use either the do-while statement or the while statement as an outer game loop.
+            //// The hero and the monster start with 10 health points.
+            //// All attacks are a value between 1 and 10.
+            //// The hero attacks first.
+            //// Print the amount of health the monster lost and their remaining health.
+            //// If the monster's health is greater than 0, it can attack the hero.
+            //// Print the amount of health the hero lost and their remaining health.
+            //// Continue this sequence of attacking until either the monster's health or hero's health is zero or less.
+            //// Print the winner.
+
+            ////My way(website way below this better!):
+            //int monsterHP = 10;
+            //int heroHP = 10;
+            //int attackValue = 0;
+            //Random attack = new Random();
+
+            //do
+            //{
+            //    attackValue = attack.Next(1, 11);
+            //    monsterHP -= attackValue;
+            //    Console.WriteLine($"Monster was damaged and lost {attackValue} health and now has {monsterHP} health.");
+
+            //    if (monsterHP > 0)
+            //    {
+            //        attackValue = attack.Next(1, 11);
+            //        heroHP -= attackValue;
+            //        Console.WriteLine($"Hero was damaged and lost {attackValue} health and now has {heroHP} health.");
+            //        if (heroHP <= 0)
+            //        {
+            //            Console.WriteLine($"Monster wins!");
+            //            break;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"Hero wins!");
+            //        break;
+            //    }
+
+            //} while (heroHP > 0);
+
+            ////Sample output:
+            ////Monster was damaged and lost 1 health and now has 9 health.
+            //// Hero was damaged and lost 1 health and now has 9 health.
+            //// Monster was damaged and lost 7 health and now has 2 health.
+            //// Hero was damaged and lost 6 health and now has 3 health.
+            //// Monster was damaged and lost 9 health and now has -7 health.
+            //// Hero wins!
+
+            ////MS Learn website method
+            //int hero = 10;
+            //int monster = 10;
+
+            //Random dice = new Random();
+
+            //do
+            //{
+            //    int roll = dice.Next(1, 11);
+            //    monster -= roll;
+            //    Console.WriteLine($"Monster was damaged and lost {roll} health and now has {monster} health.");
+
+            //    if (monster <= 0) continue;
+
+            //    roll = dice.Next(1, 11);
+            //    hero -= roll;
+            //    Console.WriteLine($"Hero was damaged and lost {roll} health and now has {hero} health.");
+
+            //} while (hero > 0 && monster > 0);
+
+            //Console.WriteLine(hero > monster ? "Hero wins!" : "Monster wins!");
+
         }
     }
 }
