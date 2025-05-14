@@ -362,7 +362,7 @@ namespace MS_Learn
             /*
             //Declaring an array
             string[] fraudulentOrderIDs = new string[3];
-            
+
             //assigning values
             fraudulentOrderIDs[0] = "A123";
             fraudulentOrderIDs[1] = "B456";
@@ -646,6 +646,220 @@ namespace MS_Learn
             //Console.ReadLine();
 
 
+            //// Add logic to C# console applications (Get started with C#, Part 3)
+            //// Branch the flow of code using the switch-case construct in C#
+            //// Exercise - Implement a switch statement
+            //// The switch is best used when:
+            //// You have a single value (variable or expression) that you want to match against many possible values.
+            //// For any given match, you need to execute a couple of lines of code at most.
+
+            //int employeeLevel = 100;
+            //string employeeName = "John Smith";
+
+            //string title = "";
+
+            //switch (employeeLevel)
+            //{
+            //    case 100:
+            //        title = "Junior Associate";
+            //        break;
+            //    case 200:
+            //        title = "Senior Associate";
+            //        break;
+            //    case 300:
+            //        title = "Manager";
+            //        break;
+            //    case 400:
+            //        title = "Senior Manager";
+            //        break;
+            //    default:
+            //        title = "Associate";
+            //        break;
+            //}
+
+            //Console.WriteLine($"{employeeName}, {title}");
+
+            ////The switch expression is evaluated against the case labels from top to bottom until a value that is equal to the switch expression is found. If none of the labels are a match, the statement list for the default case will be executed. If no default is included, control is transferred to the end point of the switch statement. Each label must provide a value type that matches the type specified in the switch expression.
+            ////The optional default label can appear at any position within the list of switch sections. However, most developers choose to put it last because it makes more sense (logically) to position default as the final option. Regardless of the position, the default section will be evaluated last.
+            ////The break keyword is one of several ways to end a switch section before it gets to the next section. If you forget the break keyword (or, optionally, the return keyword) the compiler will generate an error.
+
+            //switch (employeeLevel)
+            //{
+            //    case 100:
+            //    case 200:
+            //        title = "Senior Associate";
+            //        break;
+            //    case 300:
+            //        title = "Manager";
+            //        break;
+            //    case 400:
+            //        title = "Senior Manager";
+            //        break;
+            //    default:
+            //        title = "Associate";
+            //        break;
+            //}
+
+            //Console.WriteLine($"{employeeName}, {title}");
+
+
+            //// SKU = Stock Keeping Unit. 
+            //// SKU value format: <product #>-<2-letter color code>-<size code>
+            //string sku = "01-MN-L";
+
+            //string[] product = sku.Split('-');
+
+            //string type = "";
+            //string color = "";
+            //string size = "";
+
+            //switch (product[0])
+            //{
+            //    case "01":
+            //        type = "Sweat shirt";
+            //        break;
+            //    case "02":
+            //        type = "T-Shirt";
+            //        break;
+            //    case "03":
+            //        type = "Sweat pants";
+            //        break;
+            //    default:
+            //        type = "Other";
+            //        break;
+            //}
+            //switch (product[1])
+            //{
+            //    case "BL":
+            //        color = "Black";
+            //        break;
+            //    case "MN":
+            //        color = "Maroon";
+            //        break;
+            //    default:
+            //        color = "White";
+            //        break;
+            //}
+
+            //switch (product[2])
+            //{
+            //    case "S":
+            //        size = "Small";
+            //        break;
+            //    case "M":
+            //        size = "Medium";
+            //        break;
+            //    case "L":
+            //        size = "Large";
+            //        break;
+            //    default:
+            //        size = "One Size Fits All";
+            //        break;
+            //}
+
+            //Console.WriteLine($"Product: {size} {color} {type}");
+
+            ////Exercise - Create and configure "for" iteration loops
+            //// All three sections (initializer, condition, and iterator) are optional. However, in practice, typically all three sections are used.
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Console.WriteLine(i);
+            //}
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Console.WriteLine(i);
+            //    if (i == 7) break;
+            //}
+            //string[] names = { "Alex", "Eddie", "David", "Michael" };
+            //for (int i = names.Length - 1; i >= 0; i--)
+            //{
+            //    Console.WriteLine(names[i]);
+            //}
+            //string[] names = { "Alex", "Eddie", "David", "Michael" };
+            //foreach (var name in names)
+            //{
+            //    // Can't do this because error: Cannot assign to name because it is a 'foreach iteration variable':
+            //    if (name == "David")
+            //          name = "Sammy";
+            //}
+            ////Overcoming the limitation of the foreach statement using the for statement
+            //string[] names = { "Alex", "Eddie", "David", "Michael" };
+
+            //for (int i = 0; i < names.Length; i++)
+            //    if (names[i] == "David")
+            //        names[i] = "Sammy";
+
+            //foreach (var name in names)
+            //    Console.WriteLine(name);
+            ////Code challenge - implement the FizzBuzz challenge rules
+            ////Output values from 1 to 100, one number per line, inside the code block of an iteration statement.
+            //// When the current value is divisible by 3, print the term Fizz next to the number.
+            //// When the current value is divisible by 5, print the term Buzz next to the number.
+            //// When the current value is divisible by both 3 and 5, print the term FizzBuzz next to the number.
+            //for (int i = 1; i <= 100; i++)
+            //{
+            //    if ((i % 3) == 0)
+            //    {
+            //        if ((i % 5) == 0)
+            //        {
+            //            Console.WriteLine($"{i} - FizzBuzz");
+            //        }
+            //        Console.WriteLine($"{i} - Fizz");
+            //    }
+            //    else if ((i % 5) == 0)
+            //    {
+            //        Console.WriteLine($"{i} - Buzz");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"{i}");
+            //    }
+            //}
+            ////The for statement allows us to iterate a pre-determined number of times, and control the process of iteration.
+            //// Both the foreach and for rely on factors that are external to the code block to determine the number of code block iterations.
+            //// The do-while and while statements allow us to iterate through a block of code with the intent that the logic inside of the code block will affect when we can stop iterating.A code block that influences the exit criteria is a primary reason to select a do-while or while statements rather than one of the other iteration statements.
+            ////use the continue statement to skip processing the remainder of code in the code block and go directly to the Boolean evaluation of the while statement.
+            ////Write a do -while statement to break when a certain random number is generated
+            //Random numbers = new Random();
+            //int testNumber = 0;
+            //do
+            //{
+            //    testNumber = numbers.Next(1, 11);
+            //    Console.WriteLine($"Randomly selected number is {testNumber}");
+
+            //} while (testNumber != 7);
+
+            ////////Write a while statement that iterates only while a random number is greater than some value
+            //Random random = new Random();
+            //int current = random.Next(1, 11);
+            //while (current >= 3)
+            //{
+            //    Console.WriteLine(current);
+            //    current = random.Next(1, 11);
+            //}
+            //Console.WriteLine($"Last number: {current}");
+
+            ////Use the continue statement to step directly to the Boolean expression
+            Random random = new Random();
+            int current = random.Next(1, 11);
+
+            do
+            {
+                current = random.Next(1, 11);
+
+                if (current >= 8) continue;
+
+                Console.WriteLine(current);
+            } while (current != 7);
+
+            /*
+            while (current >= 3)
+            {
+                Console.WriteLine(current);
+                current = random.Next(1, 11);
+            }
+            Console.WriteLine($"Last number: {current}");
+            */
         }
     }
 }
