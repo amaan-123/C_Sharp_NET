@@ -969,7 +969,11 @@ namespace MS_Learn
             ////Code project 1 - write code that validates integer input
             ////If you want to use Console.ReadLine() input for numeric values, you need to convert the string value to a numeric type.
             //// The int.TryParse() method can be used to convert a string value to an integer. The method uses two parameters, a string that will be evaluated and the name of an integer variable that will be assigned a value. The method returns a Boolean value. The following code sample demonstrates using the int.TryParse() method:
+
+
             // capture user input in a string variable named readResult
+
+            //MS_Learn method:
 
             //string? readResult;
             //int numericValue = 0;
@@ -1015,7 +1019,7 @@ namespace MS_Learn
             //Console.ReadLine();
 
             ////Code project 2 - write code that validates string input
-            //string[] role = ["administrator","manager", "user"];
+            //string[] role = ["administrator", "manager", "user"];
             //string userInput = "";
             //string refinedUserInput = "";
             //bool roleMatch = false;
@@ -1032,7 +1036,8 @@ namespace MS_Learn
             //        roleMatch = true;
             //    }
             //    else
-            //    {   Console.WriteLine(
+            //    {
+            //        Console.WriteLine(
             //        $"The role name that you entered, {userInput} is not valid.\nEnter your role name (Administrator, Manager, or User)");
             //    }
 
@@ -1043,52 +1048,104 @@ namespace MS_Learn
 
 
             ////Code project 3 - Write code that processes the contents of a string array
-            string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+            ////MS_Learn Solution:
+            ////The code uses a for statement for the outer loop because you cannot modify the value assigned to a 'foreach iteration variable'. You could work around this by declaring an extra string variable inside the foreach loop, but then you would be adding unwanted complexity to your code logic. In other words, using the iteration statement foreach (string myString in myStrings) and then attempting to process the myString variable generates a compilation error.
+            //// The code uses a while statement for the inner loop because, depending on the value of the data string, the code block may not be executed (when the string does not contain a period). You should not use a do statement in situations where the iteration block may not need to be executed.
+            //string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+            //int stringsCount = myStrings.Length;
+
+            //string myString = "";
+            //int periodLocation = 0;
+
+            //for (int i = 0; i < stringsCount; i++)
+            //{
+            //    myString = myStrings[i];
+            //    periodLocation = myString.IndexOf(".");
+
+            //    string mySentence;
+
+            //    // extract sentences from each string and display them one at a time
+            //    while (periodLocation != -1)
+            //    {
+
+            //        // first sentence is the string value to the left of the period location
+            //        mySentence = myString.Remove(periodLocation);
+
+            //        // the remainder of myString is the string value to the right of the location
+            //        myString = myString.Substring(periodLocation + 1);
+
+            //        // remove any leading white-space from myString
+            //        myString = myString.TrimStart();
+
+            //        // update the comma location and increment the counter
+            //        periodLocation = myString.IndexOf(".");
+
+            //        Console.WriteLine(mySentence);
+            //    }
+
+            //    mySentence = myString.Trim();
+            //    Console.WriteLine(mySentence);
+            //}
+
+
+            //string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
             ////Your solution must declare an integer variable named periodLocation that can be used to hold the location of the period character within a string.
             ////Your solution must include an outer foreach or for loop that can be used to process each string element in the array. The string variable that you'll process inside the loops should be named myString.
-            int periodLocation = 0;
-           
-            for (int i = 0; i < myStrings.Length; i++)
-            {
-                ////In the outer loop, your solution must use the IndexOf() method of the String class to get the location of the first period character in the myString variable. The method call should be similar to: myString.IndexOf("."). If there's no period character in the string, a value of -1 will be returned.
-                string myString = myStrings[i];
-                periodLocation = myString.IndexOf(".");
-                
-                Console.WriteLine($"Checking string no. {i + 1} for period.");
+            //int periodLocation = 0;
 
-                if (periodLocation != -1)
-                {
+            //for (int i = 0; i < myStrings.Length; i++)
+            //{
+            //    ////In the outer loop, your solution must use the IndexOf() method of the String class to get the location of the first period character in the myString variable. The method call should be similar to: myString.IndexOf("."). If there's no period character in the string, a value of -1 will be returned.
+            //    string myString = myStrings[i];
+            //    periodLocation = myString.IndexOf(".");
 
-                    do
-                    {
-                        ////In the inner loop, your solution must extract and display (write to the console) each sentence that is contained in each of the strings that are processed.
-                        ////must not display the period character.
-                        ////In the inner loop, your solution must use the Remove(), Substring(), and TrimStart() methods to process the string information.
-                        periodLocation = myString.IndexOf(".");
-                        Console.WriteLine($"For string no. {i + 1}: Period exists at index {periodLocation}");
+            //    Console.WriteLine($"Checking string no. {i + 1} for period.");
 
-                        if (periodLocation == -1)
-                        {
-                            Console.WriteLine($"String no. {i + 1} searched. Press Enter to continue.");
-                            Console.ReadLine();
-                            break;
-                        }
+            //    if (periodLocation != -1)
+            //    {
 
-                        string sentence = myString.Substring(0, periodLocation);
-                        Console.WriteLine(sentence);
+            //        do
+            //        {
+            //            ////In the inner loop, your solution must extract and display (write to the console) each sentence that is contained in each of the strings that are processed.
+            //            ////must not display the period character.
+            //            ////In the inner loop, your solution must use the Remove(), Substring(), and TrimStart() methods to process the string information.
+            //            periodLocation = myString.IndexOf(".");
+            //            Console.WriteLine($"For string no. {i + 1}: Period exists at index {periodLocation}");
 
-                        myString = myString.Remove(0, periodLocation + 1).TrimStart();
+            //            if (periodLocation == -1)
+            //            {
+            //                Console.WriteLine($"String no. {i + 1} searched. Press Enter to continue.");
+            //                Console.ReadLine();
+            //                break;
+            //            }
 
-                    } while (myString != "");
-                }
-                else
-                {
-                    Console.WriteLine($"For string no. {i + 1}: Period doesn't exist");
-                    Console.WriteLine($"String no. {i + 1} searched. Press Enter to continue.");
-                    Console.ReadLine();
-                }
+            //            string sentence = myString.Substring(0, periodLocation);
+            //            Console.WriteLine(sentence);
 
-            }
+            //            myString = myString.Remove(0, periodLocation + 1).TrimStart();
+
+            //        } while (myString != "");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"For string no. {i + 1}: Period doesn't exist");
+            //        Console.WriteLine($"String no. {i + 1} searched. Press Enter to continue.");
+            //        Console.ReadLine();
+            //    }
+
+            //}
+            ////Important MS_Learn questions:
+            //1.A developer needs to iterate through an array of items.The number of items in the array is unknown.The code inside the iteration code block examines each item sequentially to select an item that matches specified criteria.The index number of the selected array element isn't important. The selected item is referenced multiple times within the code block. Which type of iteration statement is best suited for this scenario?
+            //while
+            //for
+            //foreach //Correct
+
+
+            //2.A developer needs to capture a list of items from the user.The user will enter the keyboard combination ctrl + Esc to exit. Which is the best iteration statement for this purpose ?
+            //while
+            //foreach
+            //do -while //Correct
+
         }
     }
 }
