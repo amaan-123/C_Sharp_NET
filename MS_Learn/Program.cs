@@ -1041,21 +1041,52 @@ namespace MS_Learn
             //Console.WriteLine($"Your input value({userInput}) has been accepted.\nPress enter to exit.");
             //Console.ReadLine();
 
+
             ////Code project 3 - Write code that processes the contents of a string array
             string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+            ////Your solution must declare an integer variable named periodLocation that can be used to hold the location of the period character within a string.
+            ////Your solution must include an outer foreach or for loop that can be used to process each string element in the array. The string variable that you'll process inside the loops should be named myString.
             int periodLocation = 0;
-
-            foreach (var myString in myStrings)
+           
+            for (int i = 0; i < myStrings.Length; i++)
             {
+                ////In the outer loop, your solution must use the IndexOf() method of the String class to get the location of the first period character in the myString variable. The method call should be similar to: myString.IndexOf("."). If there's no period character in the string, a value of -1 will be returned.
+                string myString = myStrings[i];
                 periodLocation = myString.IndexOf(".");
-                Console.WriteLine(periodLocation);
-                Console.ReadLine();
-                do
-                {
-                    Console.WriteLine(myString);
                 
-                    
-                } while (expression);
+                Console.WriteLine($"Checking string no. {i + 1} for period.");
+
+                if (periodLocation != -1)
+                {
+
+                    do
+                    {
+                        ////In the inner loop, your solution must extract and display (write to the console) each sentence that is contained in each of the strings that are processed.
+                        ////must not display the period character.
+                        ////In the inner loop, your solution must use the Remove(), Substring(), and TrimStart() methods to process the string information.
+                        periodLocation = myString.IndexOf(".");
+                        Console.WriteLine($"For string no. {i + 1}: Period exists at index {periodLocation}");
+
+                        if (periodLocation == -1)
+                        {
+                            Console.WriteLine($"String no. {i + 1} searched. Press Enter to continue.");
+                            Console.ReadLine();
+                            break;
+                        }
+
+                        string sentence = myString.Substring(0, periodLocation);
+                        Console.WriteLine(sentence);
+
+                        myString = myString.Remove(0, periodLocation + 1).TrimStart();
+
+                    } while (myString != "");
+                }
+                else
+                {
+                    Console.WriteLine($"For string no. {i + 1}: Period doesn't exist");
+                    Console.WriteLine($"String no. {i + 1} searched. Press Enter to continue.");
+                    Console.ReadLine();
+                }
 
             }
         }
