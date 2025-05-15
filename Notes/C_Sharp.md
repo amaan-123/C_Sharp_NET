@@ -59,7 +59,9 @@ This video provides a comprehensive introduction to the C# programming language 
 - The code written in these languages is compiled by their respective compilers into a **Common Intermediate Language (CIL)**.
 - CIL is not machine code; it's an intermediate language that is the same for code written in different .NET languages.
 - The compiled code in CIL is stored in **.dll or .exe files**.
+- The `dotnet build` command builds the project and its dependencies into a set of binaries. The binaries include the project's code in Intermediate Language (IL) files with a .dll extension. Depending on the project type and settings, other files may also be included. If you're curious, you can find the `*****.dll` file in the EXPLORER panel at a folder location that's similar to the following path:`.projectFolder\bin\Debug\net*.0\`
 - Once the compiled code exists, the **CLR uses a Just-In-Time (JIT) compiler** to compile the CIL code into machine code that can be executed on the specific architecture of the computer it's running on (e.g., 32-bit, 64-bit).
+- The `dotnet run` command runs source code without any explicit compile or launch commands. It provides a convenient option to run your application from the source code with one command. It's useful for fast iterative development from the command line. The command depends on the dotnet build command to build the code.
 - The CLR also provides services like **memory management**.
 - **Garbage Collection** is a form of automatic memory management where the system reclaims memory that is no longer being used by the program. This is unlike languages like C or C++ where manual memory management is required.
 - The **.NET Framework Class Library** is a set of APIs that provide common functionalities like reading files or connecting to databases.
