@@ -27,9 +27,9 @@ dotnet run
 
 in an empty folder, the CLI’s **Console** template gives you:
 
-* A single C# project file: `YourFolderName.csproj`
-* A `Program.cs` with a minimal “Hello World” template
-* No `.sln` (solution) file by default
+- A single C# project file: `YourFolderName.csproj`
+- A `Program.cs` with a minimal “Hello World” template
+- No `.sln` (solution) file by default
 
 That’s **by design**—the .NET CLI keeps things lightweight. Visual Studio 2022’s project wizards go a little further for you:
 
@@ -44,7 +44,7 @@ That’s **by design**—the .NET CLI keeps things lightweight. Visual Studio 20
 1. **Create the console project**
 
    ```bash
-   mkdir MyApp 
+   mkdir MyApp
    cd MyApp
    dotnet new console
    ```
@@ -71,10 +71,10 @@ That’s **by design**—the .NET CLI keeps things lightweight. Visual Studio 20
 
    Now OmniSharp will see `MyApp.sln`, load the project correctly, and give you:
 
-   * Error squiggles
-   * IntelliSense completions
-   * “Run” / “Debug” code lenses
-   * Project-level operations (like Test Explorer)
+   - Error squiggles
+   - IntelliSense completions
+   - “Run” / “Debug” code lenses
+   - Project-level operations (like Test Explorer)
 
 ---
 
@@ -91,8 +91,8 @@ dotnet sln MySolution.sln add ./YourProjectFolder/YourProject.csproj
 
 ### 🔧 Why this matters
 
-* **Solution file (`.sln`)** is a VS/OmniSharp concept that groups one or more projects.
-* When you open a folder without a `.sln`, OmniSharp falls back to “loose” project loading and sometimes misses cross-project references or richer workspace features (squiggles, code lenses, test discovery).
+- **Solution file (`.sln`)** is a VS/OmniSharp concept that groups one or more projects.
+- When you open a folder without a `.sln`, OmniSharp falls back to “loose” project loading and sometimes misses cross-project references or richer workspace features (squiggles, code lenses, test discovery).
 
 ---
 
@@ -161,10 +161,10 @@ Since **Console App (.NET Framework)** projects target a .NET Framework TFM, the
 
 By choosing the **“Console App”** template (instead of “Console App (.NET Framework)”), the project’s TFM became **net8.0**, whose default C# version is **12**—so collection expressions compile out of the box.
 
-* **Was this the “best” fix?**
+- **Was this the “best” fix?**
 
-  * **Yes**, if you intend to use C# 12+ features. Targeting net8.0 aligns your compiler and runtime, ensuring both understand the new syntax ([Microsoft Learn][2]).
-  * It also gives you the latest runtime performance and APIs.
+  - **Yes**, if you intend to use C# 12+ features. Targeting net8.0 aligns your compiler and runtime, ensuring both understand the new syntax ([Microsoft Learn][2]).
+  - It also gives you the latest runtime performance and APIs.
 
 ---
 
@@ -222,3 +222,95 @@ This pattern applies whenever you see “Feature ... is not available in C# X.Y.
 
 [1]: https://nuthanmurarysetty.medium.com/how-to-check-the-c-version-and-net-framework-being-used-in-their-visual-studio-projects-1374d16841c1?utm_source=chatgpt.com "How to check the C# version and .net framework being used in their ..."
 [2]: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-versioning?utm_source=chatgpt.com "Language versioning - C# reference - Learn Microsoft"
+
+## Question 3
+
+Are there any regular/mainstream popular mouse shortcuts/ VS Code Text Editor(not the Visual Studio 2022 IDE) GUI options to replicate `dotnet run` & `dotnet build` without doing any difficult configuration changes?
+
+## Answer 3
+
+Yes, in Visual Studio Code (VS Code), you can execute `dotnet build` and `dotnet run` commands using GUI options and mouse interactions, without delving into complex configurations. Here's how:
+
+---
+
+## 🖱️ GUI Options to Build and Run C# Projects in VS Code
+
+### 1. **Using the Run and Debug Panel**
+
+- **Open the Run and Debug Panel**:
+
+  - Click on the **Run and Debug** icon in the Activity Bar on the side of the window.
+  - Alternatively, use the menu: `View` > `Run`.
+
+- **Start Debugging**:
+
+  - Click the green **Run** button (▶️) at the top of the panel.
+  - This action will build and run your project.
+
+_Note_: If it's your first time running the project, VS Code may prompt you to install necessary assets or configure the debugger. Accepting these prompts will set up the required configurations.
+
+### 2. **Using the Command Palette**
+
+- **Open the Command Palette**:
+
+  - Press `Ctrl+Shift+P` (or `F1`) to open the Command Palette.
+
+- **Run Build Task**:
+
+  - Type `Run Build Task` and select it.
+  - This will execute the build process for your project.
+
+- **Run Without Debugging**:
+
+  - Type `Run Without Debugging` and select it.
+  - This will run your project without attaching the debugger.
+
+### 3. **Using the Terminal Menu**
+
+- **Access the Terminal Menu**:
+
+  - Click on `Terminal` in the top menu bar.
+
+- **Run Build Task**:
+
+  - Select `Run Build Task` from the dropdown.
+  - This will initiate the build process.
+
+- **Run Without Debugging**:
+
+  - Select `Run Without Debugging` to execute your project without the debugger.
+
+---
+
+## ⚙️ Setting Up Tasks for Build and Run (Optional)
+
+For more streamlined operations, you can define custom tasks:
+
+1. **Create a `tasks.json` File**:
+
+   - Navigate to `Terminal` > `Configure Tasks` > `Create tasks.json file from template`.
+   - Choose `.NET Core` as the template.
+
+2. **Define Build and Run Tasks**:
+
+   - In the `tasks.json` file, you can define tasks for building and running your project.
+   - This allows you to execute these tasks via the Command Palette or assign them to keyboard shortcuts.
+
+_Note_: While setting up tasks provides more control, it's optional for basic build and run operations.
+
+---
+
+## 🧩 Ensure Necessary Extensions Are Installed
+
+To enhance your C# development experience in VS Code:
+
+- **Install the C# Dev Kit Extension**:
+
+  - Go to the Extensions view (`Ctrl+Shift+X`).
+  - Search for `C# Dev Kit` and install it.
+
+This extension provides features like IntelliSense, debugging, and project management tailored for C# development.
+
+---
+
+By utilizing these GUI options, you can efficiently build and run your C# projects in VS Code without relying solely on terminal commands.

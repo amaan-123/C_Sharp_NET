@@ -1,6 +1,16 @@
 # Project overview
 
-In this guided project, you'll use Visual Studio Code to develop the initial version of a C# application. Your application will use boolean expressions, selection statements, and iteration statements to implement the features of a design specification. As you develop the application, you'll need to scope variables at the appropriate level.
+This module guides you through the process of developing the data-centric features of the Contoso Pets application. You'll use selection and iteration statements to create sample data, list the animals in your care, and add new animals to your business. Throughout the application, you'll use variables and expressions to control the execution of code branches. You will also ensure that variables are scoped appropriately.
+
+The application you develop will:
+
+- Add predefined sample data to the pets array.
+- Iterate a "menu options and user selection" code block to establish the outer loop of your application.
+- Implement code branches corresponding to the user's menu selections.
+- Display all the information contained in the array used to store pet data (based on user's menu selection).
+- Iterate an "add new animal information" code block that enables the user to add one or more new animals to the pets array (based on user's menu selection).
+
+## Specifications
 
 You're working on the Contoso Pets application, an application that helps place pets in new homes. The specifications for your application are:
 
