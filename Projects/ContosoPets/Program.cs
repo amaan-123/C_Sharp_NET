@@ -111,16 +111,65 @@ partial class Program
       {
         case "1":
           // List all of our current pet information
-          Console.WriteLine("this app feature is coming soon - please check back to see progress.");
+
+          for (int i = 0; i < maxPets; i++)
+          {
+            if (ourAnimals[i, 0] != "ID #: ")
+            {
+              Console.WriteLine();
+              for (int j = 0; j < 6; j++)
+              {
+                Console.WriteLine(ourAnimals[i, j]);
+              }
+            }
+          }
           Console.WriteLine("Press the Enter key to continue.");
           readResult = Console.ReadLine();
           break;
 
         case "2":
           // Add a new animal friend to the ourAnimals array
-          Console.WriteLine("this app feature is coming soon - please check back to see progress.");
-          Console.WriteLine("Press the Enter key to continue.");
-          readResult = Console.ReadLine();
+          string anotherPet = "y";
+          int petCount = 0;
+
+          for (int i = 0; i < maxPets; i++)
+          {
+            if (ourAnimals[i, 0] != "ID #: ")
+            {
+              petCount += 1;
+            }
+          }
+          if (petCount < maxPets)
+          {
+            Console.WriteLine($"We currently have {petCount} pets that need homes. We can manage {(maxPets - petCount)} more.");
+          }
+          while (anotherPet == "y" && petCount < maxPets)
+          {
+            // increment petCount (the array is zero-based, so we increment the counter after adding to the array)
+            petCount = petCount + 1;
+            // check maxPet limit
+            if (petCount < maxPets)
+            {
+              // another pet?
+              Console.WriteLine("Do you want to enter info for another pet (y/n)");
+              do
+              {
+                readResult = Console.ReadLine();
+                if (readResult != null)
+                {
+                  anotherPet = readResult.ToLower();
+                }
+
+              } while (anotherPet != "y" && anotherPet != "n");
+            }
+          }
+
+          if (petCount >= maxPets)
+          {
+            Console.WriteLine("We have reached our limit on the number of pets that we can manage.");
+            Console.WriteLine("Press the Enter key to continue.");
+            readResult = Console.ReadLine();
+          }
           break;
 
         case "3":
@@ -163,6 +212,11 @@ partial class Program
           Console.WriteLine("UNDER CONSTRUCTION - please check back next month to see progress.");
           Console.WriteLine("Press the Enter key to continue.");
           readResult = Console.ReadLine();
+          break;
+
+        case "exit":
+          // Exit the program
+          Console.WriteLine("Thank you for using the Contoso PetFriends app. Goodbye!");
           break;
 
         default:
