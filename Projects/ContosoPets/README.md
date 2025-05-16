@@ -10,8 +10,6 @@ The application you develop will:
 - Display all the information contained in the array used to store pet data (based on user's menu selection).
 - Iterate an "add new animal information" code block that enables the user to add one or more new animals to the pets array (based on user's menu selection).
 
-## Specifications
-
 You're working on the Contoso Pets application, an application that helps place pets in new homes. The specifications for your application are:
 
 - Create a C# console application.
@@ -54,6 +52,10 @@ You're working on the Contoso Pets application, an application that helps place 
 
   - Display all dogs that meet user specified physical characteristics.
 
+## Exercise - Write code to display all ourAnimals array data
+
+### Specifications 1 : Guided project
+
 An initial version of the application has already been completed. The Starter code project for this Guided project module includes a Program.cs file that provides the following code features:
 
 - The code declares variables used to collect and process pet data and menu item selections.
@@ -87,39 +89,7 @@ Your goal is to develop the features that implement the first two menu options. 
 
 You'll test your application at each stage of the development process.
 
-## Setup
-
-Use the following steps to prepare for the Guided project exercises.
-
-1. To download a zip file containing the Starter project code, select the following link: [Lab Files](https://github.com/MicrosoftLearning/Guided-project-branching-looping-CSharp/archive/refs/heads/main.zip).
-
-2. Unzip the download files.
-
-   Unzip the files in your development environment. Consider using your PC as your development environment so that you have access to your code after completing this module. If you aren't using your PC as your development environment, you can unzip the files in a sandbox or hosted environment.
-
-   1. On your local machine, navigate to your downloads folder.
-   2. Right-click **Guided-project-branching-looping-CSharp-main.zip**, and then select **Extract all**.
-   3. Select **Show extracted files when complete**, and then select **Extract**.
-   4. Make note of the extracted folder location.
-
-3. Copy the extracted **GuidedProject** folder to your Windows Desktop folder.
-
-   Note
-
-   If a folder named **GuidedProject** already exists, you can select **Replace the files in the destination** to complete the copy operation.
-
-4. Open the new **GuidedProject** folder in Visual Studio Code.
-
-   1. Open Visual Studio Code locally (or open MS Learn sandbox and open Visual Studio Code if you aren't using a local dev environment).
-   2. In Visual Studio Code, on the **File** menu, select **Open Folder**.
-   3. Navigate to the Windows Desktop folder and locate the "GuidedProject" folder.
-   4. Select **GuidedProject** and then select **Select Folder**.
-
-   The Visual Studio Code EXPLORER view should show the GuidedProject folder and two subfolders named Final and Starter.
-
-## Module notes from the MS Learn website
-
-### 4/8 Exercise - Write code to display all ourAnimals array data
+### Module Notes
 
 As you can see, setting the _for initializer_ to `int i = 0;` aligns with the zero-based array index. Likewise, setting the _for condition_ to `i < maxPets;` aligns with the first dimension of the array. Finally, setting the _for iterator_ to `i++` will increment your loop control value by `1` for each iteration.
 
@@ -170,7 +140,7 @@ for (int i = 0; i < maxPets; i++)
 }
 ```
 
-### 5/8 Exercise - Build and test a loop for entering new pet data
+## Exercise - Build and test a loop for entering new pet data
 
 In this exercise, you develop code that controls the input of new ourAnimals array data. You calculate the initial values of your loop control variables and construct the loop that collects user specified data for the animals. The detailed tasks that you complete during this exercise are:
 
@@ -180,11 +150,11 @@ In this exercise, you develop code that controls the input of new ourAnimals arr
 - Exit criteria: write code that evaluates the exit condition for the "enter new ourAnimals array data" loop.
 - Verification test: perform verification tests for the code you develop in this exercise.
 
-#### Variable scoping : Resources & Security impact
+### Variable scoping : Resources & Security impact
 
 The scope of your variables should always be as narrow as possible. In the Contoso Pets application, you could scope `petCount` at the application level rather than scoping to the `case "2":` code block. The larger scope would enable you to access `petCount` from anywhere in the application. If `petCount` was scoped at the application level, you could assign it a value when you create the sample data and programmatically manage its value throughout the remainder of the application. For example, when you find a home for a pet and remove the pet from the `ourAnimals` array, you could reduce `petCount` by `1`. The question is, at what level should you scope a variable when you're unsure whether it will be used in other parts of your application? In this case, it's tempting to scope `petCount` at the application level even though you aren't using it anywhere else. After all, scoping `petCount` at the application level ensures that it's available if you do decide to use it elsewhere. Maybe you could scope other variables at the application level as well. That way, your variables are always in scope and accessible. So why not scope variables at the application level when you think they might be used later in the application? Scoping variables at a higher level than necessary can lead to problems. Elevated scope inflates the resource requirements of your application and may expose your application to unnecessary security risks. As your applications grow larger and more complex, they require more resources. Phones and computers allocate memory for these resources when they're in scope. As your applications become more "real-world", they become more accessible. Applications are often accessible from the cloud or other applications. Compounding these issues, applications are often left running when they aren't being used. It's important to keep an application's resource requirements under control and the security footprint as small as possible. Although today's operating systems do a great job of managing resources and securing applications, it's still best practice to keep your variables scoped to the level where they are actually needed. In your Contoso Pets app, if you decide to use `petCount` more broadly within the application, you can update your code to scope `petCount`at a higher level. Remember to keep your variables scoped as narrowly as possible, and only increase their scope when it becomes necessary.
 
-#### **Logic to keep in mind to continue testing**
+### **Logic to keep in mind to continue testing**
 
 - Take a minute to consider how `petCount` is used in your code.
 
@@ -233,8 +203,6 @@ The scope of your variables should always be as narrow as possible. In the Conto
 
   The Terminal panel should now show the following output:
 
-  Output Copy
-
   ```bash
   We currently have 4 pets that need homes. We can manage 4 more.
   Do you want to enter info for another pet (y/n)
@@ -247,7 +215,23 @@ The scope of your variables should always be as narrow as possible. In the Conto
   Press the Enter key to continue.
   ```
 
-  If your code doesn't exit the loop when expected, step through your code manually and trace the values of the exit criteria variables. Update your code to ensure that you exit the loop when `petCount` reaches a value equal to `maxPets`. Keep answering "y" until you know that `petCount` is equal to `maxPets`, which has a default value of `8`.
+## Challenge - to create the app features aligned with menu options 3 and 4
 
-- At the Terminal command prompt, press Enter to continue running your application.
-- Exit the application, and then close the Terminal panel.
+### Specifications 2 : Challenge project
+
+Your goal in this challenge is to create the app features aligned with menu options 3 and 4.
+
+>Note
+>New animals must be added to the ourAnimals array when they arrive. However, an animal's age and some physical characteristics for a pet may be unknown until after a veterinarian's examination. In addition, an animal's nickname and personality may be unknown when a pet first arrives. The new features that you're developing will ensure that a complete dataset exists for each animal in the ourAnimals array.
+
+To ensure that animal ages and physical descriptions are complete, your code must:
+
+- Assign a valid numeric value to petAge for any animal that has been assigned data in the ourAnimals array but has not been assigned an age.
+- Assign a valid string to petPhysicalDescription for any animal that has been assigned data in the ourAnimals array but has not been assigned a physical description.
+- Verify that physical descriptions have an assigned value. Assigned values cannot have zero characters. Any further requirement is up to you.
+
+To ensure that animal nicknames and personality descriptions are complete, your code must:
+
+- Assign a valid string to petNickname for any animal that has been assigned data in the ourAnimals array but has not been assigned a nickname.
+- Assign a valid string to petPersonalityDescription for any animal that has been assigned data in the ourAnimals array but has not been assigned a personality description.
+- Verify that nicknames and personality descriptions have an assigned value. Assigned values cannot have zero characters. Any further requirement is up to you.
