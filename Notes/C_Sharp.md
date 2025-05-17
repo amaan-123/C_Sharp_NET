@@ -6,7 +6,7 @@
 
 This video provides a comprehensive introduction to the C# programming language and the .NET Framework. The goal is to become comfortable with the .NET Framework and learn C# programming.
 
-### What is C# and .NET Framework?
+## What is C# and .NET Framework?
 
 - C# is a programming language used for creating games, console applications, and Windows desktop applications.
 - C# runs on the .NET Framework.
@@ -19,7 +19,7 @@ This video provides a comprehensive introduction to the C# programming language 
 - You can use multiple languages and compile them into a single project, then leverage the APIs and libraries exposed by the .NET Framework.
 - It's recommended to learn one language, like C#, first to understand the framework.
 
-### Setting up the Development Environment
+## Setting up the Development Environment
 
 - The first step is to set up the development environment.
 - This involves installing **Visual Studio**.
@@ -32,7 +32,7 @@ This video provides a comprehensive introduction to the C# programming language 
 - Visual Studio is a powerful tool.
 - When installing Visual Studio, it's recommended to download the **Community version**, which is free, rather than the Enterprise version which requires payment.
 
-### Installing Visual Studio
+## Installing Visual Studio
 
 - After downloading the installer, you need to configure and install.
 - The installation process may take some time.
@@ -43,14 +43,14 @@ This video provides a comprehensive introduction to the C# programming language 
 - Don't worry too much about the size or complexities presented in the installer; just select the required components.
 - An SSD can help with performance if your computer is slow, but that's a separate topic.
 
-### C# Program Basics
+## C# Program Basics
 
 - C# is a programming language created by Microsoft that runs on the .NET Framework.
 - It's used for building **web apps, desktop apps, mobile apps, and games**.
 - Console applications are a basic type of application used for learning C#.
 - The video will start with a "Hello World" program to build confidence.
 
-### .NET Framework Architecture
+## .NET Framework Architecture
 
 - The architecture of the .NET Framework can be viewed on Microsoft's official documentation website.
 - There are two major components in the .NET Framework: **CLR (Common Language Runtime)** and the **.NET Framework Class Library**.
@@ -66,7 +66,7 @@ This video provides a comprehensive introduction to the C# programming language 
 - **Garbage Collection** is a form of automatic memory management where the system reclaims memory that is no longer being used by the program. This is unlike languages like C or C++ where manual memory management is required.
 - The **.NET Framework Class Library** is a set of APIs that provide common functionalities like reading files or connecting to databases.
 
-### Creating the First C# Project
+## Creating the First C# Project
 
 - After Visual Studio is installed and updated, you will see a start screen.
 - Click on **"Create a new project"**.
@@ -76,7 +76,7 @@ This video provides a comprehensive introduction to the C# programming language 
 - Visual Studio will create and import the necessary files for the project.
 - Patience might be required if your computer has low RAM.
 
-### Writing the First C# Program
+## Writing the First C# Program
 
 - The main code area is where you will write your instructions.
 - Program execution in C# starts from the `Main` function.
@@ -104,7 +104,7 @@ namespace Hello
 
 - To run the program, click the "Start" button in Visual Studio.
 
-### Structure of a C# Program
+## Structure of a C# Program
 
 - The structure includes:
   - **`using System;`**: This statement allows you to use classes from the `System` namespace, such as `Console`.
@@ -121,7 +121,7 @@ namespace Hello
 - `Console.WriteLine()` prints text to the console followed by a new line.
 - `Console.Write()` prints text without adding a new line.
 
-### Comments
+## Comments
 
 - Comments are used to add notes to the code that are ignored by the compiler.
 - They help explain the code to other developers (or yourself later).
@@ -144,7 +144,7 @@ It can span multiple lines.
 Console.WriteLine("Hello World");
 ```
 
-### Variables and Data Types
+## Variables and Data Types
 
 - **Variables are containers** that store values of a specific type.
 - Analogy: A container in the kitchen stores things like salt or sugar; a bucket stores water. The container's name is the variable name, and the content is the value.
@@ -172,7 +172,7 @@ long longVariable = 1234567890L; // Optional L suffix for clarity
 double doubleVariable = 9.87654321; // Optional D suffix for clarity
 ```
 
-### User Input
+## User Input
 
 - To get input from the user in a console application, use `Console.ReadLine()`.
 - `Console.ReadLine()` reads a line of text from the console and **returns it as a `string`**.
@@ -184,7 +184,7 @@ string name = Console.ReadLine();
 Console.WriteLine("Hello, " + name);
 ```
 
-### Type Casting (Conversion)
+## Type Casting (Conversion)
 
 - **Type casting** or **conversion** is the process of converting a variable from one data type to another.
 - There are multiple ways to do this in C#:
@@ -246,7 +246,7 @@ int candyCount = Convert.ToInt32(candyInput);
 Console.WriteLine("You will get " + (candyCount + 4) + " more candies"); // Output will be "You will get 8 more candies" if input is "4"
 ```
 
-### Operators
+## Operators
 
 - Operators perform operations on variables and values.
 - Types of operators in C#:
@@ -274,7 +274,7 @@ Console.WriteLine("You will get " + (candyCount + 4) + " more candies"); // Outp
     - `==` (Equal to)
     - `!=` (Not equal to)
 
-### Math Class
+## Math Class
 
 - The `System.Math` class provides static methods for mathematical operations.
 - It includes functions like finding the maximum or minimum of two numbers, rounding, etc..
@@ -287,7 +287,7 @@ Console.WriteLine(maxNumber); // Output: 39
 
 - You can find documentation for all `Math` class functions on Microsoft's website or by searching online.
 
-### String Methods and Properties
+## String Methods and Properties
 
 - Strings have built-in members (properties and methods) for manipulating text.
 - **`.Length`**: A property that returns the number of characters in the string.
@@ -368,7 +368,7 @@ Console.WriteLine("Line 1\nLine 2"); // Output: Line 1 followed by Line 2 on a n
 
 - **Important**: Most string methods return a *new* string; they do not modify the original string.
 
-### Decision Control (If-Else and Switch)
+## Decision Control (If-Else and Switch)
 
 - Decision control statements allow your program to execute different blocks of code based on conditions.
 
@@ -426,7 +426,7 @@ switch (day)
 }
 ```
 
-### Loops
+## Loops
 
 - Loops allow you to repeat a block of code multiple times.
 - Using loops is a **better alternative for repetitive statements** than writing the same code manually multiple times.
@@ -489,7 +489,7 @@ for (int i = 0; i < 5; i++)
 // Output: 0, 1, 2, 3, 4
 ```
 
-### Loop Control Statements
+## Loop Control Statements
 
 - **`break`**:
   - Used inside a loop (or `switch`) to **exit the loop immediately and permanently**.
@@ -522,7 +522,7 @@ for (int i = 0; i < 5; i++)
 // Output: 0, 1, 3, 4 (2 is skipped)
 ```
 
-### Methods (Functions)
+## Methods (Functions)
 
 - **Methods (or functions)** are blocks of code that perform a specific task and can be reused.
 - They help to avoid repeating code (DRY principle - Don't Repeat Yourself).
@@ -578,7 +578,7 @@ double avg1 = Average(10.0, 20.0);
 double avg2 = Average(10.0, 20.0, 30.0);
 ```
 
-### Object-Oriented Programming (OOP): Classes and Objects
+## Object-Oriented Programming (OOP): Classes and Objects
 
 - OOP is a programming paradigm based on the concept of "objects", which can contain data and code.
 - The key concepts are **Classes and Objects**.
@@ -657,11 +657,11 @@ public class Player
 
 ## MS_Learn
 
-### What is the .NET Class Library?: Create and run simple C# console applications (Get started with C#, Part 2)
+## What is the .NET Class Library?: Create and run simple C# console applications (Get started with C#, Part 2)
 
 The .NET Class Library is a collection of thousands of classes containing tens of thousands of methods. For example, the .NET Class Library includes the `Console` class for developers working on console applications. The `Console` class includes methods for input and output operations such as `Write()`, `WriteLine()`, `Read()`, `ReadLine()`, and many others.
 
-#### Even data types are part of the .NET Class Library
+### Even data types are part of the .NET Class Library
 
 C# data types (such as `string` and `int`) are actually made available through classes in the .NET Class Library. The C# language masks the connection between the data types and the .NET classes in order to simplify your work.
 
@@ -687,7 +687,7 @@ Stateful (instance) methods keep track of their state in *fields*, which are var
 
 A single class can support both stateful and stateless methods. However, when you need to call stateful methods, you must first create an *instance* of the class so that the method can access state.
 
-### Creating an instance of a class
+## Creating an instance of a class
 
 An instance of a class is called an *object*. To create a new instance of a class, you use the `new` operator. Consider the following line of code that creates a new instance of the `Random` class to create a new object called `dice`:
 
@@ -765,9 +765,7 @@ Try accessing the `Random.Next()` method directly and see what happens.
 
     Here are detailed notes from the provided source on getting started with array basics:
 
-## Exercise - Get started with array basics
-
-### Declare a new array
+## Declare a new array
 
 - To declare a new array of strings that can hold three elements, you enter the following code:
 
@@ -906,3 +904,277 @@ This turns on the compiler’s null-analysis across your code.
 3. **Helps you catch potential null errors** at compile time instead of at runtime.
 
 By using `string?` when a variable truly can be null (like user input), and plain `string` when it shouldn’t be, your code becomes **safer** and **more self-documenting**.
+
+## Data type in C# code
+
+### Discover value types and reference types
+
+#### What is data?
+
+Answering the question "what is data" depends on who you ask, and in what context you're asking it.
+
+In software development, data is essentially a value that is stored in the computer's memory as a series of bits. A **bit** is a simple binary switch represented as a `0` or `1`, or rather, "off" and "on." A single bit doesn't seem useful, however when you combine 8 bits together in a sequence, they form a **byte**. When used in a byte, each bit takes on a meaning in the sequence. In fact, you can represent 256 different combinations with just 8 bits if you use a binary (base-2) numeral system.
+
+For example, in a binary numeral system, you can represent the number `195` as `11000011`. The following table helps you visualize how this works. The first row has eight columns that correspond to a position in a byte. Each position represents a different numeric value. The second row can store the value of an individual bit, either `0` or `1`.
+
+Expand table
+
+| 128 | 64  | 32  | 16  | 8   | 4   | 2   | 1   |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1   | 1   | 0   | 0   | 0   | 0   | 1   | 1   |
+
+If you add up the number from each column in the first row that corresponds to a `1` in the second row, you get the decimal equivalent to the binary numeral system representation. In this case, it would be `128 + 64 + 2 + 1 = 195`.
+
+To work with larger values beyond `255`, your computer stores more bytes (commonly 32-bit or 64-bit). If you're working with millions of large numbers in a scientific setting, you may need to consider more carefully which data types you're using. Your code could require more memory to run.
+
+#### What about textual data?
+
+If a computer only understands `0`s and `1`s, then how does it allow you to work with text? Using a system like ASCII (American Standard Code for Information Interchange), you can use a single byte to represent upper and lowercase letters, numbers, tab, backspace, newline and many mathematical symbols.
+
+For example, if you wanted to store a lower-case letter `a` as a value in my application, the computer would only understand the binary form of that value. To better understand how a lower-case letter `a` is handled by the computer, I need to locate an ASCII table that provides ASCII values and their decimal equivalents. You can search for the terms "ASCII lookup decimal" to locate such a resource online.
+
+In this case, the lower-case letter `a` is equivalent to the decimal value `97`. Then, you would use the same binary numeral system in reverse to find how an ASCII letter `a` is stored by the computer.
+
+Expand table
+
+| 128 | 64  | 32  | 16  | 8   | 4   | 2   | 1   |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0   | 1   | 1   | 0   | 0   | 0   | 0   | 1   |
+
+Since `64 + 32 + 1 = 97`, the 8-bit binary ASCII code for `a` is `01100001`.
+
+It's likely that you'll never need to perform these types of conversions on your own, but understanding the computer's perspective of data is a foundational concept, especially as you're considering data types.
+
+#### What is a data type?
+
+A data type is a way a programming language defines how much memory to save for a value. There are many data types in the C# language to be used for many different applications and sizes of data.
+
+For most of the applications you build in your career, you'll settle on a small subset of all the available data types. However, it's still vital to know others exist and why.
+
+#### Value vs. reference types
+
+This module focuses on the two kinds of types in C#: reference types and value types.
+
+Variables of reference types store references to their data (objects), that is they point to data values stored somewhere else. In comparison, variables of value types directly contain their data. As you learn more about C#, new details emerge related to the fundamental difference between value and reference types.
+
+#### Simple value types
+
+Simple value types are a set of predefined types provided by C# as keywords. These keywords are aliases (a nickname) for predefined types defined in the .NET Class Library. For example, the C# keyword `int` is an alias of a value type defined in the .NET Class Library as `System.Int32`.
+
+Simple value types include many of the data types that you may have used already like `char` and `bool`. There are also many **integral** and **floating-point** value types to represent a wide range of whole and fractional numbers.
+
+### Integral types
+
+An **integral type** is a simple value type that represents whole numbers with no fraction (such as `-1`, `0`, `1`, `2`, `3`). The most popular in this category is the **`int`** data type.
+
+For most non-scientific applications, you likely only need to work with `int`. Most of the time, you won't need more than a positive to negative 2.14 billion whole numbers.
+
+There are two subcategories of integral types: **signed** and **unsigned** integral types.
+
+A *signed type* uses its bytes to represent an equal number of positive and negative numbers.
+Signed integral types use 1 bit to store whether the value is positive or negative.
+
+An *unsigned type* uses its bytes to represent only positive numbers.
+
+While a given data type can be used for many cases, given the fact that the `byte` data type can represent a value from 0 to 255, it's obvious that this is intended to hold a value that represents a *byte* of data. Data stored in files or data transferred across the internet is often in a binary format. When working with data from these external sources, you need to receive data as an array of bytes, then convert them into strings. Many of the methods in the .NET Class Library that deal with encoding and decoding data requires you handle byte arrays.
+
+In this exercise, you work with floating-point data types to learn about the nuanced differences between each data type.
+
+A floating point is a simple value type that represents numbers to the right of the decimal place. Unlike integral numbers, there are other considerations beyond the maximum and minimum values you can store in a given floating-point type.
+
+### Floating-point types
+
+First, you must consider the digits of precision each type allows. Precision is the number of value places stored after the decimal point.
+
+Second, you must consider the manner in which the values are stored and the impact on the accuracy of the value. For example, `float` and `double` values are stored internally in a binary (base 2) format, while `decimal` is stored in a decimal (base 10) format. Why does this matter?
+
+Performing math on binary floating-point values can produce results that may surprise you if you're used to decimal (base 10) math. Often, binary floating-point math is an approximation of the real value. Therefore, `float` and `double` are useful because large numbers can be stored using a small memory footprint. However, `float` and `double` should only be used when an approximation is useful. For example, being a few thousandths off when calculating the splatter of a snowball in a video game is close enough.
+
+When you need a more precise answer, you should use `decimal`. Each value of type `decimal` has a relatively large memory footprint, however performing math operations gives you a more precise result. So, you should use `decimal` when working with financial data or any scenario where you need an accurate result from a calculation.
+
+#### Deciphering large floating-point values
+
+Because floating-point types can hold large numbers with precision, their values can be represented using "E notation", which is a form of scientific notation that means "times 10 raised to the power of." So, a value like `5E+2` would be the value 500 because it's the equivalent of 5 \* 10^2, or 5 x 102.
+
+#### Recap
+
+- A floating-point type is a simple value data type that can hold fractional numbers.
+- Choosing the right floating-point type for your application requires you to consider more than just the maximum and minimum values that it can hold. You must also consider how many values can be preserved after the decimal, how the numbers are stored, and how their internal storage affects the outcome of math operations.
+- Floating-point values can sometimes be represented using "E notation" when the numbers grow especially large.
+- There's a fundamental difference in how the compiler and runtime handle `decimal` as opposed to `float` or `double`, especially when determining how much accuracy is necessary from math operations.
+
+```bash
+Signed integral types:
+sbyte  : -128 to 127
+short  : -32768 to 32767
+int    : -2147483648 to 2147483647
+long   : -9223372036854775808 to 9223372036854775807
+
+Unsigned integral types:
+byte   : 0 to 255
+ushort : 0 to 65535
+uint   : 0 to 4294967295
+ulong  : 0 to 18446744073709551615
+
+Floating point types:
+float  : -3.402823E+38 to 3.402823E+38 (with ~6-9 digits of precision)
+double : -1.79769313486232E+308 to 1.79769313486232E+308 (with ~15-17 digits of precision)
+decimal: -79228162514264337593543950335 to 79228162514264337593543950335 (with 28-29 digits of precision)
+```
+
+### Reference types
+
+Reference types include arrays, classes, and strings. Reference types are treated differently from value types regarding the way values are stored when the application is executing.
+
+In this exercise, you learn how reference types are different from value types, and how to use the `new` operator to associate a variable with a value in the computer's memory.
+
+#### How reference types are different from value types
+
+A value type variable stores its values directly in an area of storage called the *stack*. The stack is memory allocated to the code that is currently running on the CPU (also known as the stack frame, or activation frame). When the stack frame has finished executing, the values in the stack are removed.
+
+A reference type variable stores its values in a separate memory region called the *heap*. The heap is a memory area that is shared across many applications running on the operating system at the same time. The .NET Runtime communicates with the operating system to determine what memory addresses are available, and requests an address where it can store the value. The .NET Runtime stores the value, and then returns the memory address to the variable. When your code uses the variable, the .NET Runtime seamlessly looks up the address stored in the variable, and retrieves the value that's stored there.
+
+You'll next write some code that illustrates these ideas more clearly.
+
+#### Define a reference type variable
+
+```csharp
+int[] data;
+```
+
+The previous code defines a variable that can hold a value of type `int` array.
+
+At this point, `data` is merely a variable that could hold a reference, or rather, a memory address of a value in the heap. Because it's not pointing to a memory address, it's called a *null reference*.
+
+- Create an instance of `int` array using the `new` keyword
+
+    Update your code in the Visual Studio Code Editor to create and assign a new instance of `int` array, using the following code:
+
+    ```csharp
+    int[] data;
+    data = new int[3];
+    ```
+
+    The `new` keyword informs .NET Runtime to create an instance of `int` array, and then coordinate with the operating system to store the array sized for three int values in memory. The .NET Runtime complies, and returns a memory address of the new `int` array. Finally, the memory address is stored in the variable data. The `int` array's elements default to the value `0`, because that is the default value of an `int`.
+
+- Modify the code example to perform both operations in a single line of code
+
+    The two lines of code in the previous step are typically shortened to a single line of code to both declare the variable, and create a new instance of the `int` array. Modify the code from step 3 to the following.
+
+    ```csharp
+    int[] data = new int[3];
+    ```
+
+    While there's no output to observe, hopefully this exercise added clarity to how the C# syntax relates to the steps of the process for working with reference types.
+
+#### What's different about the C# string data type?
+
+The `string` data type is also a reference type. You might be wondering why a `new` operator wasn't used when declaring a string. This is purely a convenience afforded by the designers of C#. Because the `string` data type is used so frequently, you can use this format:
+
+C# Copy
+
+```csharp
+string shortenedString = "Hello World!";
+Console.WriteLine(shortenedString);
+```
+
+Behind the scenes, however, a new instance of `System.String` is created and initialized to "Hello World!".
+
+#### Practical concerns using value and reference types
+
+1.**Value Type (int)**: In this example, `val_A` and `val_B` are integer value types.
+
+```csharp
+int val_A = 2;
+int val_B = val_A;
+val_B = 5;
+
+Console.WriteLine("--Value Types--");
+Console.WriteLine($"val_A: {val_A}");
+Console.WriteLine($"val_B: {val_B}");
+```
+
+You should see the following output:
+
+```csharp
+--Value Types--
+val_A: 2
+val_B: 5
+```
+
+When `val_B = val_A` is executed, the value of `val_A` is copied and stored in `val_B`. So, when `val_B` is changed, `val_A` remains unaffected.
+
+2.**Reference Type (array)**: In this example, `ref_A` and `ref_B` are array reference types.
+
+```csharp
+int[] ref_A= new int[1];
+ref_A[0] = 2;
+int[] ref_B = ref_A;
+ref_B[0] = 5;
+
+Console.WriteLine("--Reference Types--");
+Console.WriteLine($"ref_A[0]: {ref_A[0]}");
+Console.WriteLine($"ref_B[0]: {ref_B[0]}");
+```
+
+You should see the following output:
+
+```csharp
+--Reference Types--
+ref_A[0]: 5
+ref_B[0]: 5
+```
+
+When `ref_B = ref_A` is executed, `ref_B` points to the same memory location as `ref_A`. So, when `ref_B[0]` is changed, `ref_A[0]` also changes because they both point to the same memory location. This is a key difference between value types and reference types.
+
+#### Recap - Value types vs. Reference types
+
+- Value types can hold smaller values and are stored in the stack. Reference types can hold large values, and a new instance of a reference type is created using the `new` operator. Reference type variables hold a reference (the memory address) to the actual value stored in the heap.
+- Reference types include arrays, strings, and classes.
+
+### Choose the right data type
+
+Think through your choices, and unless you have a good reason, try to stick with the basic types like `int`, `decimal`, `string`, and `bool`.
+With so many data types to choose from, what criteria should you use to choose the right data type for the particular situation? Below are the criteria:
+
+#### Choose the data type that meets the boundary value range requirements of your application
+
+Your choice of a data type can help to set the boundaries for the size of the data you might store in that particular variable. For example, if you know a particular variable should only store a number between 1 and 10,000 otherwise it's outside of the boundaries of what would be expected, you would likely avoid `byte` and `sbyte` since their ranges are too low.
+
+Furthermore, you would likely not need `int`, `long`, `uint`, and `ulong` because they can store more data than is necessary. Likewise, you would probably skip `float`, `double`, and `decimal` if you didn't need fractional values. You might narrow it down to `short` and `ushort`, of which both may be viable. If you're confident that a negative value would have no meaning in your application, you might choose `ushort` (positive unsigned integer, 0 to 65,535). Now, any value assigned to a variable of type `ushort` outside of the boundary of 0 to 65535 would throw an exception, thereby subtly helping you enforce a degree of sanity checking in your application.
+
+#### Start with choosing the data type to fit the data (not to optimize performance)
+
+You may be tempted to choose the data type that uses the fewest bits to store data thinking it improves your application's performance. However, some of the best advice related to application performance (that is, how fast your application runs) is to not "prematurely optimize". You should resist the temptation to guess at the parts of your code, including the selection of data types that may impact your application's performance.
+
+Many assume that because a given data type stores less information it must use less of the computer's processor and memory than a data type that stores more information. Instead, you should choose the right fit for your data, then later you can empirically measure the performance of your application using special software that provides factual insights to the parts of your application that negatively impact performance.
+
+#### Choose data types based on the input and output data types of library functions used
+
+Suppose you want to work with a span of years between two dates. Since the application is a business application, you might determine that you only need a range from about 1960 to 2200. You might think to try to work with `byte` since it can represent numbers between 0 and 255.
+
+However, when you look at the built-in methods on the `System.TimeSpan` and `System.DateTime` classes, you realize they mostly accept values of type `double` and `int`. If you choose `sbyte`, you'll constantly be casting back and forth between `byte` and `double` or `int`. In this case, it might make more sense to choose `int` if you don't need subsecond precision, and `double` if you do need subsecond precision.
+
+#### Choose data types based on impact to other systems
+
+Sometimes, you must consider how the information will be consumed by other applications or other systems like a database. For example, SQL Server's type system is different from C#'s type system. As a result, some mapping between the two must happen before you can save data into that database.
+
+If your application's purpose is to interface with a database, then you would likely need to consider how the data is stored and how much data is stored. The choice of a larger data type might impact the amount (and cost) of the physical storage required to store all the data your application will generate.
+
+#### When in doubt, stick with the basics
+
+While you've looked at several considerations, as you're getting started, for simplicity's sake you should prefer a subset of basic data types, including:
+
+- `int` for most whole numbers
+- `decimal` for numbers representing money
+- `bool` for true or false values
+- `string` for alphanumeric value
+
+#### Choose specialty complex types for special situations
+
+Don't reinvent data types if one or more data type already exists for a given purpose. The following examples identify where a specific .NET data types can be useful:
+
+- `byte`: working with encoded data that comes from other computer systems or using different character sets.
+- `double`: working with geometric or scientific purposes. `double` is used frequently when building games involving motion.
+- `System.DateTime` for a specific date and time value.
+- `System.TimeSpan` for a span of years / months / days / hours / minutes / seconds / milliseconds.

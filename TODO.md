@@ -5,9 +5,10 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## Immediate TO-DO's
 
 - C#
-  - 7.3 vs 12 for array(should I download newer?)
-  - dotnet 6 before & after templates diff
-- Video watch shared on Slack
+  - pre-saturday complete masterclass.md sessions 1&2
+  - dotnet 6 before & after templates diff - need not write compiler adds
+- create a repo called Versus to compare stuff
+- Videos*2 watch shared on Slack
 - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman)
 <!-- - backend as suggested in  -->
 
