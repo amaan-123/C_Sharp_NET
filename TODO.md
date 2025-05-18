@@ -6,6 +6,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 - C#
   - pre-saturday complete masterclass.md sessions 1&2
+  - rename MedicalDataAutomation solution & children in Practice branch, then move from Projects
   - dotnet 6 before & after templates diff - need not write compiler adds
 - create a repo called Versus to compare stuff
 - Videos*2 watch shared on Slack

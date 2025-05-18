@@ -1179,165 +1179,70 @@ Don't reinvent data types if one or more data type already exists for a given pu
 
 There are multiple techniques to perform a data type conversion. The technique you choose depends on your answer to two important questions:
 
-- Is it possible, depending on the value, that attempting to change the value's data type would throw an exception at run time?
-- Is it possible, depending on the value, that attempting to change the value's data type would result in a loss of information?
+### Question 1: depending on the value, that attempting to change the value's data type would throw an exception at run time?
 
-In this exercise, you work your way through these questions, the implications of their answers, and which technique you should use when you need to change the data type.
+Write code that attempts to add an int and a string and save the result in an int
 
-## Question: Is it possible that attempting to change the value's data type would throw an exception at run time?
-
-The C# compiler attempts to accommodate your code, but doesn't compile operations that could result in an exception. When you understand the C# compiler's primary concern, understanding why it functions a certain way is easier.
-
-### Write code that attempts to add an `int` and a `string` and save the result in an `int`
-
-```
+```csharp
 int first = 2;
 string second = "4";
 int result = first + second;
 Console.WriteLine(result);
 ```
 
-Here, you're attempting to add the values `2` and `4`. The value `4` is of type `string`. Will this work?
+The important part of the error message, `(3,14): error CS0029: Cannot implicitly convert type 'string' to 'int'`, tells you the problem is with the use of the `string` data type.
 
-4. On the Visual Studio Code **File** menu, select **Save**.
+But why can't the C# Compiler just handle the error? After all, you can do the opposite to concatenate a number to a `string` and save it in a `string` variable. Here, you change the data type of the result variable from `int` to `string`.
 
-    The Program.cs file must be saved before building or running the code.
+### Question 2: Is it possible that attempting to change the value's data type would result in a loss of information?
 
-5. In the EXPLORER panel, to open a Terminal at your TestProject folder location, right-click **TestProject**, and then select **Open in Integrated Terminal**.
+- `int` to `decimal`: implicit conversion
 
-    A Terminal panel should open, and should include a command prompt showing that the Terminal is open to your TestProject folder location.
+```csharp
+int myInt = 3;
+Console.WriteLine($"int: {myInt}");
 
-6. At the Terminal command prompt, to run your code, type **`dotnet run`** and then press Enter.
+decimal myDecimal = myInt;
+Console.WriteLine($"decimal: {myDecimal}");
+```
 
-    You should see the following approximate output
+```bash
+int: 3
+decimal: 3
+```
 
-    ```bash
-    C:\Users\someuser\Desktop\csharpprojects\TestProject\Program.cs(3,14): error CS0029: Cannot implicitly convert type 'string' to 'int'
-    ```
+```csharp
+decimal myDecimal = myInt;
+```
 
-    Note
+Any `int` value can easily fit inside of a `decimal`, the compiler performs the conversion.
 
-    If you see a message saying "Couldn't find a project to run", ensure that the Terminal command prompt displays the expected TestProject folder location. For example: `C:\Users\someuser\Desktop\csharpprojects\TestProject>`
+*Widening conversion* means that you're attempting to convert a value **from** a data type that could hold *less* information **to** a data type that can hold *more* information. In this case, a value stored in a variable of type `int` converted to a variable of type `decimal`, doesn't lose information.
 
-7. Take a minute to consider why the compiler was unable to run the first code sample.
+When you know you're performing a widening conversion, you can rely on **implicit conversion**. The compiler handles implicit conversions.
 
-    The important part of the error message, **`(3,14): error CS0029: Cannot implicitly convert type 'string' to 'int'`**, tells you the problem is with the use of the `string` data type.
+```csharp
+decimal myDecimal = 3.14m;
+Console.WriteLine($"decimal: {myDecimal}");
 
-    But why can't the C# Compiler just handle the error? After all, you can do the *opposite* to concatenate a number to a `string` and save it in a string variable. Here, you change the data type of the `result` variable from `int` to `string`.
+int myInt = (int)myDecimal;
+Console.WriteLine($"int: {myInt}");
+```
 
-8. Update your code in the Visual Studio Code Editor as follows:
+To perform a cast, you use the casting operator `()` to surround a data type, then place it next to the variable you want to convert (example: `(int)myDecimal`). You perform an **explicit conversion** to the defined cast data type (`int`).
 
-    ```csharp
-    int first = 2;
-    string second = "4";
-    string result = first + second;
-    Console.WriteLine(result);
-    ```
+```
+decimal: 3.14
+int: 3
+```
 
-9. Save your code file, and then use Visual Studio Code to run your code.
+```
+int myInt = (int)myDecimal;
+```
 
-    You should observe the following output:
+The variable `myDecimal` holds a value that has precision after the decimal point. By adding the casting instruction `(int)`, you're telling the C# compiler that you understand it's possible you'll lose that precision, and in this situation, it's fine. You're telling the compiler that you're performing an intentional conversion, an **explicit conversion**.
 
-    ```bash
-    24
-    ```
-
-    The output is mathematically incorrect but completes by combining the values as the characters "2" and "4".
-
-10. Examine, once again, the first code example where the `result` variable is of type `int`. The code with the error message.
-
-    ```
-    int first = 2;
-    string second = "4";
-    int result = first + second;
-    Console.WriteLine(result);
-    ```
-
-    Why can't the C# compiler figure out that you want to treat the variable `second` containing `4` as a number, not a `string`?
-
-## Compilers make safe conversions
-
-The C# compiler sees a potential problem in the making. The variable `second` is of type `string`, so it might be set to a different value like `"hello"`. If the C# compiler attempted to convert `"hello"` to a number that would cause an exception at runtime. To avoid this possibility, the C# compiler doesn't implicitly perform the conversion from `string` to `int` for you.
-
-From the C# compiler's perspective, the safer operation would be to convert `int` into a `string` and perform concatenation instead.
-
-If you intend to perform addition using a string, the C# compiler requires you to take more explicit control of the process of data conversion. In other words, it forces you to be more involved so that you can put the proper precautions in place to handle the possibility that the conversion could throw an exception.
-
-If you need to change a value from the original data type to a new data type and the change could produce an exception at run time, you must perform a **data conversion**.
-
-To perform data conversion, you can use one of several techniques:
-
-- Use a helper method on the data type
-- Use a helper method on the variable
-- Use the `Convert` class' methods
-
-You look at a few examples of these techniques for data conversion later in this unit.
-
-## Question: Is it possible that attempting to change the value's data type would result in a loss of information?
-
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
-
-    ```
-    int myInt = 3;
-    Console.WriteLine($"int: {myInt}");
-    
-    decimal myDecimal = myInt;
-    Console.WriteLine($"decimal: {myDecimal}");
-    ```
-
-2. Save your code file, and then use Visual Studio Code to run your code.
-
-    You should see the following output:
-
-    ```
-    int: 3
-    decimal: 3
-    ```
-
-    The key to this example is this line of code:
-
-    ```
-    decimal myDecimal = myInt;
-    ```
-
-    Since any `int` value can easily fit inside of a `decimal`, the compiler performs the conversion.
-
-    The term *widening conversion* means that you're attempting to convert a value **from** a data type that could hold *less* information **to** a data type that can hold *more* information. In this case, a value stored in a variable of type `int` converted to a variable of type `decimal`, doesn't lose information.
-
-    When you know you're performing a widening conversion, you can rely on **implicit conversion**. The compiler handles implicit conversions.
-
-### Perform a cast
-
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
-
-    ```
-    decimal myDecimal = 3.14m;
-    Console.WriteLine($"decimal: {myDecimal}");
-    
-    int myInt = (int)myDecimal;
-    Console.WriteLine($"int: {myInt}");
-    ```
-
-    To perform a cast, you use the casting operator `()` to surround a data type, then place it next to the variable you want to convert (example: `(int)myDecimal`). You perform an **explicit conversion** to the defined cast data type (`int`).
-
-2. Save your code file, and then use Visual Studio Code to run your code.
-
-    You should see the following output:
-
-    ```
-    decimal: 3.14
-    int: 3
-    ```
-
-    The key to this example is this line of code:
-
-    ```
-    int myInt = (int)myDecimal;
-    ```
-
-    The variable `myDecimal` holds a value that has precision after the decimal point. By adding the casting instruction `(int)`, you're telling the C# compiler that you understand it's possible you'll lose that precision, and in this situation, it's fine. You're telling the compiler that you're performing an intentional conversion, an **explicit conversion**.
-
-## Determine if your conversion is a "widening conversion" or a "narrowing conversion"
+#### Determine if your conversion is a "widening conversion" or a "narrowing conversion"
 
 The term **narrowing conversion** means that you're attempting to convert a value from a data type that can hold *more* information to a data type that can hold less information. In this case, you may lose information such as precision (that is, the number of values after the decimal point). An example is converting value stored in a variable of type `decimal` into a variable of type `int`. If you print the two values, you would possibly notice the loss of information.
 
@@ -1345,140 +1250,124 @@ When you know you're performing a narrowing conversion, you need to perform a **
 
 If you're unsure whether you lose data in the conversion, write code to perform a conversion in two different ways and observe the changes. Developers frequently write small tests to better understand the behaviors, as illustrated with the next sample.
 
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
+```
+decimal myDecimal = 1.23456789m;
+float myFloat = (float)myDecimal;
 
-    ```
-    decimal myDecimal = 1.23456789m;
-    float myFloat = (float)myDecimal;
-    
-    Console.WriteLine($"Decimal: {myDecimal}");
-    Console.WriteLine($"Float  : {myFloat}");
-    ```
+Console.WriteLine($"Decimal: {myDecimal}");
+Console.WriteLine($"Float  : {myFloat}");
+```
 
-2. Save your code file, and then use Visual Studio Code to run your code.
+```
+Decimal: 1.23456789
+Float  : 1.2345679
+```
 
-    You should see output similar to:
+Casting a `decimal` into a `float` is a narrowing conversion because you're losing precision.
 
-    ```
-    Decimal: 1.23456789
-    Float  : 1.2345679
-    ```
+### Performing Data Conversions
 
-    You can observe from the output that casting a `decimal` into a `float` is a narrowing conversion because you're losing precision.
-
-## Performing Data Conversions
-
-Earlier, it was stated that a value change from one data type into another could cause a runtime exception, and you should perform data conversion. For data conversions, there are three techniques you can use:
+For data conversions, there are three techniques you can use:
 
 - Use a helper method on the variable
 - Use a helper method on the data type
 - Use the `Convert` class' methods
 
-### Use `ToString()` to convert a number to a `string`
+#### Use a helper method on the variable - Use `ToString()` to convert a number to a `string`
 
 Every data type variable has a `ToString()` method. What the `ToString()` method does depends on how it's implemented on a given type. However, on most primitives, it performs a widening conversion. While this isn't strictly necessary (since you can rely on implicit conversion in most cases) it can communicate to other developers that you understand what you're doing and it's intentional.
 
 Here's a quick example of using the `ToString()` method to explicitly convert `int` values into `string`s.
+> This is the most common way to convert any value to a string.
 
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
+```csharp
+int first = 5;
+int second = 7;
+string message = first.ToString() + second.ToString();
+Console.WriteLine(message);
+```
 
-    ```
-    int first = 5;
-    int second = 7;
-    string message = first.ToString() + second.ToString();
-    Console.WriteLine(message);
-    ```
+```bash
+57
+```
 
-2. Save your code file, and then use Visual Studio Code to run your code. When you run the code, the output should display a concatenation of the two values:
+#### Use a helper method on the data type - Convert a `string` to an `int` or `double` using the `Parse()` helper method
 
-    ```
-    57
-    ```
+Most of the numeric data types have a `Parse()` method, which converts a string into the given data type. In the first one, you use the `Parse()` method to convert two strings into `int` values, then add them together.  In the second one, you use the `Parse()` method to convert a string into a `double` value.
 
-## Convert a `string` to an `int` using the `Parse()` helper method
+```csharp
+string first = "5";
+string second = "7";
+int sum = int.Parse(first) + int.Parse(second);
+Console.WriteLine(sum);
 
-Most of the numeric data types have a `Parse()` method, which converts a string into the given data type. In this case, you use the `Parse()` method to convert two strings into `int` values, then add them together.
+string doubleString = "3.14";
+double pi = double.Parse(doubleString); 
+```
 
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
+```bash
+12
+3.14
+```
 
-    ```
-    string first = "5";
-    string second = "7";
-    int sum = int.Parse(first) + int.Parse(second);
-    Console.WriteLine(sum);
-    ```
+What if either of the variables `first` or `second` are set to values that can't be converted to an `int`? An exception is thrown at runtime. The C# compiler and runtime expects you to plan ahead and prevent "illegal" conversions. You can mitigate the runtime exception in several ways.
 
-2. Save your code file, and then use Visual Studio Code to run your code. When you run the code, the output should display a sum of the two values:
+> ⚠️ Use only if you're sure the string is in a valid format.
+The easiest way to mitigate this situation is by using `TryParse()`, which is a better version of the `Parse()` method.
 
-    ```
-    12
-    ```
+#### Use the `Convert` class' methods -
 
-3. Take a minute to try to spot the potential problem with the previous code example? What if either of the variables `first` or `second` are set to values that can't be converted to an `int`? An exception is thrown at runtime. The C# compiler and runtime expects you to plan ahead and prevent "illegal" conversions. You can mitigate the runtime exception in several ways.
+✅ Example – `Convert.ToInt32()`, `Convert.ToDouble()`, `Convert.ToBoolean()`:
 
-    The easiest way to mitigate this situation is by using `TryParse()`, which is a better version of the `Parse()` method.
+The `Convert` class offers safe and flexible methods to convert between different types, especially when you're not sure if the data is `null or invalid`.
 
-## Convert a `string` to a `int` using the `Convert` class
+- ✅ It handles null values safely (returns 0 or false instead of throwing exceptions).
 
-The `Convert` class has many helper methods to convert a value from one type into another. In the following code example, you convert a couple of strings into values of type `int`.
+- The `Convert` class is best for converting fractional numbers into whole numbers (`int`) because it rounds up the way you would expect.
 
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
+```csharp
+string value1 = "5";
+string value2 = "7";
+int result = Convert.ToInt32(value1) * Convert.ToInt32(value2);
+Console.WriteLine(result);
 
-    ```
-    string value1 = "5";
-    string value2 = "7";
-    int result = Convert.ToInt32(value1) * Convert.ToInt32(value2);
-    Console.WriteLine(result);
-    ```
+object obj = "false";
+bool flag = Convert.ToBoolean(obj);  // Converts object to bool
+```
 
-2. Save your code file, and then use Visual Studio Code to run your code.
+```bash
+35
+false
+```
 
-    You should see the following output:
+> `System.Int32` is the name of the underlying data type in the .NET Class Library that the C# programming language maps to the keyword `int`. Because the `Convert` class is also part of the .NET Class Library, it is called by its full name, not its C# name. By defining data types as part of the .NET Class Library, multiple .NET languages like Visual Basic, F#, IronPython, and others can share the same data types and the same classes in the .NET Class Library.
 
-    ```
-    35
-    ```
+The `ToInt32()` method has 19 overloaded versions allowing it to accept virtually every data type. You used the `Convert.ToInt32()` method with a string here, but you should probably use `TryParse()` when possible.
 
-    Note
-
-    Why is the method name `ToInt32()`? Why not `ToInt()`? `System.Int32` is the name of the underlying data type in the .NET Class Library that the C# programming language maps to the keyword `int`. Because the `Convert` class is also part of the .NET Class Library, it is called by its full name, not its C# name. By defining data types as part of the .NET Class Library, multiple .NET languages like Visual Basic, F#, IronPython, and others can share the same data types and the same classes in the .NET Class Library.
-
-    The `ToInt32()` method has 19 overloaded versions allowing it to accept virtually every data type.
-
-    you used the `Convert.ToInt32()` method with a string here, but you should probably use `TryParse()` when possible.
-
-    So, when should you use the `Convert` class? The `Convert` class is best for converting fractional numbers into whole numbers (`int`) because it rounds up the way you would expect.
-
-## Compare casting and converting a `decimal` into an `int`
+#### Compare casting and converting a `decimal` into an `int`
 
 The following example demonstrates what happens when you attempt to cast a `decimal` into an `int` (a narrowing conversion) versus using the `Convert.ToInt32()` method to convert the same `decimal` into an `int`.
 
-1. Delete or use the line comment operator `//` to comment out the code from the previous exercise step, and add the following code:
+```
+int value = (int)1.5m; // casting truncates
+Console.WriteLine(value);
 
-    ```
-    int value = (int)1.5m; // casting truncates
-    Console.WriteLine(value);
-    
-    int value2 = Convert.ToInt32(1.5m); // converting rounds up
-    Console.WriteLine(value2);
-    ```
+int value2 = Convert.ToInt32(1.5m); // converting rounds up
+Console.WriteLine(value2);
+```
 
-2. Save your code file, and then use Visual Studio Code to run your code.
+```
+1
+2
+```
 
-    You should see the following output:
-
-    ```
-    1
-    2
-    ```
-
-### Casting truncates and converting rounds
+#### Casting truncates and converting rounds
 
 When you're casting `int value = (int)1.5m;`, the value of the float is truncated so the result is `1`, meaning the value after the decimal is ignored completely. You could change the literal float to `1.999m` and the result of casting would be the same.
 
 When you're converting using `Convert.ToInt32()`, the literal float value is properly rounded up to `2`. If you changed the literal value to `1.499m`, it would be rounded down to `1`.
 
-## Recap
+#### Recap
 
 You covered several important concepts of data conversion and casting:
 
@@ -1488,36 +1377,25 @@ You covered several important concepts of data conversion and casting:
 - Use the `()` cast operator and the data type to perform a cast (for example, `(int)myDecimal`)
 - Use the `Convert` class when you want to perform a narrowing conversion, but want to perform rounding, not a truncation of information
 
-## Check your knowledge
+| Technique        | Example                  | Converts From → To        | Safe?         |
+| ---------------- | ------------------------ | ------------------------- | ------------- |
+| Data type helper | `int.Parse("123")`       | `string` → `int`          | ❌ (may throw) |
+| Variable method  | `123.ToString()`         | `int` → `string`          | ✅             |
+| `Convert` class  | `Convert.ToInt32("123")` | `string`/`object` → `int` | ✅ (safer)     |
 
-1.
 
-Which is the best technique to convert by rounding a decimal type to an int type in C#?
+##  Array operations using helper methods in C#
 
-Convert
+In this module, you work with C# arrays to store sequences of values in a single data structure. Once you store data in an array, you can modify both the order and contents. Additionally, you can perform complex string operations using array helper methods.
 
-Correct. `decimal` to `int` is a narrowing conversion so to round, `Convert` is the best answer.
+You start by using helper methods to sort or reverse the data. Next, you learn how to remove items from the array and resize the array to accommodate new items. Then, you learn to convert a string into an array by splitting it into smaller strings each time a specific character, such as a comma, is encountered. The same method can also be used to split a string into an array of characters. Finally, you learn how to join all elements of an array into a single string.
 
-Narrowing
+### Learning objectives
 
-Implicit conversion
+In this module you will:
 
-2.
+-   Sort and reverse the order of array elements.
+-   Clear and resize the elements of an array.
+-   Split a `string` into an array of strings or characters (`char`s).
+-   Join array elements into a `string`.
 
-Which of the following conversion rounds the value (versus truncate)?
-
-`int cost = (int)3.75m;`
-
-`int cost = Convert.ToInt32(3.75m);`
-
-Correct. `Convert.ToInt32()` rounds values with fractional precision.
-
-`uint cost = (uint)3.75m;`
-
-Check your answers
-
-You must answer all questions before checking your work.
-
-You must answer all questions before checking your work.
-
-- - -
