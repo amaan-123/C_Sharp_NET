@@ -1386,16 +1386,376 @@ You covered several important concepts of data conversion and casting:
 
 ##  Array operations using helper methods in C#
 
-In this module, you work with C# arrays to store sequences of values in a single data structure. Once you store data in an array, you can modify both the order and contents. Additionally, you can perform complex string operations using array helper methods.
-
-You start by using helper methods to sort or reverse the data. Next, you learn how to remove items from the array and resize the array to accommodate new items. Then, you learn to convert a string into an array by splitting it into smaller strings each time a specific character, such as a comma, is encountered. The same method can also be used to split a string into an array of characters. Finally, you learn how to join all elements of an array into a single string.
-
 ### Learning objectives
 
-In this module you will:
+-   Clear items in an array, learning the elements are set to null, using the `Array.Clear()`method.
+-   Resize an array to add and remove elements using the `Array.Resize()` method.
+-   Convert a string into an array using `String.Split()` specifying a string separator character to produce a value in the returned array.
+-   Combine all of the elements of an array into a single string using the `String.Join()` method.
 
--   Sort and reverse the order of array elements.
--   Clear and resize the elements of an array.
--   Split a `string` into an array of strings or characters (`char`s).
--   Join array elements into a `string`.
+#### Create an array of pallets, then sort them & reverse the order of the pallets
 
+```csharp
+string[] pallets = [ "B14", "A11", "B12", "A13" ];
+
+Console.WriteLine("Sorted...");
+////to sort the items in the array alphanumerically.
+Array.Sort(pallets);
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+
+Console.WriteLine("");
+Console.WriteLine("Reversed...");
+Array.Reverse(pallets);
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+```
+
+#### Use Array.Clear() & Array.Resize() to clear and resize an array
+
+The `Array.Clear()` method enables you to eliminate the contents of specific elements in your array, replacing them with the array's default value. For instance, if you clear an element in a `string` array, the cleared value is replaced with `null`. Similarly, when you clear an element in an `int` array, the replacement is `0` (zero).
+
+The `Array.Resize()` method, on the other hand, allows you to add or remove elements from your array.
+
+  ```csharp
+    string[] pallets = [ "B14", "A11", "B12", "A13" ];
+    Console.WriteLine("");
+    
+    Console.WriteLine($"Before: {pallets[0]}");
+    Array.Clear(pallets, 0, 2);
+    Console.WriteLine($"After: {pallets[0]}");
+
+    Console.WriteLine($"Clearing 2 ... count: {pallets.Length}");
+    foreach (var pallet in pallets)
+    {
+        Console.WriteLine($"-- {pallet}");
+    }
+   ```
+
+  Output:
+
+```bash
+Clearing 2 ... count: 4
+-- 
+-- 
+-- B12
+-- A13
+    
+```
+
+#### Empty string versus null
+
+When you use `Array.Clear()`, the elements that were cleared no longer reference a string in memory. In fact, the element points to nothing at all. Pointing to nothing is an important concept that can be difficult to grasp at first.
+
+What if you attempt to retrieve the value of an element affected by the `Array.Clear()` method, could you do it?
+
+#### Access the value of a cleared element
+
+If you focus on the line of output `After:` , you might think that the value stored in `pallets[0]` is an empty string. However, the C# Compiler implicitly converts the null value to an empty string for presentation.
+
+To prove that the value stored in `pallets[0]` after being cleared is null, you'll modify the code example to call the `ToLower()` method on `pallets[0]`. If it's a string, it should work fine. But if it's null, it should cause the code to throw an exception.
+
+```csharp
+Console.WriteLine($"Before: {pallets[0].ToLower()}");
+Array.Clear(pallets, 0, 2);
+Console.WriteLine($"After: {pallets[0].ToLower()}");
+```
+
+Output:
+
+ ```bash
+System.NullReferenceException: Object reference not set to an instance of an object.
+```
+    
+This exception is thrown because the attempt to call the method on the contents of the `pallets[0]` element happens before the C# Compiler has a chance to implicitly convert null to an empty string.
+    
+The moral of the story is that `Array.Clear()` removes an array element's reference to a value if one exists. To fix this, you might check for null before attempt to print the value.
+    
+To avoid the error, add an `if` statement before accessing an array element that is potentially null.
+
+```csharp
+if (pallets[0] != null)
+    Console.WriteLine($"After: {pallets[0].ToLower()}");
+```
+
+#### Resize the array to add more elements
+
+```csharp
+string[] pallets =  ["B14", "A11", "B12", "A13" ];
+Console.WriteLine("");
+    
+Array.Clear(pallets, 0, 2);
+Console.WriteLine($"Clearing 2 ... count: {pallets.Length}");
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+    
+Console.WriteLine("");
+Array.Resize(ref pallets, 6);
+Console.WriteLine($"Resizing 6 ... count: {pallets.Length}");
+    
+pallets[4] = "C01";
+pallets[5] = "C02";
+    
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+```
+    
+Focus on the line `Array.Resize(ref pallets, 6);`.
+    
+Here, you're calling the `Resize()` method passing in the `pallets` array by reference, using the `ref` keyword. In some cases, methods require you pass arguments by value (the default) or by reference (using the ref keyword). The reasons why this is necessary requires a long and complicated explanation about of how objects are managed in .NET. Unfortunately, that is beyond the scope of this module. When in doubt, you're recommended to look at Intellisense or Microsoft Docs for examples on how to properly call a given method.
+    
+In this case, you're resizing the `pallets` array from four elements to `6`. The new elements are added at the end of the current elements. The two new elements are null until you assign a value to them.
+    
+Output:
+    
+```
+Clearing 2 ... count: 4
+-- 
+-- 
+-- B12
+-- A13
+    
+Resizing 6 ... count: 6
+-- 
+-- 
+-- B12
+-- A13
+-- C01
+-- C02
+    
+```
+    
+#### Resize the array to remove elements
+
+Conversely, you can remove array elements using `Array.Resize()`.
+    
+```csharp
+string[] pallets = [ "B14", "A11", "B12", "A13" ];
+Console.WriteLine("");
+    
+Array.Clear(pallets, 0, 2);
+Console.WriteLine($"Clearing 2 ... count: {pallets.Length}");
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+    
+Console.WriteLine("");
+Array.Resize(ref pallets, 6);
+Console.WriteLine($"Resizing 6 ... count: {pallets.Length}");
+    
+pallets[4] = "C01";
+pallets[5] = "C02";
+    
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+    
+Console.WriteLine("");
+Array.Resize(ref pallets, 3);
+Console.WriteLine($"Resizing 3 ... count: {pallets.Length}");
+    
+foreach (var pallet in pallets)
+{
+    Console.WriteLine($"-- {pallet}");
+}
+```
+    
+Output:
+    
+```
+Clearing 2 ... count: 4
+--
+--
+-- B12
+-- A13
+    
+Resizing 6 ... count: 6
+--
+--
+-- B12
+-- A13
+-- C01
+-- C02
+    
+Resizing 3 ... count: 3
+--
+--
+-- B12
+    
+```
+    
+Notice that calling `Array.Resize()` removed the last three elements. Notably, last three elements were removed even though they contained string values.
+    
+#### Can you remove null elements from an array?
+
+If the `Array.Resize()` method doesn't remove empty elements from an array, is there another helper method that does the job automatically? No. The best way to empty elements from an array would be to count the number of non-null elements by iterating through each item and increment a variable (a counter). Next, you would create a second array that is the size of the counter variable. Finally, you would loop through each element in the original array and copy non-null values into the new array.
+
+### Discover Split() and Join()
+
+#### Use the `ToCharArray()` to reverse a `string`
+
+```csharp
+string value = "abc123";
+char[] valueArray = value.ToCharArray();
+    
+```
+
+In this example, the `ToCharArray()` method is used to create an array of `char`, where each element of the array represents one character of the original string.
+
+#### Reverse, then combine the char array into a new string
+    
+```csharp
+string value = "abc123";
+char[] valueArray = value.ToCharArray();
+Array.Reverse(valueArray);
+string result = new string(valueArray);
+Console.WriteLine(result);
+    
+```
+    
+The expression `new string(valueArray)` creates a new empty instance of the `System.String` class (which is the same as the `string` data type in C#) and passes in the char array as a constructor.
+    
+> What is the `new` keyword? How is the `System.String` class related to the `string` data type in C#? What is a constructor? All great questions that unfortunately are out of scope for this module. You are recommended to keep learning about the .NET Class Library as well as classes and objects in C# to fully understand what is going on behind the scenes with this expression of code. For now, use a search engine and Microsoft Documentation to find examples you can use in situations like this where you know you want to perform a conversion but are not sure how to do it using C#.
+    
+Output:
+    
+```bash
+321cba
+    
+```
+    
+
+### Combine all of the chars into a new comma-separated-value string using `Join()`
+
+In some cases, you might need to separate each element of the character array using a comma, which is a common practice when working with data represented as ASCII text. To do that, you comment out the line of code you added in Step 2 and use the `String` class' `Join()` method, passing in the char you want to delimit each segment (the comma) and the array itself.
+    
+```csharp
+string value = "abc123";
+char[] valueArray = value.ToCharArray();
+Array.Reverse(valueArray);
+// string result = new string(valueArray);
+string result = String.Join(",", valueArray);
+Console.WriteLine(result);
+    
+```
+    
+Output:
+    
+```bash
+3,2,1,c,b,a
+```
+    
+
+### `Split()` the comma-separated-value string into an array of strings
+
+To complete the code, the `Split()` method is used. This method is designed for variables of type `string` and creates an array of strings.
+
+    
+```csharp
+string value = "abc123";
+char[] valueArray = value.ToCharArray();
+Array.Reverse(valueArray);
+// string result = new string(valueArray);
+string result = String.Join(",", valueArray);
+Console.WriteLine(result);
+    
+string[] items = result.Split(',');
+foreach (string item in items)
+{
+    Console.WriteLine(item);
+}
+```
+    
+The comma is supplied to `.Split()` as the delimiter to split one long string into smaller strings. The code then uses a `foreach` loop to iterate through each element of the newly created array of strings, `items`.
+    
+Output:
+    
+```bash
+3,2,1,c,b,a
+3
+2
+1
+c
+b
+a
+```
+    
+The `items` array created using `string[] items = result.Split(',');` is used in the `foreach` loop and displays the individual characters from the original `string` contained in the `value` variable.
+
+#### Review a solution to the reverse words in a sentence challenge
+
+1.  To create the string array `message`, split the `pangram` string on the space character.
+2.  Create a new `newMessage`array that stores a reversed copy of the "word" string from the `message` array.
+3.  Loop through each element in the `message` array, reverse it, and store this element in `newMessage` array.
+4.  Join "word" strings from the array `newMessage`, using a space again, to create the desired single string to write to the console.
+
+```csharp
+string pangram = "The quick brown fox jumps over the lazy dog";
+
+// Step 1
+string[] message = pangram.Split(' ');
+
+//Step 2
+string[] newMessage = new string[message.Length];
+
+// Step 3
+for (int i = 0; i < message.Length; i++)
+{
+    char[] letters = message[i].ToCharArray();
+    Array.Reverse(letters);
+    newMessage[i] = new string(letters);
+}
+
+//Step 4
+string result = String.Join(" ", newMessage);
+Console.WriteLine(result);
+```
+
+Output:
+
+```bash
+ehT kciuq nworb xof spmuj revo eht yzal god
+```
+
+#### Review a solution to parse a string of orders, sort orders and tag possible errors
+
+```csharp
+string orderStream = "B123,C234,A345,C15,B177,G3003,C235,B179";
+string[] items = orderStream.Split(',');
+Array.Sort(items);
+
+foreach (var item in items)
+{
+    if (item.Length == 4)
+    {
+        Console.WriteLine(item);
+    }
+    else
+    {
+        Console.WriteLine(item + "\t- Error");
+    }
+}
+```
+
+Output:
+
+```bash
+A345
+B123
+B177
+B179
+C15     - Error
+C234
+C235
+G3003   - Error
+```

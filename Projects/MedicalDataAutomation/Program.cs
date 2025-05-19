@@ -173,27 +173,109 @@
 //The variables of type string have many built-in methods that convert a single string into either an array of smaller strings, or an array of individual characters.
 // When you process data from other computer systems, sometimes it formats or encodes in a way that's not useful for your purposes. In these cases, you use the string data type's Array methods to parse a string into an array.
 
-//Use the ToCharArray() to reverse a string
-string value = "abc123";
+////Use the ToCharArray() to reverse a string
+//string value = "abc123";
 
-char[] valueArray = value.ToCharArray();
-//Array.ForEach(valueArray, Console.WriteLine);
+//char[] valueArray = value.ToCharArray();
+////Array.ForEach(valueArray, Console.WriteLine);
 
-Array.Reverse(valueArray);
-//Array.ForEach(valueArray, Console.WriteLine);
+//Array.Reverse(valueArray);
+////Array.ForEach(valueArray, Console.WriteLine);
 
-//Reversed, and then combined the char array into a new string
-//string result = new string(valueArray);
+////Reversed, and then combined the char array into a new string
+////string result = new string(valueArray);
 
-//Combine all of the chars into a new comma-separated-value string using Join()
-string result = String.Join(",", valueArray);
-Console.WriteLine(result);
+////Combine all of the chars into a new comma-separated-value string using Join()
+//string result = String.Join(",", valueArray);
+//Console.WriteLine(result);
 
-//Split() the comma-separated-value string into an array of strings
-//To complete the code, the Split() method is used. This method is designed for variables of type string and creates an array of strings.
-string[] items = result.Split(',');
-foreach (string item in items)
-{
-    Console.WriteLine(item);
-}
+////Split() the comma-separated-value string into an array of strings
+////To complete the code, the Split() method is used. This method is designed for variables of type string and creates an array of strings.
+//string[] items = result.Split(',');
+//foreach (string item in items)
+//{
+//    Console.WriteLine(item);
+//}
 
+////a solution to the reverse words in a sentence challenge
+//string pangram = "The quick brown fox jumps over the lazy dog";
+
+//// Step 1
+//string[] message = pangram.Split(' ');
+
+////Step 2
+//string[] newMessage = new string[message.Length];
+
+//// Step 3
+//for (int i = 0; i < message.Length; i++)
+//{
+//    char[] letters = message[i].ToCharArray();
+//    Array.Reverse(letters);
+//    newMessage[i] = new string(letters);
+//}
+
+////Step 4
+//string result = String.Join(" ", newMessage);
+//Console.WriteLine(result);
+
+
+////my solution:
+////split into words - an array of type string
+////split each word into an array of char
+////reverse char array for each word
+////join chars to form each reversedWord string?
+////join reversedWord strings to form reversedPhrase
+
+//string[] words = pangram.Split(' ');
+//string reversedPhrase = "";
+
+//foreach (string word in words)
+//{
+//    char[] letters = word.ToCharArray();
+//    //foreach (char letter in letters)
+//    //{
+//    //    Console.WriteLine($"before: {letter}");
+//    //}
+//    Array.Reverse(letters);
+//    //foreach (char letter in letters)
+//    //{
+//    //    Console.WriteLine($"after: {letter}");
+//    //}
+//    //Console.WriteLine(word);
+//    string reversedWord = string.Join("", letters);
+//    //Console.WriteLine(reversedWord);
+//    reversedPhrase = reversedPhrase + $" {reversedWord}";
+//}
+//Console.WriteLine(reversedPhrase);
+
+////Complete a challenge to parse a string of orders, sort the orders and tag possible errors
+//// In this challenge you have to parse the individual "Order IDs", and output the "OrderIDs" sorted and tagged as "Error" if they aren't exactly four characters in length.
+//// Add code below the orderStream variable initialization to parse the "Order IDs" from the string of incoming orders and store the "Order IDs" in an array.
+//// Add code to output each "Order ID" in sorted order and tag orders that aren't exactly four characters in length as "- Error".
+
+//// Your code must produce the following output:
+//// Output
+//// 
+//// A345
+//// B123
+//// B177
+//// B179
+//// C15     - Error
+//// C234
+//// C235
+//// G3003   - Error
+//string orderStream = "B123,C234,A345,C15,B177,G3003,C235,B179";
+//string[] orderIDs = orderStream.Split(',');
+//Array.Sort(orderIDs);
+//foreach (string order in orderIDs)
+//{
+//    if (order.Length == 4)
+//    {
+//        Console.WriteLine(order);
+//    }
+//    else
+//    {
+//        Console.WriteLine($"{order}\t- Error");
+
+//    }
+//}
