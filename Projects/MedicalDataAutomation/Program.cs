@@ -489,6 +489,40 @@
 ////The previous code listing is a safer way to write the same code you examined in the previous section. Now, if the value of `openSpan` changes to `<div>`, the line of code that uses the `Length` property continues to be valid.
 
 
+//string message = "hello there!";
+
+//int first_h = message.IndexOf('h');
+//int last_h = message.LastIndexOf('h');
+
+//Console.WriteLine($"For the message: '{message}', the first 'h' is at position {first_h} and the last 'h' is at position {last_h}.");
+
+//string message = "(What if) I am (only interested) in the last (set of parentheses)?";
+//int openingPosition = message.LastIndexOf('(');
+
+//openingPosition += 1;
+//int closingPosition = message.LastIndexOf(')');
+//int length = closingPosition - openingPosition;
+//Console.WriteLine(message.Substring(openingPosition, length));
+
+
+////Retrieve all instances of substrings inside parentheses
+////This time, update the message to have three sets of parentheses, and write code to extract any text inside of the parentheses. You're able to reuse portions of the previous work, but you need to add a while statement to iterate through the string until all sets of parentheses are discovered, extracted, and displayed.
+//string message = "(What if) there are (more than) one (set of parentheses)?";
+//while (true)
+//{
+//    int openingPosition = message.IndexOf('(');
+//    if (openingPosition == -1) break;
+
+//    openingPosition += 1;
+//    int closingPosition = message.IndexOf(')');
+//    int length = closingPosition - openingPosition;
+//    Console.WriteLine(message.Substring(openingPosition, length));
+
+//    // Note the overload of the Substring to return only the remaining 
+//    // unprocessed message:
+//    message = message.Substring(closingPosition + 1);
+//}
+
 //// Replace one substring with another with String.Replace.
 
 //string source = "The mountains are behind the clouds today.";
@@ -511,3 +545,73 @@
 //}
 //Console.WriteLine(source);
 //Console.WriteLine(result);
+
+
+//Work with different types of symbol sets with IndexOfAny()
+// This time, search for several different character symbols, not just a set of parentheses by using .IndexOfAny().
+// 
+// .IndexOfAny() reports the index of the first occurrence of any character in a supplied array of characters. The method returns -1 if all characters in the array of characters are not found.
+//string message = "Hello, world!";
+//char[] charsToFind = { 'a', 'e', 'i' };
+
+//int index = message.IndexOfAny(charsToFind);
+
+//Console.WriteLine($"Found '{message[index]}' in '{message}' at index: {index}.");
+
+////Work with different types of symbol sets with IndexOfAny()
+////The variable closingPosition is used to find the length passed into the Substring() method, and to find the next openingPosition value:
+////For this reason, the closingPosition variable is defined outside of the while loop scope and initialized to 0 for the first iteration.
+
+//string message = "(What if) I have [different symbols] but every {open symbol} needs a [matching closing symbol]?";
+
+//// The IndexOfAny() helper method requires a char array of characters. 
+//// You want to look for:
+
+//char[] openSymbols = { '[', '{', '(' };
+
+//// You'll use a slightly different technique for iterating through 
+//// the characters in the string. This time, use the closing 
+//// position of the previous iteration as the starting index for the 
+////next open symbol. So, you need to initialize the closingPosition 
+//// variable to zero:
+
+//int closingPosition = 0;
+
+//while (true)
+//{
+//    int openingPosition = message.IndexOfAny(openSymbols, closingPosition);
+
+//    if (openingPosition == -1) break;
+
+//    string currentSymbol = message.Substring(openingPosition, 1);
+
+//    // Now  find the matching closing symbol
+//    char matchingSymbol = ' ';
+
+//    switch (currentSymbol)
+//    {
+//        case "[":
+//            matchingSymbol = ']';
+//            break;
+//        case "{":
+//            matchingSymbol = '}';
+//            break;
+//        case "(":
+//            matchingSymbol = ')';
+//            break;
+//    }
+
+//    // To find the closingPosition, use an overload of the IndexOf method to specify 
+//    // that the search for the matchingSymbol should start at the openingPosition in the string. 
+
+//    openingPosition += 1;
+//    closingPosition = message.IndexOf(matchingSymbol, openingPosition);
+
+//    // Finally, use the techniques you've already learned to display the sub-string:
+
+//    int length = closingPosition - openingPosition;
+//    Console.WriteLine(message.Substring(openingPosition, length));
+//}
+
+////LastIndexOf() returns the last position of a character or string inside of another string.
+////IndexOfAny() returns the first position of an array of char that occurs inside of another string.
