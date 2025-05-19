@@ -279,3 +279,235 @@
 
 //    }
 //}
+
+
+
+//// Format alphanumeric data for presentation in C#
+//// If you look at code examples in books and online, you're likely to see both composite formatting and string interpolation used, but generally you should choose string interpolation.
+/// 
+////What is Composite Formatting?
+//string first = "Hello";
+//string second = "World";
+//Console.WriteLine("{1} {0}!", first, second);
+//Console.WriteLine("{0} {0} {0}!", first, second);
+
+////Formatting currency
+////In the following example, the :C currency format specifier is used to present the price and discount variables as currency. 
+//decimal price = 123.45m;
+//int discount = 50;
+//Console.WriteLine($"Price: {price:C} (Save {discount:C})");
+
+////Formatting numbers
+////When working with numeric data, you might want to format the number for readability by including commas to delineate thousands, millions, billions, and so on.
+//// The N numeric format specifier makes numbers more readable.
+//decimal measurement = 123456.78912m;
+//Console.WriteLine($"Measurement: {measurement:N} units");
+
+////By default, the N numeric format specifier displays only two digits after the decimal point.
+////    If you want to display more precision, you can do that by adding a number after the specifier. The following code will display four digits after the decimal point using the N4 specifier.
+//decimal measurement = 123456.78912m;
+//Console.WriteLine($"Measurement: {measurement:N4} units");
+
+////Formatting percentages
+////Use the P format specifier to format percentages and rounds to 2 decimal places. Add a number afterwards to control the number of values displayed after the decimal point.
+//decimal tax = .36785m;
+//Console.WriteLine($"Tax rate: {tax:P2}");
+
+////Combining formatting approaches
+////String variables can store strings created using formatting techniques. In the following example, decimals and decimal math results are formatted and stored in the yourDiscount string using composite formatting.
+//decimal price = 67.55m;
+//decimal salePrice = 59.99m;
+
+//string yourDiscount = String.Format("You saved {0:C2} off the regular {1:C2} price. ", (price - salePrice), price);
+
+////concatenating the calculated percentage using the string interpolation instead of string concatenation
+////You don't need to use String.Format() with this string interpolation approach.
+//yourDiscount += $"A discount of {((price - salePrice) / price):P2}!"; //inserted
+//Console.WriteLine(yourDiscount);
+
+//int invoiceNumber = 1201;
+//decimal productShares = 25.4568m;
+//decimal subtotal = 2750.00m;
+//decimal taxPercentage = .15825m;
+//decimal total = 3185.19m;
+
+//Console.WriteLine($"Invoice Number: {invoiceNumber}");
+
+////Display the product shares with one thousandth of a share (0.001) precision
+//Console.WriteLine($"   Shares: {productShares:N3} Product");
+////Display the subtotal that you charge the customer formatted as currency
+//Console.WriteLine($"     Sub Total: {subtotal:C}");
+////Display the tax charged on the sale formatted as a percentage
+//Console.WriteLine($"           Tax: {taxPercentage:P2}");
+////Finalize the receipt with the total amount due formatted as currency
+//Console.WriteLine($"     Total Billed: {total:C}");
+
+
+////Discover padding and alignment
+
+
+////Formatting strings by adding whitespace before or after
+////The PadLeft() method adds blank spaces to the left-hand side of the string so that the total number of characters equals the argument you send it. In this case, you want the total length of the string to be 12 characters.
+//string input = "Pad this";
+//Console.WriteLine(input.PadLeft(12));
+//Console.WriteLine(input.PadRight(12));
+////can also call a second overloaded version of the method and pass in whatever character you want to use instead of a space
+//Console.WriteLine(input.PadLeft(12, '-'));
+//Console.WriteLine(input.PadRight(12, '-'));
+
+////Working with padded strings
+////payment processing company that still supports legacy mainframe systems. Often, those systems require data to be input in specific columns. For example, store the Payment ID in columns 1 through 6, the payee's name in columns 7 through 30, and the Payment Amount in columns 31 through 40. Also, importantly, the Payment Amount is right-aligned.
+
+//string paymentId = "769C";
+//string payeeName = "Mr. Stephen Ortega";
+//string paymentAmount = "$5,000.00";
+
+//var formattedLine = paymentId.PadRight(6);
+//formattedLine += payeeName.PadRight(24);
+////Next, add a fictitious Payment Amount and make sure to use PadLeft() to right-align the output.
+//formattedLine += paymentAmount.PadLeft(10);
+
+//Console.WriteLine("1234567890123456789012345678901234567890");//to count column number
+//Console.WriteLine(formattedLine);
+
+
+////Complete a challenge to apply string interpolation to a form letter
+//Dear Ms. Barros,
+//As a customer of our Magic Yield offering we are excited to tell you about a new financial product that would dramatically increase your return.
+
+//Currently, you own 2,975,000.00 shares at a return of 12.75%.
+
+//Our new product, Glorious Future offers a return of 13.13%.  Given your current volume, your potential profit would be ¤63,000,000.00.
+
+//Here's a quick comparison:
+
+//Magic Yield         12.75%   $55,000,000.00      
+//Glorious Future     13.13%   $63,000,000.00 
+
+//my solution:
+//string customerName = "Ms. Barros";
+
+//string currentProduct = "Magic Yield";
+//int currentShares = 2975000;
+//decimal currentReturn = 0.1275m;
+//decimal currentProfit = 55000000.0m;
+
+//string newProduct = "Glorious Future";
+//decimal newReturn = 0.13125m;
+//decimal newProfit = 63000000.0m;
+
+//Console.WriteLine($"Dear {customerName},\n");
+//Console.WriteLine($"As a customer of our {currentProduct} offering we are excited to tell you about a new financial product that would dramatically increase your return.\n");
+//Console.WriteLine($"Currently, you own {currentShares:N2} at a return of {currentReturn:P2}.\n");
+//Console.WriteLine($"Our new product, {newProduct} offers a return of {newReturn:P2}. Given your current volume, your potential profit would be {newProfit:C2}.\n");
+
+//Console.WriteLine("Here's a quick comparison:\n");
+////string test = "Magic Yield         12.75%   $55,000,000.00";
+////Console.WriteLine(test.IndexOf("1"));//20
+////Console.WriteLine(test.IndexOf("$"));//29
+
+//string comparisonMessage = "";
+
+//comparisonMessage += currentProduct.PadRight(20) + $"{currentReturn:P2}".PadRight(8) + $"{currentProfit:C2}".PadLeft(15);
+//Console.WriteLine(comparisonMessage);
+//comparisonMessage = "";
+//comparisonMessage += newProduct.PadRight(20) + $"{newReturn:P2}".PadRight(8) + $"{newProfit:C2}".PadLeft(15);
+//Console.WriteLine(comparisonMessage);
+
+////MS Learn solution:
+//string customerName = "Ms. Barros";
+
+//string currentProduct = "Magic Yield";
+//int currentShares = 2975000;
+//decimal currentReturn = 0.1275m;
+//decimal currentProfit = 55000000.0m;
+
+//string newProduct = "Glorious Future";
+//decimal newReturn = 0.13125m;
+//decimal newProfit = 63000000.0m;
+
+//Console.WriteLine($"Dear {customerName},");
+//Console.WriteLine($"As a customer of our {currentProduct} offering we are excited to tell you about a new financial product that would dramatically increase your return.\n");
+//Console.WriteLine($"Currently, you own {currentShares:N} shares at a return of {currentReturn:P}.\n");
+//Console.WriteLine($"Our new product, {newProduct} offers a return of {newReturn:P}.  Given your current volume, your potential profit would be {newProfit:C}.\n");
+
+//Console.WriteLine("Here's a quick comparison:\n");
+
+//string comparisonMessage = "";
+
+//comparisonMessage = currentProduct.PadRight(20);
+//comparisonMessage += String.Format("{0:P}", currentReturn).PadRight(10);
+//comparisonMessage += String.Format("{0:C}", currentProfit).PadRight(20);
+
+//comparisonMessage += "\n";
+//comparisonMessage += newProduct.PadRight(20);
+//comparisonMessage += String.Format("{0:P}", newReturn).PadRight(10);
+//comparisonMessage += String.Format("{0:C}", newProfit).PadRight(20);
+
+//Console.WriteLine(comparisonMessage);
+
+////Use the string's IndexOf() and Substring() helper methods
+//string message = "Find what is (inside the parentheses)";
+
+//int openingPosition = message.IndexOf('(');
+//int closingPosition = message.IndexOf(')');
+
+//openingPosition += 1;
+//// Console.WriteLine(openingPosition);
+//// Console.WriteLine(closingPosition);
+
+////Add code to retrieve the value between parenthesis
+//int length = closingPosition - openingPosition;
+//Console.WriteLine(message.Substring(openingPosition, length));
+
+//string message = "What is the value <span>between the tags</span>?";
+
+//int openingPosition = message.IndexOf("<span>");
+//int closingPosition = message.IndexOf("</span>");
+
+//openingPosition += 6;
+//int length = closingPosition - openingPosition;
+//Console.WriteLine(message.Substring(openingPosition, length));
+
+////Avoid magic values
+//// Hardcoded strings like "<span>" in the previous code listing are known as "magic strings" and hardcoded numeric values like 6 are known as "magic numbers". These "Magic" values are undesirable for many reasons and you should try to avoid them if possible.
+//string message = "What is the value <span>between the tags</span>?";
+
+//const string openSpan = "<span>";
+//const string closeSpan = "</span>";
+
+//int openingPosition = message.IndexOf(openSpan);
+//int closingPosition = message.IndexOf(closeSpan);
+
+//openingPosition += openSpan.Length;
+//int length = closingPosition - openingPosition;
+//Console.WriteLine(message.Substring(openingPosition, length));
+////Take a minute to examine the updated code and the use of the keyword `const` as used in `const string openSpan = "<span>";`.
+
+////The code uses a constant with the `const` keyword. A constant allows you to define and initialize a variable whose value can never be changed. You would then use that constant in the rest of the code whenever you needed that value. This ensures that the value is only defined once and misspelling the `const` variable is caught by the compiler.
+
+////The previous code listing is a safer way to write the same code you examined in the previous section. Now, if the value of `openSpan` changes to `<div>`, the line of code that uses the `Length` property continues to be valid.
+
+
+//// Replace one substring with another with String.Replace.
+
+//string source = "The mountains are behind the clouds today.";
+//// Only exact matches are supported.
+//var replacement = source.Replace("mountains", "peaks");
+//Console.WriteLine($"The source string is <{source}>");
+//Console.WriteLine($"The updated string is <{replacement}>");
+
+////The preceding code demonstrates this _immutable_ property of strings. You can see in the preceding example that the original string, `source`, isn't modified. The [String.Replace](/en-us/dotnet/api/system.string.replace) method creates a new `string` containing the modifications.
+
+
+//string source = "Many mountains are behind many clouds today.";
+//// Remove a substring from the middle of the string.
+//string toRemove = "many ";
+//string result = string.Empty;
+//int i = source.IndexOf(toRemove);
+//if (i >= 0)
+//{
+//    result = source.Remove(i, toRemove.Length);
+//}
+//Console.WriteLine(source);
+//Console.WriteLine(result);
