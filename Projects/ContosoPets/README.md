@@ -235,3 +235,20 @@ To ensure that animal nicknames and personality descriptions are complete, your 
 - Assign a valid string to petNickname for any animal that has been assigned data in the ourAnimals array but has not been assigned a nickname.
 - Assign a valid string to petPersonalityDescription for any animal that has been assigned data in the ourAnimals array but has not been assigned a personality description.
 - Verify that nicknames and personality descriptions have an assigned value. Assigned values cannot have zero characters. Any further requirement is up to you.
+
+##  Guided project - Work with variable data in C#
+
+### Introduction
+
+Your team found that it's important to search the pet data to identify animals with possible matches based on characteristics provided by potential owners. Further, the team wants to include a fundraising feature to include suggested donation data and to present the pet data with fewer lines of output.
+
+You begin with a starting application that adds predefined _sample_ data to the pets array. The application has two menu items. The first menu item started with functional display of the pet data. The second is menu item, "Display all dogs with a specified characteristic," is "work in progress" that you complete.
+
+You also make updates to existing code to add `suggestedDonation` data and display all data in a shortened format.
+
+In completing this coding project, you apply your C# data knowledge and skills in:
+
+-   Choosing the correct data types and safely converting data types.
+-   Create two dimensional arrays of numbers and strings.
+-   Search data in arrays to display or update data.
+-   Modifying and building complex strings from multiple data sources, and formatting data for display across regions.
