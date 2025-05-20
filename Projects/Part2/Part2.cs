@@ -523,28 +523,6 @@
 //    message = message.Substring(closingPosition + 1);
 //}
 
-//// Replace one substring with another with String.Replace.
-
-//string source = "The mountains are behind the clouds today.";
-//// Only exact matches are supported.
-//var replacement = source.Replace("mountains", "peaks");
-//Console.WriteLine($"The source string is <{source}>");
-//Console.WriteLine($"The updated string is <{replacement}>");
-
-////The preceding code demonstrates this _immutable_ property of strings. You can see in the preceding example that the original string, `source`, isn't modified. The [String.Replace](/en-us/dotnet/api/system.string.replace) method creates a new `string` containing the modifications.
-
-
-//string source = "Many mountains are behind many clouds today.";
-//// Remove a substring from the middle of the string.
-//string toRemove = "many ";
-//string result = string.Empty;
-//int i = source.IndexOf(toRemove);
-//if (i >= 0)
-//{
-//    result = source.Remove(i, toRemove.Length);
-//}
-//Console.WriteLine(source);
-//Console.WriteLine(result);
 
 
 //Work with different types of symbol sets with IndexOfAny()
@@ -562,56 +540,121 @@
 ////The variable closingPosition is used to find the length passed into the Substring() method, and to find the next openingPosition value:
 ////For this reason, the closingPosition variable is defined outside of the while loop scope and initialized to 0 for the first iteration.
 
-string message = "(What if) I have [different symbols] but every {open symbol} needs a [matching closing symbol]?";
+//string message = "(What if) I have [different symbols] but every {open symbol} needs a [matching closing symbol]?";
 
-// The IndexOfAny() helper method requires a char array of characters. 
-// You want to look for:
+//// The IndexOfAny() helper method requires a char array of characters. 
+//// You want to look for:
 
-char[] openSymbols = { '[', '{', '(' };
+//char[] openSymbols = { '[', '{', '(' };
 
-// You'll use a slightly different technique for iterating through 
-// the characters in the string. This time, use the closing 
-// position of the previous iteration as the starting index for the 
-//next open symbol. So, you need to initialize the closingPosition 
-// variable to zero:
+//// You'll use a slightly different technique for iterating through 
+//// the characters in the string. This time, use the closing 
+//// position of the previous iteration as the starting index for the 
+////next open symbol. So, you need to initialize the closingPosition 
+//// variable to zero:
 
-int closingPosition = 0;
+//int closingPosition = 0;
 
-while (true)
-{
-    int openingPosition = message.IndexOfAny(openSymbols, closingPosition);
+//while (true)
+//{
+//    int openingPosition = message.IndexOfAny(openSymbols, closingPosition);
 
-    if (openingPosition == -1) break;
+//    if (openingPosition == -1) break;
 
-    string currentSymbol = message.Substring(openingPosition, 1);
+//    string currentSymbol = message.Substring(openingPosition, 1);
 
-    // Now  find the matching closing symbol
-    char matchingSymbol = ' ';
+//    // Now  find the matching closing symbol
+//    char matchingSymbol = ' ';
 
-    switch (currentSymbol)
-    {
-        case "[":
-            matchingSymbol = ']';
-            break;
-        case "{":
-            matchingSymbol = '}';
-            break;
-        case "(":
-            matchingSymbol = ')';
-            break;
-    }
+//    switch (currentSymbol)
+//    {
+//        case "[":
+//            matchingSymbol = ']';
+//            break;
+//        case "{":
+//            matchingSymbol = '}';
+//            break;
+//        case "(":
+//            matchingSymbol = ')';
+//            break;
+//    }
 
-    // To find the closingPosition, use an overload of the IndexOf method to specify 
-    // that the search for the matchingSymbol should start at the openingPosition in the string. 
+//    // To find the closingPosition, use an overload of the IndexOf method to specify 
+//    // that the search for the matchingSymbol should start at the openingPosition in the string. 
 
-    openingPosition += 1;
-    closingPosition = message.IndexOf(matchingSymbol, openingPosition);
+//    openingPosition += 1;
+//    closingPosition = message.IndexOf(matchingSymbol, openingPosition);
 
-    // Finally, use the techniques you've already learned to display the sub-string:
+//    // Finally, use the techniques you've already learned to display the sub-string:
 
-    int length = closingPosition - openingPosition;
-    Console.WriteLine(message.Substring(openingPosition, length));
-}
+//    int length = closingPosition - openingPosition;
+//    Console.WriteLine(message.Substring(openingPosition, length));
+//}
 
 ////LastIndexOf() returns the last position of a character or string inside of another string.
 ////IndexOfAny() returns the first position of an array of char that occurs inside of another string.
+
+
+////The Remove() method works similarly to the Substring() method. You supply a starting position and the length to remove those characters from the string.
+//string data = "12345John Smith          5000  3  ";
+//string updatedData = data.Remove(5, 20);
+//Console.WriteLine(updatedData);
+
+//// Remove a substring from the middle of the string.
+//string source = "Many mountains are behind many clouds today.";
+//string toRemove = "many ";
+//string result = string.Empty;
+//int i = source.IndexOf(toRemove);
+//if (i >= 0)
+//{
+//    result = source.Remove(i, toRemove.Length);
+//}
+//Console.WriteLine(source);
+//Console.WriteLine(result);
+
+
+//The Replace() method is used when you need to replace one or more characters with a different character (or no character). The Replace() method is different from the other methods used so far, it replaces every instance of the given characters, not just the first or last instance
+//string message = "This--is--ex-amp-le--da-ta";
+//message = message.Replace("--", " ");
+//message = message.Replace("-", "");
+//Console.WriteLine(message);
+
+//// Replace one substring with another with String.Replace.
+//string source = "The mountains are behind the clouds today.";
+//// Only exact matches are supported.
+//var replacement = source.Replace("mountains", "peaks");
+//Console.WriteLine($"The source string is <{source}>");
+//Console.WriteLine($"The updated string is <{replacement}>");
+////The preceding code demonstrates this _immutable_ property of strings. You can see in the preceding example that the original string, `source`, isn't modified. The [String.Replace](/en-us/dotnet/api/system.string.replace) method creates a new `string` containing the modifications.
+
+////Complete a challenge to extract, replace, and remove data from an input string
+////Quantity: 5000
+////Output: <h2>Widgets &reg;</h2><span>5000</span>
+//const string input = "<div><h2>Widgets &trade;</h2><span>5000</span></div>";
+
+//string quantity = "";
+//string output = "";
+
+
+//const string openSpan = "<span>";
+//const string closeSpan = "</span>";
+//int openingPosition = input.IndexOf(openSpan);
+//int closingPosition = input.IndexOf(closeSpan);
+//openingPosition += openSpan.Length;
+//int length = closingPosition - openingPosition;
+//quantity = input.Substring(openingPosition, length);
+//Console.WriteLine($"Quantity: {quantity}");
+
+
+//const string openDiv = "<div>";
+//const string closeDiv = "</div>";
+//output = input.Replace("&trade", "&reg");
+//openingPosition = output.IndexOf(openDiv);
+//closingPosition = output.IndexOf(closeDiv);
+//openingPosition += openDiv.Length;
+//length = closingPosition - openingPosition;
+
+//output = output.Substring(openingPosition, length);
+//Console.WriteLine($"Output: {output}");
+
+
