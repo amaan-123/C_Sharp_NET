@@ -52,7 +52,7 @@ You're working on the Contoso Pets application, an application that helps place 
 
   - Display all dogs that meet user specified physical characteristics.
 
-## Exercise - Write code to display all ourAnimals array data
+## Exercise - Menu Option 1: Write code to display all ourAnimals array data
 
 ### Specifications 1 : Guided project
 
@@ -140,7 +140,7 @@ for (int i = 0; i < maxPets; i++)
 }
 ```
 
-## Exercise - Build and test a loop for entering new pet data
+## Exercise Menu Option 2- Build and test a loop for entering new pet data
 
 In this exercise, you develop code that controls the input of new ourAnimals array data. You calculate the initial values of your loop control variables and construct the loop that collects user specified data for the animals. The detailed tasks that you complete during this exercise are:
 
@@ -221,7 +221,7 @@ The scope of your variables should always be as narrow as possible. In the Conto
 
 Your goal in this challenge is to create the app features aligned with menu options 3 and 4.
 
->Note
+>Note:
 >New animals must be added to the ourAnimals array when they arrive. However, an animal's age and some physical characteristics for a pet may be unknown until after a veterinarian's examination. In addition, an animal's nickname and personality may be unknown when a pet first arrives. The new features that you're developing will ensure that a complete dataset exists for each animal in the ourAnimals array.
 
 To ensure that animal ages and physical descriptions are complete, your code must:
@@ -236,19 +236,101 @@ To ensure that animal nicknames and personality descriptions are complete, your 
 - Assign a valid string to petPersonalityDescription for any animal that has been assigned data in the ourAnimals array but has not been assigned a personality description.
 - Verify that nicknames and personality descriptions have an assigned value. Assigned values cannot have zero characters. Any further requirement is up to you.
 
-##  Guided project - Work with variable data in C#
-
-### Introduction
+## Guided project - Work with variable data in `C#`
 
 Your team found that it's important to search the pet data to identify animals with possible matches based on characteristics provided by potential owners. Further, the team wants to include a fundraising feature to include suggested donation data and to present the pet data with fewer lines of output.
 
-You begin with a starting application that adds predefined _sample_ data to the pets array. The application has two menu items. The first menu item started with functional display of the pet data. The second is menu item, "Display all dogs with a specified characteristic," is "work in progress" that you complete.
+### The design specification
 
-You also make updates to existing code to add `suggestedDonation` data and display all data in a shortened format.
+For the new features of the Contoso Pets application, the design specification provides details for the dog search and suggested donation features:
 
-In completing this coding project, you apply your C# data knowledge and skills in:
+- Dog attribute search
 
--   Choosing the correct data types and safely converting data types.
--   Create two dimensional arrays of numbers and strings.
--   Search data in arrays to display or update data.
--   Modifying and building complex strings from multiple data sources, and formatting data for display across regions.
+  - Gather input for the pet characteristic search term
+  - Loop through the animals array and identify "dogs"
+  - For each dog, combine the physical and personality descriptions to search
+  - Search the combined description for the input term match
+  - Output the dogs that have a term match
+- Suggested donation data
+
+  - Define `suggestedDonation` string
+  - Expand the `ourAnimals` array to contain `suggestedDonation` and populate sample data for `suggestedDonation`
+  - Ensure all usage of `ourAnimals` array accounts for the added `suggestedDonation` data
+  - Output `suggestedDonation` with regional currency symbol ($, €, ¥,... )
+
+#### Doubts
+
+Thread.Sleep() is a method in .NET that pauses the execution of the current thread for a specified number of milliseconds.
+
+##### 1. Why is the `j` counter variable from 5 to 0?
+
+The `for (int j = 5; j > -1; j--)` loop is used to create a countdown effect for the "searching" animation. Each iteration represents a step in the countdown (from 5 down to 0, for a total of 6 cycles). This makes the animation run for a fixed period, giving the user visual feedback that the program is "searching" for a match.
+
+- **Why 5 to 0?**  
+  This gives you 6 cycles of the animation (5, 4, 3, 2, 1, 0), making the search feel more substantial and noticeable to the user.
+
+##### 2. What is the purpose of line 472?
+
+```csharp
+Console.Write($"\r{new String(' ', Console.BufferWidth)}");
+```
+
+This line clears the current console line after each animation cycle. Here's how it works:
+
+- `Console.BufferWidth` gives the width of the console window.
+- `new String(' ', Console.BufferWidth)` creates a string of spaces as wide as the console.
+- `\r` returns the cursor to the start of the line.
+- The result is that the entire line is overwritten with spaces, effectively erasing any previous text.
+
+**Purpose:**  
+To remove the "searching" animation text from the console before the next cycle or before displaying the result, keeping the output clean and readable.
+
+---
+
+**Summary:**  
+
+- The `j` loop controls how many times the animation runs (a countdown from 5 to 0).
+- Line 472 clears the console line to erase the animation text after each cycle.
+
+## Challenge project - Work with variable data in `C#`
+
+The team wants you to extend the search functionality to allow for multiple term searches. Additionally, the team wants to pilot an update to the "search status" animation that shows search progress.
+
+In this challenge coding project, your C# data knowledge and skills are applied for:
+
+- Creating string arrays by splitting strings
+- Manipulating array data, iterating through elements in an array, and sorting array data
+- Modifying and building strings from multiple data sources
+
+In short, you'll:
+
+- Develop multi-term search functionality for the "dogs" search
+- Update the "search status" animation, information and countdown
+
+## Project specification overview
+
+Update the existing Contoso Pets starter application to include multiple term search and improved "search status" animation features:
+
+### Add dog attribute multi-term search
+
+Gather user input for the pet characteristic multiple term search
+
+- Users need to provide search terms separated by commas
+- Store the search terms in an array and sort the terms alphabetically
+
+Within the animals array loop that identifies "dogs":
+
+- Iterate through the search terms to search each dog's description
+- Search the **combined description** for a term match
+- Output each dog's description where there's one or more terms matched
+
+After exiting the "search Animals" array loop that identifies dogs:
+
+- If no dogs were a match for any of the users provided search terms, output a _no dogs matched_ message.
+
+### Add "search status" improvements
+
+Update the animation
+
+- Adjust the `searchingIcons` array to resemble a spinning dial
+- Adjust the animation loop so the animation shows a numeric countdown from two to zero (`2.., 1.., 0..`)
