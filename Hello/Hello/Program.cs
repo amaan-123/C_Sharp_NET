@@ -144,12 +144,12 @@ namespace Hello
             //}
             //// Output: 0, 1, 3, 4 (2 & 5 onwards skipped)
 
-            // Methods:
-            // The compiler knows which Average method to call based on the number of arguments
-            double avg1 = Average(10.0, 20.0);
-            double avg2 = Average(10.0, 20.0, 30.0);
-            Console.WriteLine(avg1);
-            Console.WriteLine(avg2);
+            // // Methods:
+            // // The compiler knows which Average method to call based on the number of arguments
+            // double avg1 = Average(10.0, 20.0);
+            // double avg2 = Average(10.0, 20.0, 30.0);
+            // Console.WriteLine(avg1);
+            // Console.WriteLine(avg2);
 
             // Creating an object (instance) of the Player class
             Player tommy = new Player();
@@ -157,12 +157,12 @@ namespace Hello
             tommy.SetHealth(100); // Calling a public method
 
             //// Cannot access private members directly:
-            // Console.WriteLine(tommy.Health); // Error! Health is private
+            ////Console.WriteLine(tommy.Health); // Error! Health is private
 
             // Access private member using a public method:
             Console.WriteLine(tommy.GetHealth()); // Output is: 100
 
-            
+
         }
     }
 }

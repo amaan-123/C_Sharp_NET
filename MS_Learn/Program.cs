@@ -1,4 +1,4 @@
-﻿// MS_Learn + FreeCodeCamp Cert
+﻿// MS_Learn FreeCodeCamp Cert
 using System;
 
 namespace MS_Learn
@@ -369,13 +369,13 @@ namespace MS_Learn
             fraudulentOrderIDs[3] = "D000";// Error message: System.IndexOutOfRangeException: Index was outside the bounds of the array
             */
 
-            //// Initialize an array
-            //// Replace the collection expression(C# 12) with older syntax uses curly braces {} to enclose the values of the array.
-            //string[] fraudulentOrderIDs = ["A123", "B456", "C789"];
-            //Console.WriteLine($"First: {fraudulentOrderIDs[0]}");
-            //Console.WriteLine($"Second: {fraudulentOrderIDs[1]}");
-            //Console.WriteLine($"Third: {fraudulentOrderIDs[2]}");
-            //Console.ReadLine();
+            // Initialize an array
+            // Replace the collection expression(C# 12) with older syntax uses curly braces {} to enclose the values of the array.
+            string[] fraudulentOrderIDs = ["A123", "B456", "C789"];
+            Console.WriteLine($"First: {fraudulentOrderIDs[0]}");
+            Console.WriteLine($"Second: {fraudulentOrderIDs[1]}");
+            Console.WriteLine($"Third: {fraudulentOrderIDs[2]}");
+            Console.ReadLine();
 
             //fraudulentOrderIDs[0] = "F000";
             //Console.WriteLine($"Reassign First: {fraudulentOrderIDs[0]}");
@@ -1135,42 +1135,42 @@ namespace MS_Learn
 
             //}
             ////Important MS_Learn questions:
-            //1.A developer needs to iterate through an array of items.The number of items in the array is unknown.The code inside the iteration code block examines each item sequentially to select an item that matches specified criteria.The index number of the selected array element isn't important. The selected item is referenced multiple times within the code block. Which type of iteration statement is best suited for this scenario?
-            //while
-            //for
-            //foreach //Correct
+            ////1.A developer needs to iterate through an array of items.The number of items in the array is unknown.The code inside the iteration code block examines each item sequentially to select an item that matches specified criteria.The index number of the selected array element isn't important. The selected item is referenced multiple times within the code block. Which type of iteration statement is best suited for this scenario?
+            ////while
+            ////for
+            ////foreach //Correct
 
 
-            //2.A developer needs to capture a list of items from the user.The user will enter the keyboard combination ctrl + Esc to exit. Which is the best iteration statement for this purpose ?
-            //while
-            //foreach
-            //do -while //Correct
+            ////2.A developer needs to capture a list of items from the user.The user will enter the keyboard combination ctrl + Esc to exit. Which is the best iteration statement for this purpose ?
+            ////while
+            ////foreach
+            ////do -while //Correct
 
-            // Signed integral types
-            //Use the MinValue and MaxValue properties for each signed integral type
-            Console.WriteLine("Signed integral types:");
+            //// Signed integral types
+            ////Use the MinValue and MaxValue properties for each signed integral type
+            //Console.WriteLine("Signed integral types:");
 
-            Console.WriteLine($"sbyte  : {sbyte.MinValue} to {sbyte.MaxValue}");
-            Console.WriteLine($"short  : {short.MinValue} to {short.MaxValue}");
-            Console.WriteLine($"int    : {int.MinValue} to {int.MaxValue}");
-            Console.WriteLine($"long   : {long.MinValue} to {long.MaxValue}");
+            //Console.WriteLine($"sbyte  : {sbyte.MinValue} to {sbyte.MaxValue}");
+            //Console.WriteLine($"short  : {short.MinValue} to {short.MaxValue}");
+            //Console.WriteLine($"int    : {int.MinValue} to {int.MaxValue}");
+            //Console.WriteLine($"long   : {long.MinValue} to {long.MaxValue}");
 
-            // Unsigned integral types
-            //Use the MinValue and MaxValue properties for each unsigned integral type
-            Console.WriteLine("");
-            Console.WriteLine("Unsigned integral types:");
+            //// Unsigned integral types
+            ////Use the MinValue and MaxValue properties for each unsigned integral type
+            //Console.WriteLine("");
+            //Console.WriteLine("Unsigned integral types:");
 
-            Console.WriteLine($"byte   : {byte.MinValue} to {byte.MaxValue}");
-            Console.WriteLine($"ushort : {ushort.MinValue} to {ushort.MaxValue}");
-            Console.WriteLine($"uint   : {uint.MinValue} to {uint.MaxValue}");
-            Console.WriteLine($"ulong  : {ulong.MinValue} to {ulong.MaxValue}");
+            //Console.WriteLine($"byte   : {byte.MinValue} to {byte.MaxValue}");
+            //Console.WriteLine($"ushort : {ushort.MinValue} to {ushort.MaxValue}");
+            //Console.WriteLine($"uint   : {uint.MinValue} to {uint.MaxValue}");
+            //Console.WriteLine($"ulong  : {ulong.MinValue} to {ulong.MaxValue}");
 
-            //Evaluate floating-point types
-            Console.WriteLine("");
-            Console.WriteLine("Floating point types:");
-            Console.WriteLine($"float  : {float.MinValue} to {float.MaxValue} (with ~6-9 digits of precision)");
-            Console.WriteLine($"double : {double.MinValue} to {double.MaxValue} (with ~15-17 digits of precision)");
-            Console.WriteLine($"decimal: {decimal.MinValue} to {decimal.MaxValue} (with 28-29 digits of precision)");
+            ////Evaluate floating-point types
+            //Console.WriteLine("");
+            //Console.WriteLine("Floating point types:");
+            //Console.WriteLine($"float  : {float.MinValue} to {float.MaxValue} (with ~6-9 digits of precision)");
+            //Console.WriteLine($"double : {double.MinValue} to {double.MaxValue} (with ~15-17 digits of precision)");
+            //Console.WriteLine($"decimal: {decimal.MinValue} to {decimal.MaxValue} (with 28-29 digits of precision)");
         }
     }
 }

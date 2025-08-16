@@ -177,7 +177,7 @@
 //string value = "abc123";
 
 //char[] valueArray = value.ToCharArray();
-////Array.ForEach(valueArray, Console.WriteLine);
+//Array.ForEach(valueArray, Console.WriteLine);
 
 //Array.Reverse(valueArray);
 ////Array.ForEach(valueArray, Console.WriteLine);
