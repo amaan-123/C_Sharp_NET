@@ -657,4 +657,104 @@
 //output = output.Substring(openingPosition, length);
 //Console.WriteLine($"Output: {output}");
 
+////Exercise - Create your first method
+////Create a method to display random numbers
+//Console.WriteLine("Generating random numbers:");
+//DisplayRandomNumbers();
 
+//void DisplayRandomNumbers()
+//{
+//    Random random = new Random();
+
+//    for (int i = 0; i < 5; i++)
+//    {
+//        Console.Write($"{random.Next(1, 100)} ");
+//    }
+
+//    Console.WriteLine();
+//}
+
+////Exercise - Build code with methods
+////valid IPv4 address check
+
+IpV4AddressValidityCheck();
+static void IpV4AddressValidityCheck()
+{
+    string? userInput = "";
+    bool validIp = false;
+
+    do
+    {
+        //take user string input
+        Console.WriteLine("\r\nEnter IPv4 address to check for validity: ");
+        userInput = Console.ReadLine();
+
+        if ((userInput != null) && (userInput.Trim() != ""))
+        {
+            Console.WriteLine("You typed: " + userInput);
+
+            //split into array of strings based on "."
+            string[] ipAddress = userInput.Split('.');
+
+            //verify array length of 4 elements
+            if (ipAddress.Length == 4)
+            {
+                foreach (string octet in ipAddress)
+                {
+                    //test conversion of string elements to int
+                    validIp = int.TryParse(octet, out int number);
+                    if (validIp == false)
+                    {
+                        break;
+                    }
+
+                    //test range 0<= number <= 255
+                    if ((number < 0) || (number > 255))
+                    {
+                        validIp = false;
+                        break;
+                    }
+                }
+
+                //test invalid initial zero followed by number
+                //1. at first octet
+                if (userInput.StartsWith('0') && (userInput[1] != '.'))
+                    validIp = false;
+
+                //2. at other octets
+                if (userInput.Contains(".0"))
+                {
+                    int startIndex = 0;
+                    do
+                    {
+                        startIndex = userInput.IndexOf(".0", startIndex);
+                        startIndex += 2;
+                        if (startIndex < userInput.Length)
+                        {
+                            if (userInput[startIndex] != '.')
+                            {
+                                validIp = false;
+                                break;
+                            }
+                        }
+                    }
+                    while (startIndex < userInput.Length);
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Incorrect input received.");
+        }
+
+        if (validIp == true)
+            Console.WriteLine("Valid IPv4 address.");
+        else
+            Console.WriteLine("Invalid IPv4 address.");
+
+
+        Console.WriteLine("\r\nType `exit` to exit application. To enter another IP address, press enter.");
+        userInput = Console.ReadLine().Trim().ToLower();
+    }
+    while (userInput != "exit");
+}
