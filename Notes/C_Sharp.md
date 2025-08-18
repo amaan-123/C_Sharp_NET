@@ -2299,3 +2299,387 @@ void DisplayDate(string month, int day, int year);
 The second method describes what kind of data is displayed and provides descriptive names for parameters.
 
 ---
+
+### Exercise - Build code with methods
+
+Methods help organize, reuse, and structure code. Pseudo-code + methods allow breaking down problems before writing actual logic.
+
+---
+
+#### Problem: Validate IPv4 address
+
+Rules:
+
+- 4 numbers separated by dots
+- No leading zeroes
+- Each number between 0–255
+
+Examples: `1.1.1.1`, `255.255.255.255` are valid.
+
+---
+
+#### Pseudo-code
+
+```csharp
+/*
+if ipAddress consists of 4 numbers 
+and no leading zeroes 
+and numbers in range 0–255
+then valid
+else invalid
+*/
+```
+
+---
+
+#### Initial structure
+
+```csharp
+if (ValidateLength() && ValidateZeroes() && ValidateRange())  
+{
+    Console.WriteLine("ip is a valid IPv4 address");
+}  
+else  
+{
+    Console.WriteLine("ip is an invalid IPv4 address");
+}
+
+void ValidateLength() {}
+void ValidateZeroes() {}
+void ValidateRange() {}
+```
+
+---
+
+#### Step 1: Variables
+
+```csharp
+string[] ipv4Input = {"107.31.1.5", "255.0.0.255", "555..0.555", "255...255"};
+string[] address;
+bool validLength = false;
+bool validZeroes = false;
+bool validRange = false;
+```
+
+---
+
+#### Step 2: Main loop
+
+```csharp
+foreach (string ip in ipv4Input)  
+{ 
+    address = ip.Split(".", StringSplitOptions.RemoveEmptyEntries);
+
+    ValidateLength();  
+    ValidateZeroes();  
+    ValidateRange();  
+
+    if (validLength && validZeroes && validRange)  
+        Console.WriteLine($"{ip} is a valid IPv4 address");  
+    else  
+        Console.WriteLine($"{ip} is an invalid IPv4 address");  
+}
+```
+
+---
+
+#### Step 3: Methods
+
+```csharp
+void ValidateLength()  
+{
+    validLength = address.Length == 4;
+}
+
+void ValidateZeroes()  
+{
+    foreach (string number in address)  
+    { 
+        if (number.Length > 1 && number.StartsWith("0"))  
+        { 
+            validZeroes = false; 
+            return; 
+        } 
+    } 
+    validZeroes = true; 
+}
+
+void ValidateRange()  
+{
+    foreach (string number in address)  
+    { 
+        int value = int.Parse(number); 
+        if (value < 0 || value > 255)  
+        { 
+            validRange = false; 
+            return; 
+        } 
+    } 
+    validRange = true; 
+}
+```
+
+---
+
+#### Output
+
+```
+107.31.1.5 is a valid IPv4 address
+255.0.0.255 is a valid IPv4 address
+555..0.555 is an invalid IPv4 address
+255...255 is an invalid IPv4 address
+```
+
+---
+
+#### Key Takeaways
+
+- Break problems into small methods.
+- Use **return** to exit early when invalid input is found.
+- Share common data (like `address`) across methods instead of recalculating.
+- Methods make programs easier to design, test, and maintain.
+
+---
+
+### Exercise - Understand method scope
+
+#### Key Takeaways
+
+- Variables inside a method are **local** (accessible only in that method).
+- Variables in **top-level statements** are **global** (accessible anywhere).
+- Method parameters can shadow global variables.
+- Methods cannot access variables declared in other methods.
+- Methods can call other methods.
+
+---
+
+#### Example 1 – Global variable shadowed by parameter
+
+```csharp
+string[] students = {"Jenna", "Ayesha", "Carlos", "Viktor"};
+
+DisplayStudents(students);
+DisplayStudents(new string[] {"Robert","Vanya"});
+
+void DisplayStudents(string[] students)  
+{ 
+    foreach (string student in students)  
+    { 
+        Console.Write($"{student}, "); 
+    } 
+    Console.WriteLine(); 
+}
+```
+
+**Output**
+
+```
+Jenna, Ayesha, Carlos, Viktor,
+Robert, Vanya,
+```
+
+👉 Local parameter `students` takes precedence over global `students`.
+
+---
+
+#### Example 2 – Scope limitation
+
+```csharp
+PrintCircleArea(12);
+
+void PrintCircleArea(int radius) 
+{ 
+    double pi = 3.14159; 
+    double area = pi * (radius * radius); 
+    Console.WriteLine($"Area = {area}"); 
+}
+```
+
+If you try:
+
+```csharp
+double circumference = 2 * pi * radius;
+```
+
+❌ Error: `pi` and `radius` are out of scope (they exist only inside the method).
+
+---
+
+#### Example 3 – Use global variable
+
+```csharp
+double pi = 3.14159;
+
+void PrintCircleArea(int radius) 
+{ 
+    double area = pi * (radius * radius); 
+    Console.WriteLine($"Area = {area}"); 
+} 
+
+void PrintCircleCircumference(int radius) 
+{ 
+    double circumference = 2 * pi * radius; 
+    Console.WriteLine($"Circumference = {circumference}"); 
+}
+```
+
+---
+
+#### Example 4 – Methods calling methods
+
+```csharp
+double pi = 3.14159;
+PrintCircleInfo(12);
+PrintCircleInfo(24);
+
+void PrintCircleInfo(int radius)  
+{ 
+    Console.WriteLine($"Circle with radius {radius}"); 
+    PrintCircleArea(radius); 
+    PrintCircleCircumference(radius); 
+} 
+
+void PrintCircleArea(int radius) 
+{ 
+    double area = pi * (radius * radius); 
+    Console.WriteLine($"Area = {area}"); 
+} 
+
+void PrintCircleCircumference(int radius) 
+{ 
+    double circumference = 2 * pi * radius; 
+    Console.WriteLine($"Circumference = {circumference}"); 
+}
+```
+
+**Output**
+
+```
+Circle with radius 12
+Area = 452.38896
+Circumference = 75.39815999999999
+Circle with radius 24
+Area = 1809.55584
+Circumference = 150.79631999999998
+```
+
+### Exercise - Use value and reference type parameters
+
+Value types (`int`, `bool`, `float`, `double`, `char`) store data directly.
+Reference types (`string`, arrays, objects like `Random`) store an address pointing to the actual value.
+
+#### Parameters Passed by Value
+
+Value type arguments are **copied** into methods → original variable remains unchanged.
+
+```csharp
+int a = 3;
+int b = 4;
+int c = 0;
+
+Multiply(a, b, c);
+Console.WriteLine($"global statement: {a} x {b} = {c}");
+
+void Multiply(int a, int b, int c)  
+{
+    c = a * b;
+    Console.WriteLine($"inside Multiply method: {a} x {b} = {c}");
+}
+```
+
+```
+inside Multiply method: 3 x 4 = 12
+global statement: 3 x 4 = 0
+```
+
+Key takeaway: `c` was updated inside the method only.
+
+#### Parameters Passed by Reference
+
+Reference type arguments share the same memory address → changes affect the original object.
+
+```csharp
+int[] array = {1, 2, 3, 4, 5};
+
+PrintArray(array);
+Clear(array);
+PrintArray(array);
+
+void PrintArray(int[] array)  
+{
+    foreach (int a in array)  
+    {
+        Console.Write($"{a} ");
+    }
+    Console.WriteLine();
+}
+
+void Clear(int[] array)  
+{
+    for (int i = 0; i < array.Length; i++)  
+    {
+        array[i] = 0;
+    }
+}
+```
+
+```
+1 2 3 4 5  
+0 0 0 0 0
+```
+
+Key takeaway: Arrays passed to methods can be permanently modified.
+
+#### Special Case: Strings (Immutable Reference Type)
+
+Strings are reference types but **immutable**. Modifications create new strings.
+
+```csharp
+string status = "Healthy";
+
+Console.WriteLine($"Start: {status}");
+SetHealth(status, false);
+Console.WriteLine($"End: {status}");
+
+void SetHealth(string status, bool isHealthy)  
+{
+    status = (isHealthy ? "Healthy" : "Unhealthy");
+    Console.WriteLine($"Middle: {status}");
+}
+```
+
+```
+Start: Healthy
+Middle: Unhealthy
+End: Healthy
+```
+
+Fixed by referencing global `status` instead:
+
+```csharp
+string status = "Healthy";
+
+Console.WriteLine($"Start: {status}");
+SetHealth(false);
+Console.WriteLine($"End: {status}");
+
+void SetHealth(bool isHealthy)  
+{
+    status = (isHealthy ? "Healthy" : "Unhealthy");
+    Console.WriteLine($"Middle: {status}");
+}
+```
+
+```
+Start: Healthy
+Middle: Unhealthy
+End: Unhealthy
+```
+
+#### Key Takeaways
+
+- Value types → copied into methods, original not affected.
+- Reference types → pass address, changes affect original.
+- Arrays → mutable, method changes persist.
+- Strings → immutable, changes create new objects.
+- To update a string globally, modify the global variable directly.
