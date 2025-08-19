@@ -970,47 +970,220 @@
 //    Console.WriteLine($"Middle: {status}");
 //}
 
-string[] guestList = { "Rebecca", "Nadia", "Noor", "Jonte" };
-string[] rsvps = new string[10];
-int count = 0;
 
-RSVP("Rebecca", 1, "none", true);
-RSVP("Nadia", 2, "Nuts", true);
-RSVP(name: "Linh", partySize: 2, allergies: "none", inviteOnly: false);
-RSVP("Tony", 1, "Jackfruit", true);
-RSVP("Noor", 4, "none", false);
-RSVP("Jonte", 2, "Stone fruit", false);
-ShowRSVPs();
+////Exercise - Methods with Optional Parameters
+////Create an RSVP Application
+//string[] guestList = { "Rebecca", "Nadia", "Noor", "Jonte" };
+//string[] rsvps = new string[10];
+//int count = 0;
 
-void RSVP(string name, int partySize, string allergies, bool inviteOnly)
+//RSVP("Rebecca");
+//RSVP("Nadia", 2, "Nuts");
+//RSVP(name: "Linh", partySize: 2, inviteOnly: false);
+//RSVP("Tony", allergies: "Jackfruit", inviteOnly: true);//mix of positional argument in correct position & named arguments
+//RSVP("Noor", 4, inviteOnly: false);
+//RSVP("Jonte", 2, "Stone fruit", false);
+//ShowRSVPs();
+
+//void RSVP(string name, int partySize = 1, string allergies = "none", bool inviteOnly = true)//declare optional parameters
+//{
+//    if (inviteOnly)
+//    {
+//        bool found = false;
+//        foreach (string guest in guestList)
+//        {
+//            if (guest.Equals(name))
+//            {
+//                found = true;
+//                break;
+//            }
+//        }
+//        if (!found)
+//        {
+//            Console.WriteLine($"Sorry, {name} is not on the guest list");
+//            return;
+//        }
+//    }
+
+//    rsvps[count] = $"Name: {name}, \tParty Size: {partySize}, \tAllergies: {allergies}";
+//    count++;
+//}
+
+//void ShowRSVPs()
+//{
+//    Console.WriteLine("\nTotal RSVPs:");
+//    for (int i = 0; i < count; i++)
+//    {
+//        Console.WriteLine(rsvps[i]);
+//    }
+//}
+
+
+////Code challenge: Add a method to display email addresses
+////MS Learn's code:
+//string[,] corporate =
+//    {
+//        {"Robert", "Bavin"}, {"Simon", "Bright"},
+//        {"Kim", "Sinclair"}, {"Aashrita", "Kamath"},
+//        {"Sarah", "Delucchi"}, {"Sinan", "Ali"}};
+
+//string[,] external =
+//{
+//        {"Vinnie", "Ashton"}, {"Cody", "Dysart"},
+//        {"Shay", "Lawrence"}, {"Daren", "Valdes"}
+//    };
+
+//string externalDomain = "hayworth.com";
+
+//for (int i = 0; i < corporate.GetLength(0); i++)
+//{
+//    DisplayEmail(first: corporate[i, 0], last: corporate[i, 1]);
+//}
+
+//for (int i = 0; i < external.GetLength(0); i++)
+//{
+//    DisplayEmail(first: external[i, 0], last: external[i, 1], domain: externalDomain);
+//}
+
+//void DisplayEmail(string first, string last, string domain = "contoso.com")
+//{
+//    string email = first.Substring(0, 2) + last;
+//    email = email.ToLower();
+//    Console.WriteLine($"{email}@{domain}");
+//}
+
+////amaan-123's code:
+//string[,] corporate =
+//{
+//    {"Robert", "Bavin"}, {"Simon", "Bright"},
+//    {"Kim", "Sinclair"}, {"Aashrita", "Kamath"},
+//    {"Sarah", "Delucchi"}, {"Sinan", "Ali"}
+//};
+//string[,] external =
+//{
+//    {"Vinnie", "Ashton"}, {"Cody", "Dysart"},
+//    {"Shay", "Lawrence"}, {"Daren", "Valdes"}
+//};
+//string userName = string.Empty;
+
+//for (int i = 0; i < corporate.GetLength(0); i++)
+//{
+//    DisplayInternalEmail(corporate[i, 0], corporate[i, 1]);
+//}
+
+//for (int i = 0; i < external.GetLength(0); i++)
+//{
+//    DisplayExternalEmail(external[i, 0], external[i, 1]);
+//}
+
+//void DisplayInternalEmail(string firstName, string lastName)
+//{
+//    // display internal email addresses
+//    userName = $"{firstName[..2].ToLower()}{lastName.ToLower()}";
+//    Console.WriteLine($"{userName}@contoso.com");
+//}
+
+//void DisplayExternalEmail(string firstName, string lastName, string externalDomain = "hayworth.com")
+//{
+//    // display external email addresses
+//    userName = $"{firstName[..2].ToLower()}{lastName.ToLower()}";
+//    Console.WriteLine($"{userName}@{externalDomain}");
+//}
+
+
+////Use methods to calculate the total purchase price
+//double total = 0;
+//double minimumSpend = 30.00;
+
+//double[] items = { 15.97, 3.50, 12.25, 22.99, 10.98 };
+//double[] discounts = { 0.30, 0.00, 0.10, 0.20, 0.50 };
+
+//for (int i = 0; i < items.Length; i++)
+//{
+//    total += GetDiscountedPrice(i);
+//}
+
+//if (TotalMeetsMinimum())
+//{
+//    total -= 5.00;
+//}
+//Console.WriteLine($"Total: ${FormatDecimal(total)}");
+//double GetDiscountedPrice(int itemIndex)
+//{
+//    return items[itemIndex] * (1 - discounts[itemIndex]);
+//}
+
+//bool TotalMeetsMinimum()
+//{
+//    return total >= minimumSpend;
+//}
+
+//string FormatDecimal(double input)
+//{
+//    return input.ToString().Substring(0, 5);
+//}
+
+
+////Exercise - Return numbers from methods
+////Create a method that returns an integer: USD to VND
+//double usd = 23.73;
+//int vnd = UsdToVnd(usd);
+
+//Console.WriteLine($"${usd} USD = ${vnd} VND");
+//Console.WriteLine($"${vnd} VND = ${VndToUsd(vnd)} USD");
+
+//int UsdToVnd(double usd)
+//{
+//    int rate = 23500;
+//    return (int)(rate * usd);
+//}
+
+//double VndToUsd(int vnd)
+//{
+//    double rate = 23500;
+//    return vnd / rate;
+//}
+
+
+////Exercise - Return numbers from methods
+string input = "there are snakes at the zoo";
+
+Console.WriteLine(input);
+Console.WriteLine(ReverseSentence(input));
+
+string ReverseWord(string word)
 {
-    if (inviteOnly)
+    string result = "";
+    for (int i = word.Length - 1; i >= 0; i--)
     {
-        bool found = false;
-        foreach (string guest in guestList)
-        {
-            if (guest.Equals(name))
-            {
-                found = true;
-                break;
-            }
-        }
-        if (!found)
-        {
-            Console.WriteLine($"Sorry, {name} is not on the guest list");
-            return;
-        }
+        result += word[i];
+    }
+    return result;
+}
+string ReverseSentence(string input)
+{
+    string result = "";
+    string[] words = input.Split(" ");
+
+    foreach (string word in words)
+    {
+        result += ReverseWord(word) + " ";
     }
 
-    rsvps[count] = $"Name: {name}, \tParty Size: {partySize}, \tAllergies: {allergies}";
-    count++;
+    return result.Trim();
 }
 
-void ShowRSVPs()
-{
-    Console.WriteLine("\nTotal RSVPs:");
-    for (int i = 0; i < count; i++)
-    {
-        Console.WriteLine(rsvps[i]);
-    }
-}
+
+
+
+////Consider a game where the player must fight enemies. The game contains some code that determines if a character was hit whenever an Update() method is called. The code might contain the following methods:
+
+//void Update();
+
+//int[] GetEnemyCoordinates(string enemyId);
+//int[] GetDistanceFromHero(string enemyId);
+//int[] GetHeroCoordinates();
+
+//bool EnemyCanHitHero(string enemyId);
+//int GetEnemyDamageOutput(string enemyId);
+//void UpdateHeroHP(int damage);

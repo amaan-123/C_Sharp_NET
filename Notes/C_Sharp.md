@@ -2683,3 +2683,476 @@ End: Unhealthy
 - Arrays → mutable, method changes persist.
 - Strings → immutable, changes create new objects.
 - To update a string globally, modify the global variable directly.
+
+### Exercise - Methods with Optional Parameters
+
+The C# language allows **named** and **optional** parameters.
+
+- **Named arguments** let you specify values by parameter name.
+- **Optional parameters** allow omission of arguments by defining defaults.
+
+---
+
+#### Create an RSVP Application
+
+```csharp
+string[] guestList = {"Rebecca", "Nadia", "Noor", "Jonte"}; 
+string[] rsvps = new string[10]; 
+int count = 0; 
+
+void RSVP(string name, int partySize, string allergies, bool inviteOnly)  
+{ 
+    if (inviteOnly) 
+    { 
+        // search guestList before adding rsvp 
+    } 
+
+    rsvps[count] = $"Name: {name}, \tParty Size: {partySize}, \tAllergies: {allergies}"; 
+    count++; 
+} 
+
+void ShowRSVPs() 
+{ 
+    Console.WriteLine("\nTotal RSVPs:"); 
+    for (int i = 0; i < count; i++) 
+    { 
+        Console.WriteLine(rsvps[i]); 
+    } 
+}
+```
+
+Add guest list validation:
+
+```csharp
+if (inviteOnly) 
+{ 
+    bool found = false; 
+    foreach (string guest in guestList) 
+    { 
+        if (guest.Equals(name)) { 
+            found = true; 
+            break; 
+        } 
+    } 
+    if (!found) 
+    { 
+        Console.WriteLine($"Sorry, {name} is not on the guest list"); 
+        return; 
+    } 
+} 
+```
+
+Method calls:
+
+```csharp
+RSVP("Rebecca", 1, "none", true); 
+RSVP("Nadia", 2, "Nuts", true); 
+RSVP("Linh", 2, "none", false); 
+RSVP("Tony", 1, "Jackfruit", true); 
+RSVP("Noor", 4, "none", false); 
+RSVP("Jonte", 2, "Stone fruit", false); 
+ShowRSVPs(); 
+```
+
+Output:
+
+```
+Sorry, Tony is not on the guest list
+
+Total RSVPs:
+Name: Rebecca,  Party Size: 1,  Allergies: none
+Name: Nadia,    Party Size: 2,  Allergies: Nuts
+Name: Linh,     Party Size: 2,  Allergies: none
+Name: Noor,     Party Size: 4,  Allergies: none
+Name: Jonte,    Party Size: 2,  Allergies: Stone fruit
+```
+
+---
+
+#### Use Named Arguments
+
+```csharp
+RSVP(name: "Linh", partySize: 2, allergies: "none", inviteOnly: false);
+RSVP("Tony", inviteOnly: true, allergies: "Jackfruit", partySize: 1);
+```
+
+Rules:
+
+- Named arguments can appear in any order.
+- Positional arguments must come first.
+- Named arguments cannot be followed by unnamed arguments.
+
+---
+
+#### Declare Optional Parameters
+
+```csharp
+void RSVP(string name, int partySize = 1, string allergies = "none", bool inviteOnly = true)
+```
+
+Updated method calls:
+
+```csharp
+RSVP("Rebecca"); 
+RSVP("Nadia", 2, "Nuts"); 
+RSVP(name: "Linh", partySize: 2, inviteOnly: false); 
+RSVP("Tony", allergies: "Jackfruit", inviteOnly: true); 
+RSVP("Noor", 4, inviteOnly: false); 
+RSVP("Jonte", 2, "Stone fruit", false);
+```
+
+Output:
+
+```
+Sorry, Tony is not on the guest list
+
+Total RSVPs:
+Name: Rebecca,  Party Size: 1,  Allergies: none
+Name: Nadia,    Party Size: 2,  Allergies: Nuts
+Name: Linh,     Party Size: 2,  Allergies: none
+Name: Noor,     Party Size: 4,  Allergies: none
+Name: Jonte,    Party Size: 2,  Allergies: Stone fruit
+```
+
+---
+
+#### Key Takeaways
+
+- **Optional parameters**: assign default values in method signature.
+- **Named arguments**: specify parameter name + value.
+- **Mixing positional & named arguments** requires correct ordering.
+- Optional parameters reduce redundancy in method calls.
+
+### Exercise - Understand return type syntax
+
+Methods can return a value by specifying a return type in the method signature.
+
+- `void` → method does not return a value.
+- `return` → used to return a value or terminate a method.
+- The returned value must match the declared return type.
+
+```csharp
+void PrintMessage(string message)
+```
+
+---
+
+#### Use methods to calculate the total purchase price
+
+```csharp
+double total = 0;
+double minimumSpend = 30.00;
+
+double[] items = {15.97, 3.50, 12.25, 22.99, 10.98};
+double[] discounts = {0.30, 0.00, 0.10, 0.20, 0.50};
+
+Console.WriteLine($"Total: ${total}");
+
+void GetDiscountedPrice(int itemIndex)
+{
+    // Calculate the discounted price of the item
+}
+
+void TotalMeetsMinimum()
+{
+    // Check if the total meets the minimum
+}
+
+void FormatDecimal(double input)
+{
+    // Format the double so only 2 decimal places are displayed
+}
+```
+
+---
+
+#### Returning values
+
+```csharp
+double GetDiscountedPrice(int itemIndex)
+{
+    return items[itemIndex] * (1 - discounts[itemIndex]);
+}
+```
+
+```csharp
+bool TotalMeetsMinimum()
+{
+    return total >= minimumSpend;
+}
+```
+
+```csharp
+string FormatDecimal(double input)
+{
+    return input.ToString().Substring(0, 5);
+}
+```
+
+---
+
+#### Capture the return values
+
+```csharp
+for (int i = 0; i < items.Length; i++)
+{
+    total += GetDiscountedPrice(i);
+}
+
+if (TotalMeetsMinimum())
+{
+    total -= 5.00;
+}
+
+// Ternary alternative
+total -= TotalMeetsMinimum() ? 5.00 : 0.00;
+
+Console.WriteLine($"Total: ${FormatDecimal(total)}");
+```
+
+---
+
+#### Complete code
+
+```csharp
+double total = 0;
+double minimumSpend = 30.00;
+
+double[] items = {15.97, 3.50, 12.25, 22.99, 10.98};
+double[] discounts = {0.30, 0.00, 0.10, 0.20, 0.50};
+
+for (int i = 0; i < items.Length; i++)
+{
+    total += GetDiscountedPrice(i);
+}
+
+total -= TotalMeetsMinimum() ? 5.00 : 0.00;
+
+Console.WriteLine($"Total: ${FormatDecimal(total)}");
+
+double GetDiscountedPrice(int itemIndex)
+{
+    return items[itemIndex] * (1 - discounts[itemIndex]);
+}
+
+bool TotalMeetsMinimum()
+{
+    return total >= minimumSpend;
+}
+
+string FormatDecimal(double input)
+{
+    return input.ToString().Substring(0, 5);
+}
+```
+
+Output:
+
+```
+Total: $44.58
+```
+
+---
+
+#### Key Takeaways
+
+- **Return type** must be declared (`void` for no value).
+- `return` can yield **variables, literals, or expressions**.
+- Caller can capture and reuse returned values.
+- Returning expressions improves readability and compactness.
+
+### Exercise - Return numbers from methods
+
+#### Key Takeaways
+
+- Methods can return different numeric types (`int`, `double`, etc.).
+- Returned type **must match** method signature.
+- Use **casting** when converting between numeric types (e.g., `(int)`).
+- Integer division truncates results, so use `double` when decimals are needed.
+
+#### Example 1: Method returning `int`
+
+```csharp
+double usd = 23.73;
+int vnd = UsdToVnd(usd);
+
+Console.WriteLine($"${usd} USD = ${vnd} VND");
+
+int UsdToVnd(double usd) 
+{
+    int rate = 23500;
+    return (int)(rate * usd); // cast required
+}
+```
+
+**Output**
+
+```
+$23.73 USD = $557655 VND
+```
+
+#### Example 2: Method returning `double`
+
+```csharp
+double VndToUsd(int vnd) 
+{
+    double rate = 23500;  // must be double to avoid integer division
+    return vnd / rate;
+}
+```
+
+**Usage**
+
+```csharp
+Console.WriteLine($"${vnd} VND = ${VndToUsd(vnd)} USD");
+```
+
+**Output**
+
+```
+$557655 VND = $23.73 USD
+```
+
+#### Complete Code
+
+```csharp
+double usd = 23.73;
+int vnd = UsdToVnd(usd);
+
+Console.WriteLine($"${usd} USD = ${vnd} VND");
+Console.WriteLine($"${vnd} VND = ${VndToUsd(vnd)} USD");
+
+int UsdToVnd(double usd) 
+{
+    int rate = 23500;
+    return (int)(rate * usd);
+}
+
+double VndToUsd(int vnd) 
+{
+    double rate = 23500;
+    return vnd / rate;
+}
+```
+
+#### Check Your Knowledge
+
+`return 100 * 0.5;` → returns a **double**.
+
+---
+
+### Exercise: Return strings from methods
+
+#### Key Takeaways
+
+- Methods can return **strings**, not just numbers.
+- Strings are immutable, so building a new string often involves concatenation (`+=`).
+- You can use loops to manipulate strings (like reversing them).
+- Methods can call **other methods** as long as the return type fits.
+
+---
+
+#### Example 1: Reverse a single word
+
+```csharp
+string ReverseWord(string word)  
+{ 
+    string result = ""; 
+    for (int i = word.Length - 1; i >= 0; i--)  
+    { 
+        result += word[i]; 
+    } 
+    return result; 
+}
+```
+
+**Usage**
+
+```csharp
+string input = "snake"; 
+Console.WriteLine(input);           // snake
+Console.WriteLine(ReverseWord(input)); // ekans
+```
+
+**Output**
+
+```
+snake
+ekans
+```
+
+---
+
+#### Example 2: Reverse each word in a sentence
+
+```csharp
+string ReverseSentence(string input)  
+{ 
+    string result = ""; 
+    string[] words = input.Split(" ");  // split sentence into words
+
+    foreach(string word in words)  
+    { 
+        result += ReverseWord(word) + " ";  // reuse ReverseWord
+    } 
+
+    return result.Trim();  // remove extra space at the end
+}
+```
+
+**Usage**
+
+```csharp
+string input = "there are snakes at the zoo"; 
+
+Console.WriteLine(input); 
+Console.WriteLine(ReverseSentence(input));
+```
+
+**Output**
+
+```
+there are snakes at the zoo
+ereht era sekans ta eht ooz
+```
+
+---
+
+#### Complete Program
+
+```csharp
+string input = "there are snakes at the zoo"; 
+
+Console.WriteLine(input); 
+Console.WriteLine(ReverseSentence(input)); 
+
+string ReverseSentence(string input)  
+{ 
+    string result = ""; 
+    string[] words = input.Split(" "); 
+    foreach(string word in words)  
+    { 
+        result += ReverseWord(word) + " "; 
+    } 
+    return result.Trim(); 
+} 
+
+string ReverseWord(string word)  
+{ 
+    string result = ""; 
+    for (int i = word.Length - 1; i >= 0; i--)  
+    { 
+        result += word[i]; 
+    } 
+    return result; 
+}
+```
+
+---
+
+✅ **Concept Check**:
+
+- Why do we use `Trim()` in `ReverseSentence`?
+  👉 To remove the extra trailing space added after the last reversed word.
+
+---
