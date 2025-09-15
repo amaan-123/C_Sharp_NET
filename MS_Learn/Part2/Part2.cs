@@ -1146,34 +1146,137 @@
 
 
 ////Exercise - Return numbers from methods
-string input = "there are snakes at the zoo";
+//string input = "there are snakes at the zoo";
 
-Console.WriteLine(input);
-Console.WriteLine(ReverseSentence(input));
+//Console.WriteLine(input);
+//Console.WriteLine(ReverseSentence(input));
 
-string ReverseWord(string word)
+//string ReverseWord(string word)
+//{
+//    string result = "";
+//    for (int i = word.Length - 1; i >= 0; i--)
+//    {
+//        result += word[i];
+//    }
+//    return result;
+//}
+//string ReverseSentence(string input)
+//{
+//    string result = "";
+//    string[] words = input.Split(" ");
+
+//    foreach (string word in words)
+//    {
+//        result += ReverseWord(word) + " ";
+//    }
+
+//    return result.Trim();
+//}
+
+
+////Exercise - Return Booleans from methods
+//string[] words = { "racecar", "talented", "deified", "tent", "tenet" };
+
+//Console.WriteLine("Is it a palindrome?");
+//foreach (string word in words)
+//{
+//    Console.WriteLine($"{word}: {IsPalindrome(word)}");
+//}
+
+//bool IsPalindrome(string word)
+//{
+//    int start = 0;
+//    int end = word.Length - 1;
+
+//    while (start < end)
+//    {
+//        if (word[start] != word[end])
+//        {
+//            return false;
+//        }
+//        start++;
+//        end--;
+//    }
+
+//    return true;
+//}
+
+
+////Exercise - Return arrays from methods
+////Find coins to make change
+//int target = 60;
+//int[] coins = new int[] { 5, 5, 50, 25, 25, 10, 5 };
+//int[] result = TwoCoins(coins, target);
+//if (result.Length == 0)
+//{
+//    Console.WriteLine("No two coins make change");
+//}
+//else
+//{
+//    Console.WriteLine($"Change found at positions {result[0]} and {result[1]}");
+//}
+//int[] TwoCoins(int[] coins, int target)
+//{
+//    for (int curr = 0; curr < coins.Length; curr++)
+//    {
+//        for (int next = curr + 1; next < coins.Length; next++)
+//        {
+//            if (coins[curr] + coins[next] == target)
+//            {
+//                return new int[] { curr, next };
+//            }
+
+//        }
+//    }
+
+//    return new int[0];
+//}
+
+////Find multiple pairs of coins that make change
+int target = 30;
+int[] coins = new int[] { 5, 5, 50, 25, 25, 10, 5 };
+int[,] result = TwoCoins(coins, target);
+
+if (result.Length == 0)
 {
-    string result = "";
-    for (int i = word.Length - 1; i >= 0; i--)
-    {
-        result += word[i];
-    }
-    return result;
+    Console.WriteLine("No two coins make change");
 }
-string ReverseSentence(string input)
+else
 {
-    string result = "";
-    string[] words = input.Split(" ");
-
-    foreach (string word in words)
+    Console.WriteLine("Change found at positions:");
+    for (int i = 0; i < result.GetLength(0); i++)
     {
-        result += ReverseWord(word) + " ";
+        if (result[i, 0] == -1)
+        {
+            break;
+        }
+        Console.WriteLine($"{result[i, 0]},{result[i, 1]}");
     }
-
-    return result.Trim();
 }
 
+int[,] TwoCoins(int[] coins, int target)
+{
+    int[,] result = { { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 } };
+    int count = 0;
 
+    for (int curr = 0; curr < coins.Length; curr++)
+    {
+        for (int next = curr + 1; next < coins.Length; next++)
+        {
+            if (coins[curr] + coins[next] == target)
+            {
+                result[count, 0] = curr;
+                result[count, 1] = next;
+                count++;
+            }
+            if (count == result.GetLength(0))
+            {
+                return result;
+            }
+        }
+    }
+    return (count == 0) ? new int[0, 0] : result;
+}
 
 
 ////Consider a game where the player must fight enemies. The game contains some code that determines if a character was hit whenever an Update() method is called. The code might contain the following methods:

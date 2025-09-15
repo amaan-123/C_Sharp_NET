@@ -3156,3 +3156,218 @@ string ReverseWord(string word)
   👉 To remove the extra trailing space added after the last reversed word.
 
 ---
+Here’s the same kind of **structured notes** for this exercise:
+
+---
+
+### Exercise: Return Booleans from methods
+
+#### Key Takeaways
+
+- A method can return a `bool` (`true` or `false`).
+- Boolean methods are useful for validations, conditions, and checks.
+- Palindrome check uses **two-pointer technique** (start from both ends of the string and compare).
+- Loop stops once pointers meet or cross.
+
+---
+
+#### Example: Palindrome Checker
+
+**Main program**
+
+```csharp
+string[] words = {"racecar" ,"talented", "deified", "tent", "tenet"}; 
+
+Console.WriteLine("Is it a palindrome?");
+foreach (string word in words)  
+{ 
+    Console.WriteLine($"{word}: {IsPalindrome(word)}"); 
+}
+```
+
+**Method**
+
+```csharp
+bool IsPalindrome(string word)  
+{ 
+    int start = 0; 
+    int end = word.Length - 1; 
+
+    while (start < end)  
+    { 
+        if (word[start] != word[end])  
+        { 
+            return false; 
+        } 
+        start++; 
+        end--; 
+    } 
+
+    return true; 
+}
+```
+
+---
+
+#### Program Flow
+
+1. Loop through each word in the list.
+2. `IsPalindrome` starts comparing first and last characters.
+3. If a mismatch is found → immediately return `false`.
+4. If loop finishes without mismatches → return `true`.
+
+---
+
+#### Output
+
+```
+Is it a palindrome?
+racecar: True
+talented: False
+deified: True
+tent: False
+tenet: True
+```
+
+---
+
+✅ **Concept Check**:
+
+- Why do we return immediately (`return false`) when a mismatch is found?
+  👉 Because no further checks are needed — the word already fails palindrome rules.
+
+---
+
+### Exercise - Return arrays from methods
+
+When developing applications, you'll often need to build and modify sets of data. Methods are useful for performing operations on data, and they're especially powerful tools for building the data sets themselves. Developing methods to create arrays representing your data set helps to keep your code reusable, organized, and simplified.
+
+---
+
+#### Find coins to make change
+
+- Task: Find two coins whose sum is equal to a target value.
+- Approach:
+
+  1. Choose one number from the array
+  2. Check other numbers one at a time to see if they add up to the target value
+  3. Return the result as soon as a match is found
+
+```csharp
+int[] TwoCoins(int[] coins, int target)  
+{ 
+    for (int curr = 0; curr < coins.Length; curr++)  
+    { 
+        for (int next = curr + 1; next < coins.Length; next++)  
+        { 
+            if (coins[curr] + coins[next] == target)  
+            { 
+                return new int[]{curr, next}; 
+            } 
+        } 
+    } 
+    return  new int[0]; 
+} 
+```
+
+- If no two coins are found → returns an empty array.
+
+##### Testing Example
+
+```csharp
+int target = 60; 
+int[] coins = new int[] {5, 5, 50, 25, 25, 10, 5}; 
+int[] result = TwoCoins(coins, target); 
+
+if (result.Length == 0)  
+{ 
+    Console.WriteLine("No two coins make change"); 
+}  
+else  
+{ 
+    Console.WriteLine($"Change found at positions {result[0]} and {result[1]}"); 
+} 
+```
+
+✔ Example Output:
+
+```
+Change found at positions 2 and 5
+```
+
+---
+
+#### Find multiple pairs of coins that make change
+
+- Extend `TwoCoins` to return multiple pairs (max 5).
+- Use a 2D array `int[,]` instead of `int[]`.
+- Initialize results with `-1` to indicate empty slots.
+
+```csharp
+int[,] TwoCoins(int[] coins, int target)  
+{ 
+    int[,] result = {{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}}; 
+    int count = 0; 
+
+    for (int curr = 0; curr < coins.Length; curr++)  
+    { 
+        for (int next = curr + 1; next < coins.Length; next++)  
+        { 
+            if (coins[curr] + coins[next] == target)  
+            { 
+                result[count, 0] = curr; 
+                result[count, 1] = next; 
+                count++; 
+            } 
+            if (count == result.GetLength(0))  
+            { 
+                return result; 
+            } 
+        } 
+    } 
+    return (count == 0) ? new int[0,0] : result; 
+} 
+```
+
+---
+
+#### Capture and Print Result
+
+```csharp
+int target = 30; 
+int[] coins = new int[] {5, 5, 50, 25, 25, 10, 5}; 
+int[,] result = TwoCoins(coins, target); 
+
+if (result.Length == 0)  
+{ 
+    Console.WriteLine("No two coins make change"); 
+}  
+else  
+{ 
+    Console.WriteLine("Change found at positions:"); 
+    for (int i = 0; i < result.GetLength(0); i++)  
+    { 
+        if (result[i,0] == -1) break; 
+        Console.WriteLine($"{result[i,0]},{result[i,1]}"); 
+    } 
+} 
+```
+
+✔ Example Output (target = 30):
+
+```
+Change found at positions:
+0,3
+0,4
+1,3
+1,4
+3,6
+```
+
+✔ Example Output (target = 80):
+
+```
+No two coins make change
+```
+
+---
