@@ -2905,7 +2905,7 @@ if (TotalMeetsMinimum())
 }
 
 // Ternary alternative
-total -= TotalMeetsMinimum() ? 5.00 : 0.00;
+// total -= TotalMeetsMinimum() ? 5.00 : 0.00;
 
 Console.WriteLine($"Total: ${FormatDecimal(total)}");
 ```

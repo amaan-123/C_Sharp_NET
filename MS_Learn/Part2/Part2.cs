@@ -1202,8 +1202,8 @@
 //}
 
 
-////Exercise - Return arrays from methods
-////Find coins to make change
+//Exercise - Return arrays from methods
+//Find coins to make change
 //int target = 60;
 //int[] coins = new int[] { 5, 5, 50, 25, 25, 10, 5 };
 //int[] result = TwoCoins(coins, target);
@@ -1233,60 +1233,163 @@
 //}
 
 ////Find multiple pairs of coins that make change
-int target = 30;
-int[] coins = new int[] { 5, 5, 50, 25, 25, 10, 5 };
-int[,] result = TwoCoins(coins, target);
+//int target = 30;
+//int[] coins = new int[] { 5, 5, 50, 25, 25, 10, 5 };
+//int[,] result = TwoCoins(coins, target);
 
-if (result.Length == 0)
+//if (result.Length == 0)
+//{
+//    Console.WriteLine("No two coins make change");
+//}
+//else
+//{
+//    Console.WriteLine("Change found at positions:");
+//    for (int i = 0; i < result.GetLength(0); i++)
+//    {
+//        if (result[i, 0] == -1)
+//        {
+//            break;
+//        }
+//        Console.WriteLine($"{result[i, 0]},{result[i, 1]}");
+//    }
+//}
+
+//int[,] TwoCoins(int[] coins, int target)
+//{
+//    int[,] result = { { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 } };
+//    int count = 0;
+
+//    for (int curr = 0; curr < coins.Length; curr++)
+//    {
+//        for (int next = curr + 1; next < coins.Length; next++)
+//        {
+//            if (coins[curr] + coins[next] == target)
+//            {
+//                result[count, 0] = curr;
+//                result[count, 1] = next;
+//                count++;
+//            }
+//            if (count == result.GetLength(0))
+//            {
+//                return result;
+//            }
+//        }
+//    }
+//    return (count == 0) ? new int[0, 0] : result;
+//}
+
+
+////Exercise - Review the solution to add methods to make the game playable
+//Random random = new Random();
+
+//Console.WriteLine("Would you like to play? (Y/N)");
+//if (ShouldPlay())
+//{
+//    PlayGame();
+//}
+
+//bool ShouldPlay()
+//{
+//    string response = Console.ReadLine();
+//    return response.ToLower().Equals("y");
+//}
+
+//void PlayGame()
+//{
+//    var play = true;
+
+//    while (play)
+//    {
+//        var target = GetTarget();
+//        var roll = RollDice();
+
+//        Console.WriteLine($"Roll a number greater than {target} to win!");
+//        Console.WriteLine($"You rolled a {roll}");
+//        Console.WriteLine(WinOrLose(roll, target));
+//        Console.WriteLine("\nPlay again? (Y/N)");
+
+//        play = ShouldPlay();
+//    }
+//}
+
+//int GetTarget()
+//{
+//    return random.Next(1, 6);
+//}
+
+//int RollDice()
+//{
+//    return random.Next(1, 7);
+//}
+
+//string WinOrLose(int roll, int target)
+//{
+//    if (roll > target)
+//    {
+//        return "You win!";
+//    }
+//    return "You lose!";
+//}
+
+
+// // Guided project - Plan a Petting Zoo Visit
+// // Design Specifications:
+// // - There will be three visiting schools
+// //     - School A has six visiting groups (the default number)
+// //     - School B has three visiting groups
+// //     - School C has two visiting groups
+
+// // - For each visiting school, perform the following tasks
+// //     - Randomize the animals
+// //     - Assign the animals to the correct number of groups
+// //     - Print the school name
+// //     - Print the animal groups
+string[] pettingZoo =
 {
-    Console.WriteLine("No two coins make change");
-}
-else
+    "alpacas", "capybaras", "chickens", "ducks", "emus", "geese",
+    "goats", "iguanas", "kangaroos", "lemurs", "llamas", "macaws",
+    "ostriches", "pigs", "ponies", "rabbits", "sheep", "tortoises",
+};
+
+RandomizeAnimals();
+
+//string[,] group = AssignGroup();
+
+Console.WriteLine("School A");
+//foreach (string animal in pettingZoo)
+//{
+//    Console.Write(animal + " ");
+//}
+
+// PrintGroup(group);
+
+void RandomizeAnimals()
 {
-    Console.WriteLine("Change found at positions:");
-    for (int i = 0; i < result.GetLength(0); i++)
+    Random random = new Random();
+
+    for (int i = 0; i < pettingZoo.Length; i++)
     {
-        if (result[i, 0] == -1)
-        {
-            break;
-        }
-        Console.WriteLine($"{result[i, 0]},{result[i, 1]}");
+        int r = random.Next(i, pettingZoo.Length);
+
+        string temp = pettingZoo[r];
+        pettingZoo[r] = pettingZoo[i];
+        pettingZoo[i] = temp;
     }
 }
 
-int[,] TwoCoins(int[] coins, int target)
-{
-    int[,] result = { { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 } };
-    int count = 0;
+//string[,] AssignGroup(int groups = 6)
+//{
+//    string[,] result = new string[groups, pettingZoo.Length / groups];
+//    int start = 0;
 
-    for (int curr = 0; curr < coins.Length; curr++)
-    {
-        for (int next = curr + 1; next < coins.Length; next++)
-        {
-            if (coins[curr] + coins[next] == target)
-            {
-                result[count, 0] = curr;
-                result[count, 1] = next;
-                count++;
-            }
-            if (count == result.GetLength(0))
-            {
-                return result;
-            }
-        }
-    }
-    return (count == 0) ? new int[0, 0] : result;
-}
+//    for (int i = 0; i < groups; i++)
+//    {
+//        for (int j = 0; j < result.GetLength(1); j++)
+//        {
+//            result[i, j] = pettingZoo[start++];
+//        }
+//    }
 
+//    return result;
+//}
 
-////Consider a game where the player must fight enemies. The game contains some code that determines if a character was hit whenever an Update() method is called. The code might contain the following methods:
-
-//void Update();
-
-//int[] GetEnemyCoordinates(string enemyId);
-//int[] GetDistanceFromHero(string enemyId);
-//int[] GetHeroCoordinates();
-
-//bool EnemyCanHitHero(string enemyId);
-//int GetEnemyDamageOutput(string enemyId);
-//void UpdateHeroHP(int damage);
