@@ -1,4 +1,6 @@
 ﻿
+Console.WriteLine("Type the string to remove stars from(characters preferably lowercase)");
+
 string S = Console.ReadLine();
 char[] sChars = S.ToCharArray();
 
@@ -31,7 +33,7 @@ bool ConstraintCheck(string S)
 string StarRemoval(string S)
 {
     //ifstarpresentcompute
-    for (int i = 0; i < S.Length; i++)
+    for (int i = 1; i < S.Length; i++)
     {
 
         if ((S[i] == '*') && (S[i - 1] != '*'))

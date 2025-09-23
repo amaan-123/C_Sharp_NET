@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice", "Practice.csproj", "{4BBC3830-4F39-42AB-9CD6-8B2B75200F37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "002_EncryptDecypt", "..\002_EncryptDecypt\002_EncryptDecypt.csproj", "{F467B819-7732-4B22-8F68-CCE13242FEFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001_RemoveStars", "..\001_RemoveStars\001_RemoveStars.csproj", "{DDE0A4AD-F8E1-4DB2-8145-3D5F1FB018AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4BBC3830-4F39-42AB-9CD6-8B2B75200F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBC3830-4F39-42AB-9CD6-8B2B75200F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBC3830-4F39-42AB-9CD6-8B2B75200F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F467B819-7732-4B22-8F68-CCE13242FEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F467B819-7732-4B22-8F68-CCE13242FEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F467B819-7732-4B22-8F68-CCE13242FEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F467B819-7732-4B22-8F68-CCE13242FEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE0A4AD-F8E1-4DB2-8145-3D5F1FB018AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE0A4AD-F8E1-4DB2-8145-3D5F1FB018AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE0A4AD-F8E1-4DB2-8145-3D5F1FB018AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE0A4AD-F8E1-4DB2-8145-3D5F1FB018AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
