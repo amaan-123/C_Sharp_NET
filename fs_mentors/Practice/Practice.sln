@@ -5,13 +5,17 @@ VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice", "Practice.csproj", "{4BBC3830-4F39-42AB-9CD6-8B2B75200F37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "002_EncryptDecypt", "..\002_EncryptDecrypt\002_EncryptDecrypt.csproj", "{F467B819-7732-4B22-8F68-CCE13242FEFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "002_EncryptDecrypt", "..\002_EncryptDecrypt\002_EncryptDecrypt.csproj", "{F467B819-7732-4B22-8F68-CCE13242FEFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001_RemoveStars", "..\001_RemoveStars\001_RemoveStars.csproj", "{DDE0A4AD-F8E1-4DB2-8145-3D5F1FB018AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "003_CompressDecompress", "..\003_CompressDecompress\003_CompressDecompress.csproj", "{19C810D4-17D2-4357-8B43-B2876C7EB581}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "004_SmartEditor", "..\004_SmartEditor\004_SmartEditor.csproj", "{2F24C21A-84C5-4020-A127-8A6295DD3C90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "005_QueueSimulatorTwoStack", "..\005_QueueSimulatorTwoStack\005_QueueSimulatorTwoStack.csproj", "{A0D878CD-31B5-45BD-BC54-0D619333B286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "006_ConsecutiveRangesFormatter", "..\006_ConsecutiveRangesFormatter\006_ConsecutiveRangesFormatter.csproj", "{ED3B1364-8E87-4A7C-84C5-80719721B7BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{2F24C21A-84C5-4020-A127-8A6295DD3C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F24C21A-84C5-4020-A127-8A6295DD3C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F24C21A-84C5-4020-A127-8A6295DD3C90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0D878CD-31B5-45BD-BC54-0D619333B286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0D878CD-31B5-45BD-BC54-0D619333B286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0D878CD-31B5-45BD-BC54-0D619333B286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0D878CD-31B5-45BD-BC54-0D619333B286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
