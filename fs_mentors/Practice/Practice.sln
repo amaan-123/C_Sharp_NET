@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "005_QueueSimulatorTwoStack"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "006_ConsecutiveRangesFormatter", "..\006_ConsecutiveRangesFormatter\006_ConsecutiveRangesFormatter.csproj", "{ED3B1364-8E87-4A7C-84C5-80719721B7BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "007_kDistinctSubstrings", "..\007_kDistinctSubstrings\007_kDistinctSubstrings.csproj", "{B9C1F2D8-1499-4E53-911B-A5511D7CB212}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "008_EventSchedulerConflictsMerge", "..\008_EventSchedulerConflictsMerge\008_EventSchedulerConflictsMerge.csproj", "{88089DB3-8409-421E-A1FC-AE41B6A343BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED3B1364-8E87-4A7C-84C5-80719721B7BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C1F2D8-1499-4E53-911B-A5511D7CB212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C1F2D8-1499-4E53-911B-A5511D7CB212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C1F2D8-1499-4E53-911B-A5511D7CB212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C1F2D8-1499-4E53-911B-A5511D7CB212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
