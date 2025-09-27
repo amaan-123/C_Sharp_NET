@@ -557,7 +557,8 @@ for (int i = 0; i < 5; i++)
     int result = AddNumbers(5, 3); // result will be 8
     ```
 
-- **Method Overloading**:
+- **Method Overloading**
+  - Methods must have unique signature(**signature = method name + parameter list**).
   - Defining multiple methods in the same class with the **same name but different parameter lists** (different number or types of parameters).
   - The compiler determines which method to call based on the arguments provided.
 - Example:
@@ -577,6 +578,108 @@ static double Average(double a, double b, double c) // Average of three doubles
 double avg1 = Average(10.0, 20.0);
 double avg2 = Average(10.0, 20.0, 30.0);
 ```
+
+## `params` Keyword ⚙️
+
+![alt text](image.png)
+
+### Overview and Definition
+
+- The `params` keyword is presented as a beneficial alternative, or superior option, to using overloaded methods.
+- It allows a method's parameters to take a **variable number of arguments**.
+- **Crucial Requirement:** The parameter type used with `params` must be a **single dimensional array**.
+
+### Benefits Over Method Overloading
+
+- If you have a method that needs to handle a varying number of inputs—for instance, an online store's `checkout` method summing up a customer's variable number of item prices—method overloading can become tedious.
+- Without `params`, you would have to create many separate overloaded methods: one `checkout` method accepting one argument, another accepting two arguments, then three, and so on.
+- **Using `params`:** Only a **single method** is needed.
+- This single method can accept a varying amount of arguments.
+- You avoid needing several copies of the same method.
+- Method overloading is not always necessary, especially when working with many different arguments and when you are not sure how many arguments will be passed in.
+
+### Syntax and Usage
+
+- To use the `params` keyword, precede the data type of the parameter with the word `params`.
+- Following the data type, you must include a set of square brackets (`[]`).
+- When defined this way, the parameter (e.g., `prices`) is treated as an array.
+
+## C# Exception Handling ⚠️
+
+### Overview of Exceptions
+
+- An **exception** is defined as an **error that occurs during execution**.
+- When an exception is encountered, it **interrupts the program** and the normal flow of execution.
+- The concept of exception handling is designed to manage these errors so the program is not interrupted.
+
+### Example Structure of Try-Catch-Finally
+
+```csharp
+try
+{
+    // Code considered dangerous (where an exception might occur)
+}
+catch (FormatException e)
+{
+    // Handle FormatException
+}
+catch (DivideByZeroException e)
+{
+    // Handle DivideByZeroException
+}
+catch (Exception e)
+{
+    // Catch-all block for unanticipated exceptions
+}
+finally
+{
+    // Optional code that always runs (e.g., closing files, printing "Thanks for visiting")
+}
+```
+
+### The Try Block
+
+- Any code that is considered **dangerous** (meaning it might cause an exception) should be surrounded with a `try` block.
+- The `try` keyword is followed by a set of curly braces which contain the dangerous code.
+
+### The Catch Block
+
+- If a program has a `try` block, it **must also have a `catch` block**.
+- The `catch` block is responsible for **catching and handling exceptions** when they occur.
+- When defining a `catch` block, the programmer needs to specify **what kinds of exceptions** they would like to catch and handle.
+- If an exception is encountered and handled, the program is not interrupted.
+
+#### Catching Specific Exceptions
+
+- Multiple `catch` blocks can be added to handle different anticipated exceptions.
+- The syntax requires specifying the exception type within parentheses, followed by a variable (e.g., `e`).
+
+1. **FormatException**
+    - An example of this is when a user enters text (like "pizza") instead of a number, resulting in an "Input string was not in a correct format" error.
+    - Catching a `FormatException` allows the program to display an informative message, such as "Enter only numbers please".
+
+2. **DivideByZeroException**
+    - This exception is caught when someone attempts to divide a number by zero.
+    - This specific error only occurs with **integer division**.
+    - Catching this exception allows the program to display a message like "You can't divide by zero idiot".
+
+#### General Exception Handling
+
+- A `catch` block can be added to catch **everything** using `catch (Exception e)`.
+- This is sometimes referred to as a "catch all block" and is useful for catching any exceptions that were not anticipated.
+- **Best Practice Considerations:**
+  - It is considered **poor practice** or "not considered good practice" to have `catch (Exception e)` by itself.
+  - If only the general exception block is used, it is difficult to let the user know **exactly what went wrong**.
+  - The recommended practice is to catch **specific exceptions first**, and then add the general `catch (Exception e)` block at the end.
+
+### The Finally Block
+
+- The `finally` block is **optional**.
+- It is unique because it **always executes** regardless of whether an exception is caught or not.
+- Common uses for the `finally` block include:
+  - **Closing any open files**.
+  - **Resetting anything** that needs to be reset after the try/catch process.
+- The `finally` block will execute both when no exception occurs and when an exception is successfully caught and handled.
 
 ## Object-Oriented Programming (OOP): Classes and Objects
 
