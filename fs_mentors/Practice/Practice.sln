@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "007_kDistinctSubstrings", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "008_EventSchedulerConflictsMerge", "..\008_EventSchedulerConflictsMerge\008_EventSchedulerConflictsMerge.csproj", "{88089DB3-8409-421E-A1FC-AE41B6A343BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "009_TicketBookingSystem", "..\009_TicketBookingSystem\009_TicketBookingSystem.csproj", "{AAF8454F-6205-4677-AD60-AB999BC9E841}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "010_TaskCooldownTime", "..\010_TaskCooldownTime\010_TaskCooldownTime.csproj", "{BB1F5569-3015-4EFA-B51A-F4C60F070F69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88089DB3-8409-421E-A1FC-AE41B6A343BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAF8454F-6205-4677-AD60-AB999BC9E841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF8454F-6205-4677-AD60-AB999BC9E841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF8454F-6205-4677-AD60-AB999BC9E841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF8454F-6205-4677-AD60-AB999BC9E841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB1F5569-3015-4EFA-B51A-F4C60F070F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB1F5569-3015-4EFA-B51A-F4C60F070F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB1F5569-3015-4EFA-B51A-F4C60F070F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB1F5569-3015-4EFA-B51A-F4C60F070F69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
