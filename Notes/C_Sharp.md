@@ -1,6 +1,6 @@
 # C# Notes
 
-## C# Tutorial: Code With Harry
+# C# Tutorial: Code With Harry
 
 <https://www.youtube.com/watch?v=SuLiu5AK9Ps>
 
@@ -557,6 +557,8 @@ for (int i = 0; i < 5; i++)
     int result = AddNumbers(5, 3); // result will be 8
     ```
 
+# Other Topics(Various sources)
+
 - **Method Overloading**
   - Methods must have unique signature(**signature = method name + parameter list**).
   - Defining multiple methods in the same class with the **same name but different parameter lists** (different number or types of parameters).
@@ -681,21 +683,93 @@ finally
   - **Resetting anything** that needs to be reset after the try/catch process.
 - The `finally` block will execute both when no exception occurs and when an exception is successfully caught and handled.
 
-## Object-Oriented Programming (OOP): Classes and Objects
+## Collections in `C#`
+
+[https://www.geeksforgeeks.org/c-sharp/collections-in-c-sharp/]
+
+### Lists in `C#`
+
+<https://www.youtube.com/watch?v=vQzREQUhGSA&list=PLZPZq0r_RZOPNy28FDBys3GVP2LiaIyP_&index=46>
+
+```csharp
+List<string> food = new List<string>();
+food.Add("pizza"); //0th index
+food.Add("onion"); //1
+food.Add("semi"); //2
+food.Add("full"); //3
+
+food.Remove("semi");
+food.Remove("full");
+food.Insert(2, "semolina"); //2 
+food.Insert(3, "full biryani"); //3
+food.Insert(0, "pataka burger"); //0th index, +1 to rest ahead of it
+food.Add("pizza"); //5th index
+
+Console.WriteLine("List in index-based order is:\n");
+foreach (var item in food)
+{
+    Console.WriteLine(item);
+
+}
+Console.WriteLine();
+
+
+Console.WriteLine(food.Count); // number of elements in list, length not used here
+Console.WriteLine(food.IndexOf("pizza")); // 1st index
+Console.WriteLine(food.LastIndexOf("pizza")); // 5th index
+Console.WriteLine(food.Contains("pataka burger")); //returns boolean
+Console.WriteLine();
+
+
+food.Sort(); //changes the food list
+Console.WriteLine("Sorted list is:");
+
+foreach (var item in food)
+{
+    Console.WriteLine(item);
+
+}
+Console.WriteLine();
+
+
+food.Reverse(); //reverses the sorted list
+Console.WriteLine("Reversed list(previously sorted) is:");
+
+foreach (var item in food)
+{
+    Console.WriteLine(item);
+
+}
+
+food.Clear();
+
+// Converting the list to an array:
+Console.WriteLine("Converting the list to an array:\n");
+string[] foodArray = food.ToArray();
+foreach (var item in foodArray)
+{
+    Console.WriteLine(item);
+}
+```
+
+# Object-Oriented Programming (OOP): Classes and Objects (Code With Harry)
 
 - OOP is a programming paradigm based on the concept of "objects", which can contain data and code.
 - The key concepts are **Classes and Objects**.
-- **Class**:
-  - A **blueprint or template** for creating objects.
-  - It defines the properties (data members) and methods (member functions) that objects of that class will have.
-  - Think of a class like a custom data type you create. For example, just like `int` is a type, you can create a `Player` class as a type.
-  - Classes help model real-world entities. For example, a `Player` class in a game might have properties like `Name`, `Health`, `Position` and methods like `Run()`, `Shoot()`.
 
-- **Object**:
-  - An **instance** of a class.
-  - When you create an object from a class, you are creating a specific instance of that blueprint.
-  - Example: Creating a `Player` object named `tommy` from the `Player` class.
-  - Objects have their own unique set of property values (e.g., `tommy` might have `Name = "Tommy"` and `Health = 100`).
+## Class
+
+- A **blueprint or template** for creating objects.
+- It defines the properties (data members) and methods (member functions) that objects of that class will have.
+- Think of a class like a custom data type you create. For example, just like `int` is a type, you can create a `Player` class as a type.
+- Classes help model real-world entities. For example, a `Player` class in a game might have properties like `Name`, `Health`, `Position` and methods like `Run()`, `Shoot()`.
+
+## Object
+
+- An **instance** of a class.
+- When you create an object from a class, you are creating a specific instance of that blueprint.
+- Example: Creating a `Player` object named `tommy` from the `Player` class.
+- Objects have their own unique set of property values (e.g., `tommy` might have `Name = "Tommy"` and `Health = 100`).
 
 - To create a new class in Visual Studio, right-click on your project in the Solution Explorer, go to "Add", then "New Item", select "Class", give it a name (e.g., "Player.cs"), and click "Add".
 
@@ -727,24 +801,27 @@ namespace Hello
 }
 ```
 
-- **Access Modifiers**:
-  - Keywords that control the accessibility of classes and their members (properties, methods).
-  - **`public`**: The member is accessible from anywhere, both inside and outside the class.
-  - **`private`**: The member is accessible **only within the same class**.
-  - **`protected`**: The member is accessible within the same class and by derived classes (classes that inherit from this class).
+### Access Modifiers
 
-- **Creating an Object**:
-  - Use the `new` keyword followed by the class name.
-  - Example (in `Main` method):
+- Keywords that control the accessibility of classes and their members (properties, methods).
+- **`public`**: The member is accessible from anywhere, both inside and outside the class.
+- **`private`**: The member is accessible **only within the same class**.
+- **`protected`**: The member is accessible within the same class and by derived classes (classes that inherit from this class).
+
+### Creating an Object
+
+- Use the `new` keyword followed by the class name.
+- Example (in `Main` method):
 
     ```csharp
     // Creating an object (instance) of the Player class
     Player tommy = new Player();
     ```
 
-- **Accessing Members**:
-  - Use the object name followed by the dot operator (`.`) to access its public properties and methods.
-  - Example:
+### Accessing Members
+
+- Use the object name followed by the dot operator (`.`) to access its public properties and methods.
+- Example:
 
     ```csharp
     tommy.Name = "Tommy Vercetti"; // Accessing and setting a public property
@@ -762,7 +839,255 @@ namespace Hello
 
 - **Inheritance**: (Briefly mentioned as a concept for a future course). Inheritance allows a new class (derived class) to inherit properties and methods from an existing class (base class).
 
-## MS_Learn
+#### Locations for Class Definition
+
+- **Within the same C# file:** Define the class outside of the existing `program` class.
+- **Within a separate C# file:** This is generally recommended.
+
+#### Steps to Create a Class in a Separate File
+
+If you want to create a class within a separate C# file:
+
+- Go to `View` and select `Solution Explorer`.
+- Right-click on your namespace.
+- Select `Add` followed by `Class`.
+- Name the class (e.g., `messages`) and click `Add`.
+- Existing code for the class can then be pasted into this new file.
+
+## Using Classes as Utilities
+
+To use methods found within a class, there are two options: creating an object (discussed previously) or using the `static` keyword.
+
+#### Requirements for Utility Classes
+
+If using a class primarily as a utility (and not creating an object), specific keywords must be used:
+
+1. **Class Definition:** Precede the class definition with the keyword **`static`**.
+2. **Method Accessibility:** Methods need to be visible and accessible. To make them accessible (public), they must be preceded by the word **`public`**.
+3. **Method Definition:** Each method within a utility class must be preceded by **`public` and `static`**.
+
+The updated structure for the utility class requires both `public` and `static` keywords for the methods.
+
+#### Example Utility Class Implementation
+
+```csharp
+static class messages
+{
+    public static void hello()
+    {
+        // Code to display "hello welcome to the program"
+    }
+
+    public static void waiting()
+    {
+        // Code to display "I am waiting for something"
+    }
+
+    public static void bye()
+    {
+        // Code to display "thanks for visiting"
+    }
+}
+```
+
+#### Accessing Utility Methods
+
+To access methods defined within a utility class, use the name of the class, followed by a dot (`.`), and then the method name.
+
+- Use the class name `messages`.
+- Use the dot operator (`.`) to access members.
+
+## C# Constructors
+
+A constructor is a **special method** found within a class. It has the **same name as the class name**.
+
+### Purpose and Automatic Calling
+
+- A constructor is **automatically called** when an object is instantiated.
+- It is used to **create an object**.
+- It allows for manually assigning values to fields of an object when it is created.
+
+### Hidden (Default) Constructors
+
+- If a developer does not explicitly create a constructor, there is a **hidden one behind the scenes** that is automatically called.
+
+### Explicit Constructor Creation
+
+To explicitly create a constructor:
+
+1. **Accessibility:** Type the keyword **`public`** because the constructor is intended to be publicly accessible.
+2. **Naming:** The constructor must have the **same name as the class name** (e.g., if the class is `car`, the constructor is `car`).
+3. **Structure:** It works just like a method, requiring a set of parentheses and a set of curly braces.
+
+#### Parameters and Arguments
+
+- Constructors can be set up to take **parameters**.
+- When creating an object (instantiating), a **matching set of arguments** must be passed to the constructor's parameters.
+- Using a constructor with parameters means fields do not need to be manually assigned after object creation.
+
+Example of defining parameters for a `Human` class (name and age):
+
+```csharp
+public Human(string name, int age)
+{
+    // constructor body
+}
+```
+
+#### Assigning Fields within the Constructor
+
+Inside the constructor, the passed arguments are assigned to the class fields. If the parameter name and the field name are the same, the `this` keyword is used to refer to the class field.
+
+- **Syntax for assignment:** `this.name of the field = name of the parameter`.
+
+Example of assigning fields within the constructor:
+
+```csharp
+this.name = name;
+this.age = age;
+```
+
+### Car Class Example Implementation
+
+A `car` class is used as an example to demonstrate instantiation using a constructor.
+
+#### Car Class Fields
+
+The class fields are defined as:
+
+- `string make`
+- `string model`
+- `int year`
+- `string color`
+
+#### Car Constructor Definition
+
+The constructor is created to accept matching parameters for the fields:
+
+```csharp
+public Car(string make, string model, int year, string color)
+{
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.color = color;
+}
+```
+
+#### Car Drive Method Definition
+
+A public method named `drive` is created within the class to display information about the car:
+
+```csharp
+public void drive()
+{
+    // Display something: "u drive the " + make + " " + model
+}
+```
+
+#### Instantiating Car Objects
+
+To instantiate a car object, the class name is used, followed by a unique identifier, and the `new` keyword, along with passing the required arguments.
+
+- **Car 1 Instantiation:** A Ford Mustang (2022, red) is created.
+
+```csharp
+Car car1 = new Car("ford", "mustang", 2022, "red");
+car1.drive();
+```
+
+- **Car 1 Output:** "u drive the ford mustang".
+
+- **Car 2 Instantiation:** A Chevy Corvette (2021, blue) is created.
+
+```csharp
+Car car2 = new Car("chevy", "corvette", 2021, "blue");
+car2.drive();
+```
+
+- **Car 2 Output:** "u drive the chevy corvette".
+
+The constructor ensures that when the objects `car1` and `car2` are created, their fields are immediately initialized with the specified make, model, year, and color.
+
+## The Static Modifier
+
+### Definition and Purpose
+
+- The **`static` modifier** is used to declare a **static member**.
+- A static member **belongs to the class itself** rather than any one specific object.
+- Anything that is declared `static` now belongs to the class, and **no one object has ownership of it**.
+
+### Static Fields (Variables)
+
+- Static fields are often used to **keep track of information shared across all objects** of a class.
+
+#### Example: Tracking Instantiated Objects (Non-Static Attempt)
+
+- Using a non-static integer variable named `numberOfCars` to track how many cars are created is demonstrated.
+- This field is incremented within the constructor. Constructors are not limited to assigning values; they can contain any sort of code, acting like another kind of method.
+
+```csharp
+// Inside the Car class definition
+public int numberOfCars;
+
+public Car(string model)
+{
+    // Assign model
+    numberOfCars++; // Increment the counter
+}
+```
+
+- **Problem with Non-Static Fields:** If two car objects (`car1` and `car2`) are instantiated, accessing the field via `car1.numberOfCars` and `car2.numberOfCars` will show a count of `one` for both, not `two`.
+- This occurs because **each car object has its own copy** of the non-static `numberOfCars` field.
+
+#### Static Field Solution and Access
+
+- To fix this, the field must be changed to a **static field** by preceding it with `public static`.
+
+![alt text](image-1.png)
+
+- When the field is declared with the `static` modifier, the **class now owns it**, and objects are "sharing the same variable".
+- With a static field, if three cars are created, the count correctly reflects **three** cars.
+- **Accessing Static Fields:** Static fields **can no longer be accessed in a non-static way** (by typing the name of an object, like `car1.numberOfCars`).
+- To access a static field, you must use a **static way** by typing the **name of its class** followed by the name of the field.
+
+```csharp
+// Accessing the static field
+Car.numberOfCars
+```
+
+### Static Methods
+
+- The `static` modifier can also be applied to a method.
+- It is often better if the class itself (rather than individual objects) handles certain actions, such as starting a race.
+- A method intended to belong to the class should be declared as `public static`.
+
+#### Example: Starting a Race
+
+- A static method named `startRace` is created.
+
+```csharp
+public static void startRace()
+{
+    // Code to begin the race
+}
+```
+
+- **Invoking Static Methods:** To invoke a static method, you type the **name of the class** followed by the method name.
+
+```csharp
+Car.startRace();
+// Output: The race has begun
+```
+
+### Static Classes
+
+- The `static` modifier can be applied to a class itself.
+- If a class is declared as `static`, **you cannot instantiate objects from this class**.
+- Attempting to declare a variable of a static type will result in errors.
+- This concept is similar to the built-in **`Math` class** in C#. To use a method like `Math.Round`, you use `Math.Round` directly rather than creating a `Math` object (e.g., `Math math1 = new Math()`).
+
+# MS_Learn
 
 ## What is the .NET Class Library?: Create and run simple C# console applications (Get started with C#, Part 2)
 
