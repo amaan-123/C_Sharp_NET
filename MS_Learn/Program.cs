@@ -39,6 +39,24 @@ namespace MS_Learn
             //Console.WriteLine(@"    c:\source\repos
             //        (this is where your code goes)");
             //Console.Write(@"c:\invoices");
+            // C# program to illustrate the use of @ by using keyword s an identifier
+            // Creating and initializing the array
+            // here 'for' keyword is used as 
+            // an identifier by using @ symbol
+            // string[] @for = { "C#", "PHP", "Java", "Python" }
+            // ;
+            // // as and for keywords work like identifier using @ symbol
+            // foreach (string @as in @for)
+            // {
+            //     Console.WriteLine("Element of Array: {0}", @as);
+            // }
+
+            // // Verbatim String Literal
+            // // For printing the escape sequences in string literals and also using the line breaks etc. in a string literal without any escape sequence.
+
+            // // If one will put the escape sequence like "\\" (for backslash), "\u" (Unicode escape sequence), "\x" (hexadecimal escape sequence) etc. in a string literal without using @ symbol then these sequences will be interpreted by compiler automatically. But "" (double quotes) are not interpreted literally. Its like a string interpolation
+            // string str = @"This is \n a verbatim string";
+            // Console.WriteLine(str);
 
             ////You can also add encoded characters in literal strings using the \u escape sequence, then a four-character code representing some character in Unicode(UTF - 16).
             //// Kon'nichiwa World
@@ -371,11 +389,11 @@ namespace MS_Learn
 
             // Initialize an array
             // Replace the collection expression(C# 12) with older syntax uses curly braces {} to enclose the values of the array.
-            string[] fraudulentOrderIDs = ["A123", "B456", "C789"];
-            Console.WriteLine($"First: {fraudulentOrderIDs[0]}");
-            Console.WriteLine($"Second: {fraudulentOrderIDs[1]}");
-            Console.WriteLine($"Third: {fraudulentOrderIDs[2]}");
-            Console.ReadLine();
+            // string[] fraudulentOrderIDs = ["A123", "B456", "C789"];
+            // Console.WriteLine($"First: {fraudulentOrderIDs[0]}");
+            // Console.WriteLine($"Second: {fraudulentOrderIDs[1]}");
+            // Console.WriteLine($"Third: {fraudulentOrderIDs[2]}");
+            // Console.ReadLine();
 
             //fraudulentOrderIDs[0] = "F000";
             //Console.WriteLine($"Reassign First: {fraudulentOrderIDs[0]}");

@@ -683,7 +683,395 @@ finally
   - **Resetting anything** that needs to be reset after the try/catch process.
 - The `finally` block will execute both when no exception occurs and when an exception is successfully caught and handled.
 
-## Collections in `C#`
+## Arrays in C #(Geekss)
+
+### Declaration and Initialization
+
+- Arrays can be declared first and initialized later.
+- You must use the `new` keyword when initializing.
+- Declaration and initialization can be done separately.
+
+```csharp
+// Declaration of the array
+string[] str1, str2;
+
+// Initialization of arrays
+str1 = new string[5] { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
+str2 = new string[5] { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
+```
+
+### Invalid Initialization
+
+- C# **does not allow initialization without specifying the size** when using `new`.
+- You cannot initialize directly without using the `new` keyword.
+
+```csharp
+// ❌ Compile-time error: must give size of an array
+int[] intArray = new int[]; 
+
+// ❌ Wrong initialization
+string[] str1;
+str1 = { "Element 1", "Element 2", "Element 3", "Element 4" }; 
+```
+
+---
+
+## Multi-Dimensional Arrays
+
+- Arrays can have multiple dimensions (2D, 3D, etc.).
+- Syntax: `int[,,] arr = new int[x, y, z];`
+
+```csharp
+class Geeks 
+{ 
+    public static void Main() 
+    { 
+        // 3D array with dimensions 2, 2, 3
+        int[,,] arr = new int[2, 2, 3] { 
+            { { 1, 2, 3 }, { 4, 5, 6 } }, 
+            { { 7, 8, 9 }, { 10, 11, 12 } } 
+        }; 
+
+        // Accessing elements
+        Console.WriteLine("arr[1,0,1] : " + arr[1, 0, 1]); 
+        Console.WriteLine("arr[1,1,2] : " + arr[1, 1, 2]); 
+        Console.ReadKey(); 
+    } 
+}
+```
+
+---
+
+## Jagged Arrays
+
+- A jagged array is an **array of arrays**.
+- Inner arrays can have **different lengths**.
+
+```csharp
+class Geeks 
+{ 
+    public static void Main() 
+    { 
+        // Declaring and initializing a jagged array
+        int[][] arr = { 
+            new int[] { 1, 3, 5, 7, 9 }, 
+            new int[] { 2, 4, 6, 8 } 
+        }; 
+
+        Console.WriteLine("Arrays :"); 
+
+        // Displaying elements
+        for (int i = 0; i < arr.Length; i++) 
+        { 
+            Console.Write("Elements[" + i + "] Array: "); 
+            for (int j = 0; j < arr[i].Length; j++) 
+            { 
+                Console.Write(arr[i][j] + " "); 
+            } 
+            Console.WriteLine(); 
+        } 
+        Console.ReadKey(); 
+    } 
+}
+```
+
+---
+
+## ArrayList in C #
+
+### Steps to Create and Use
+
+1. Include the `System.Collections` namespace.
+
+   ```csharp
+   using System.Collections;
+   ```
+
+2. Create an `ArrayList` object.
+
+   ```csharp
+   ArrayList list_name = new ArrayList();
+   ```
+
+3. Add elements using `Add()`.
+4. Access elements using loops or indexers.
+
+### Example: ArrayList Operations
+
+```csharp
+using System; 
+using System.Collections; 
+
+class GFG 
+{ 
+    static public void Main() 
+    { 
+        // Creating ArrayList
+        ArrayList My_array = new ArrayList(); 
+
+        // Adding elements (can be of different types)
+        My_array.Add(12.56); 
+        My_array.Add("GeeksforGeeks"); 
+        My_array.Add(null); 
+        My_array.Add('G'); 
+        My_array.Add(1234); 
+
+        // Accessing elements using foreach
+        foreach (var elements in My_array) 
+        { 
+            Console.WriteLine(elements); 
+        } 
+
+        Console.WriteLine("---------------------------------");
+
+        // Count and Capacity
+        Console.WriteLine("Number of elements: " + My_array.Count); 
+        Console.WriteLine("Current capacity: " + My_array.Capacity); 
+
+        // Remove element by value
+        My_array.Remove('G'); 
+        Console.WriteLine("After Remove(): " + My_array.Count); 
+
+        // Remove element by index
+        My_array.RemoveAt(8); 
+        Console.WriteLine("After RemoveAt(): " + My_array.Count); 
+
+        // Remove a range of elements
+        My_array.RemoveRange(1, 3); 
+        Console.WriteLine("After RemoveRange(): " + My_array.Count); 
+
+        // Clear all elements
+        My_array.Clear(); 
+        Console.WriteLine("After Clear(): " + My_array.Count); 
+
+        // Sorting example
+        My_array.Add(1); 
+        My_array.Add(6); 
+        My_array.Add(40); 
+        My_array.Add(10); 
+
+        Console.WriteLine("ArrayList before Sort(): "); 
+        foreach (var elements in My_array) 
+        { 
+            Console.WriteLine(elements); 
+        } 
+
+        My_array.Sort(); 
+        Console.WriteLine("ArrayList after Sort(): "); 
+        foreach (var elements in My_array) 
+        { 
+            Console.WriteLine(elements); 
+        } 
+
+        Console.ReadKey(); 
+    } 
+}
+```
+
+---
+
+## C# StringBuilder
+
+- **String objects are immutable** → once created, they cannot be changed.
+- To avoid string replacing, appending, removing or inserting new strings in the initial string C# introduced StringBuilder concept.
+- StringBuilder is a Dynamic Object. It doesn’t create a new object in the memory but dynamically expands the needed memory to accommodate the modified or new string.
+- **StringBuilder is mutable** → it allows modification of string data without creating new objects in memory.
+
+![alt text](image-2.png)
+
+---
+
+## Declaration and Initialization
+
+- StringBuilder can be declared like a class object:
+
+```csharp
+StringBuilder s = new StringBuilder();
+```
+
+- You can also initialize it with a value:
+
+```csharp
+StringBuilder s = new StringBuilder("GeeksforGeeks");
+```
+
+- Here, `s` is an object of the `StringBuilder` class.
+
+---
+
+## Defining Capacity
+
+- Even though StringBuilder grows dynamically, you can set a **capacity** (maximum character storage).
+
+```csharp
+StringBuilder s = new StringBuilder(20); 
+StringBuilder s = new StringBuilder("GeeksForGeeks", 20);
+```
+
+- First statement: initializes with max capacity `20`.
+- Second statement: initializes with string `"GeeksForGeeks"` and capacity `20`.
+
+---
+
+## Important Methods of StringBuilder
+
+### `Append(string value)`
+
+- Adds string data to the end of the current StringBuilder object.
+
+### `AppendFormat()`
+
+- Formats an input string and appends it.
+
+### `Insert(int index, string value)`
+
+- Inserts a string at the specified index.
+
+### `Remove(int start, int length)`
+
+- Removes a given number of characters from the specified start index.
+
+### `Replace(oldValue, newValue)`
+
+- Replaces all occurrences of a string/character with another.
+
+---
+
+## Examples
+
+### Example 1: Append & AppendLine
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("HELLO ", 20);
+
+        s.Append("GFG");
+        s.AppendLine("GEEKS"); // adds "GEEKS" + newline
+        s.Append("GeeksForGeeks");
+
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+HELLO GFGGEEKS
+GeeksForGeeks
+```
+
+---
+
+### Example 2: AppendFormat
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("Your total amount is ");
+        s.AppendFormat("{0:C} ", 50);
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+Your total amount is ₹50.00
+```
+
+---
+
+### Example 3: Insert
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("HELLO ", 20);
+        s.Insert(6, "GEEKS"); // insert at index 6
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+HELLO GEEKS
+```
+
+---
+
+### Example 4: Remove
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("GeeksForGeeks", 20);
+        s.Remove(5, 3); // removes 3 chars starting from index 5
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+GeeksGeeks
+```
+
+---
+
+### Example 5: Replace
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("GFG Geeks ", 20);
+        s.Replace("GFG", "Geeks For");
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+Geeks For Geeks
+```
+
+---
+
+Do you want me to also include a **comparison table (String vs StringBuilder)** for quick revision like I did in arrays?
+
+## Collections & Generics in `C#`
 
 [https://www.geeksforgeeks.org/c-sharp/collections-in-c-sharp/]
 
@@ -2230,8 +2618,6 @@ In this module, you will:
 - Extract portions of strings
 - Remove portions of strings
 - Replace values in strings with different values
-
-Thank you! Here's a **concise, structured summary** of the MS Learn unit you provided — complete with explanations and code examples:
 
 ---
 
