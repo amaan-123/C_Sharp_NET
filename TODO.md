@@ -5,6 +5,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## Immediate TO-DO's
 
 - C#
+  - Methods in the link: <https://www.geeksforgeeks.org/c-sharp/array-class-in-c-sharp/>  
   - pre-saturday complete masterclass.md sessions 1&2
   - rename MedicalDataAutomation solution & children in Practice branch, then move from Projects
   - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful?

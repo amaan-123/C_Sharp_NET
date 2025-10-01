@@ -716,7 +716,7 @@ str1 = { "Element 1", "Element 2", "Element 3", "Element 4" };
 
 ---
 
-## Multi-Dimensional Arrays
+### Multi-Dimensional Arrays
 
 - Arrays can have multiple dimensions (2D, 3D, etc.).
 - Syntax: `int[,,] arr = new int[x, y, z];`
@@ -742,10 +742,17 @@ class Geeks
 
 ---
 
-## Jagged Arrays
+### Jagged Arrays
 
 - A jagged array is an **array of arrays**.
 - Inner arrays can have **different lengths**.
+
+#### Ways to Declare and Initialize Jagged Arrays
+
+- `int[][] arr = { new int[] {...}, new int[] {...} };` ✅(inline initialization)
+- `arr[i] = new int[] { ... };` ✅(declare first, assign later)
+- `arr[i] = { ... };` ❌ invalid
+- In modern C#: `arr[i] = new[] { ... };` ✅**target-typed `new`**
 
 ```csharp
 class Geeks 
@@ -757,6 +764,16 @@ class Geeks
             new int[] { 1, 3, 5, 7, 9 }, 
             new int[] { 2, 4, 6, 8 } 
         }; 
+        /*  
+        int[][] arr = new int[2][];   // Declare jagged array with 2 rows
+        arr[0] = new int[] { 1, 3, 5, 7, 9 }; // Assign first inner array
+        arr[1] = new int[] { 2, 4, 6, 8 };    // Assign second inner array
+    
+        Since C# 9, you can also use target-typed new if the compiler already knows the type:
+        int[][] arr = new int[2][];
+        arr[0] = new[] { 1, 3, 5, 7, 9 }; // compiler infers int[]
+        arr[1] = new[] { 2, 4, 6, 8 };
+        */
 
         Console.WriteLine("Arrays :"); 
 
@@ -777,9 +794,544 @@ class Geeks
 
 ---
 
-## ArrayList in C #
+## C# StringBuilder
 
-### Steps to Create and Use
+- **String objects are immutable** → once created, they cannot be changed.
+- To avoid string replacing, appending, removing or inserting new strings in the initial string C# introduced StringBuilder concept.
+- StringBuilder is a Dynamic Object. It doesn’t create a new object in the memory but dynamically expands the needed memory to accommodate the modified or new string.
+- **StringBuilder is mutable** → it allows modification of string data without creating new objects in memory.
+
+![alt text](image-2.png)
+
+---
+
+### Declaration and Initialization
+
+- StringBuilder can be declared like a class object:
+
+```csharp
+StringBuilder s = new StringBuilder();
+```
+
+- You can also initialize it with a value:
+
+```csharp
+StringBuilder s = new StringBuilder("GeeksforGeeks");
+```
+
+- Here, `s` is an object of the `StringBuilder` class.
+
+---
+
+### Defining Capacity
+
+- Even though StringBuilder grows dynamically, you can set a **capacity** (maximum character storage).
+
+```csharp
+StringBuilder s = new StringBuilder(20); 
+StringBuilder s = new StringBuilder("GeeksForGeeks", 20);
+```
+
+- First statement: initializes with max capacity `20`.
+- Second statement: initializes with string `"GeeksForGeeks"` and capacity `20`.
+
+---
+
+### Important Methods of StringBuilder
+
+#### `Append(string value)`
+
+- Adds string data to the end of the current StringBuilder object.
+
+#### `AppendFormat()`
+
+- Formats an input string and appends it.
+
+#### `Insert(int index, string value)`
+
+- Inserts a string at the specified index.
+
+#### `Remove(int start, int length)`
+
+- Removes a given number of characters from the specified start index.
+
+#### `Replace(oldValue, newValue)`
+
+- Replaces all occurrences of a string/character with another.
+
+---
+
+### Examples
+
+#### Example 1: Append & AppendLine
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("HELLO ", 20);
+
+        s.Append("GFG");
+        s.AppendLine("GEEKS"); // adds "GEEKS" + newline
+        s.Append("GeeksForGeeks");
+
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+HELLO GFGGEEKS
+GeeksForGeeks
+```
+
+---
+
+#### Example 2: AppendFormat
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("Your total amount is ");
+        s.AppendFormat("{0:C} ", 50);
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+Your total amount is ₹50.00
+```
+
+---
+
+#### Example 3: Insert
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("HELLO ", 20);
+        s.Insert(6, "GEEKS"); // insert at index 6
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+HELLO GEEKS
+```
+
+---
+
+#### Example 4: Remove
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("GeeksForGeeks", 20);
+        s.Remove(5, 3); // removes 3 chars starting from index 5
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+GeeksGeeks
+```
+
+---
+
+#### Example 5: Replace
+
+```csharp
+using System;
+using System.Text;
+
+class Geeks
+{
+    public static void Main()
+    {
+        StringBuilder s = new StringBuilder("GFG Geeks ", 20);
+        s.Replace("GFG", "Geeks For");
+        Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+Geeks For Geeks
+```
+
+### String vs StringBuilder
+
+```csharp
+// Difference between String Vs StringBuilder
+using System;
+using System.Text;
+using System.Collections;
+​
+class Geeks {
+    // Concatenates to String
+    public static void concat1(String s1)
+    {
+​
+        // taking a string which
+        // is to be Concatenate
+        String st = "forGeeks";
+​
+        // using String.Concat method
+        // you can also replace it with
+        // s1 = s1 + "forgeeks";
+        s1 = String.Concat(s1, st);
+    }
+​
+    // Concatenates to StringBuilder
+    public static void concat2(StringBuilder s2)
+    {
+​
+        // using Append method
+        // of StringBuilder class
+        s2.Append("forGeeks");
+    }
+​
+    // Main Method
+    public static void Main(String[] args)
+    {
+​
+        String s1 = "Geeks";
+        concat1(s1); // s1 is not changed
+        Console.WriteLine("Using String Class: " + s1);
+​
+        StringBuilder s2 = new StringBuilder("Geeks");
+        concat2(s2); // s2 is changed
+        Console.WriteLine("Using StringBuilder Class: " + s2);
+    }
+}
+```
+
+#### Output
+
+```
+Using String Class: Geeks
+Using StringBuilder Class: GeeksforGeeks
+```
+
+#### Explanation
+
+- **Use of `concat1` Method**
+
+  - Passing string `"Geeks"` and performing:
+
+    ```csharp
+    s1 = String.Concat(s1, st);
+    ```
+
+    where `st = "forGeeks"`.
+  - The string passed from `Main()` is **not changed**, because `String` is immutable.
+  - Altering the string creates a **new object**, so `s1` in `concat1()` refers to a new string, while `s1` in `Main()` still refers to the original one.
+
+- **Use of `concat2` Method**
+
+  - Passing string `"Geeks"` and performing:
+
+    ```csharp
+    s2.Append("forGeeks");
+    ```
+
+  - This **changes the actual value** of the string in `Main` to `"GeeksforGeeks"`, because `StringBuilder` is mutable.
+
+---
+
+### Converting String to StringBuilder
+
+To convert a `String` object to a `StringBuilder`, pass the string object to the `StringBuilder` constructor.
+
+#### Example
+
+```csharp
+// Conversion from String to StringBuilder.
+using System;
+using System.Text;
+
+class Geeks
+{
+    // Main Method
+    public static void Main(String[] args)
+    {
+        String str = "Geeks";
+
+        // conversion from String object to StringBuilder
+        StringBuilder sbl = new StringBuilder(str);
+        sbl.Append("ForGeeks");
+        Console.WriteLine(sbl);
+    }
+}
+```
+
+#### Output
+
+```
+GeeksForGeeks
+```
+
+---
+
+### Converting StringBuilder to String
+
+This can be performed using the `ToString()` method.
+
+#### Example
+
+```csharp
+// Conversion from StringBuilder to String
+using System;
+using System.Text;
+
+class Geeks
+{
+    // Main Method
+    public static void Main(String[] args)
+    {
+        StringBuilder sbdr = new StringBuilder("Builder");
+
+        // conversion from StringBuilder object to String
+        String str1 = sbdr.ToString();
+
+        Console.Write("StringBuilder object to String: ");
+        Console.WriteLine(str1);
+    }
+}
+```
+
+#### Output
+
+```
+StringBuilder object to String: Builder
+```
+
+---
+
+## Collections in `C#`
+
+[https://www.geeksforgeeks.org/c-sharp/collections-in-c-sharp/]
+
+### Overview of Collections
+
+Collections standardize the way of which the objects are handled by your program. In other words, it contains a set of classes to contain elements in a generalized manner. With the help of collections, the user can perform several operations on objects like the store, update, delete, retrieve, search, sort etc. C# divide collection in several classes, some of the common classes are shown below:
+![](https://media.geeksforgeeks.org/wp-content/uploads/Untitled-Diagram-20.jpg)
+
+#### System.Collections.Generic Classes
+
+Generic collection in C# is defined in `System.Collection.Generic` namespace. It provides a generic implementation of standard data structure like linked lists, stacks, queues, and dictionaries. These collections are type-safe because they are generic means only those items that are type-compatible with the type of the collection can be stored in a generic collection, it eliminates accidental type mismatches. Generic collections are defined by the set of interfaces and classes. Below table contains the frequently used classes of the `System.Collections.Generic` namespace:
+
+| Class name | Description |
+| --- | --- |
+| **`Dictionary<TKey,TValue>`** | It stores key/value pairs and provides functionality similar to that found in the non-generic Hashtable class. |
+| **`List<T>`** | It is a dynamic array that provides functionality similar to that found in the non-generic ArrayList class. |
+| **`Queue<T>`** | A first-in, first-out list and provides functionality similar to that found in the non-generic Queue class. |
+| **`SortedList<TKey,TValue>`** | It is a sorted list of key/value pairs and provides functionality similar to that found in the non-generic SortedList class. |
+| **`Stack<T>`** | It is a first-in, last-out list and provides functionality similar to that found in the non-generic Stack class. |
+| **`HashSet<T>`** | It is an unordered collection of the unique elements. It prevent duplicates from being inserted in the collection. |
+| **`LinkedList<T>`** | It allows fast inserting and removing of elements. It implements a classic linked list. |
+
+**Example:**
+
+```csharp
+// C# program to illustrate the concept
+// of generic collection using List<T>
+using System;
+using System.Collections.Generic;
+class Geeks {
+    // Main Method
+    public static void Main(String[] args)
+    {
+        // Creating a List of integers
+        List<int> mylist = new List<int>();
+        // adding items in mylist
+        for (int j = 5; j < 10; j++) {
+            mylist.Add(j * 3);
+        }
+        // Displaying items of mylist
+        // by using foreach loop
+        foreach(int items in mylist)
+        {
+            Console.WriteLine(items);
+        }
+    }
+}
+
+**Output:**
+
+15
+18
+21
+24
+27
+```
+
+#### System.Collections Classes
+
+Non-Generic collection in C# is defined in `System.Collections` namespace. It is a general-purpose data structure that works on object references, so it can handle any type of object, but not in a safe-type manner. Non-generic collections are defined by the set of interfaces and classes. Below table contains the frequently used classes of the `System.Collections` namespace:
+
+| Class name | Description |
+| --- | --- |
+| **`ArrayList`** | It is a dynamic array means the size of the array is not fixed, it can increase and decrease at runtime. |
+| **`Hashtable`** | It represents a collection of key-and-value pairs that are organized based on the hash code of the key. |
+| **`Queue`** | It represents a first-in, first out collection of objects. It is used when you need a first-in, first-out access of items. |
+| **`Stack`** | It is a linear data structure. It follows LIFO(Last In, First Out) pattern for Input/output. |
+
+**Example:**
+
+```csharp
+// C# to illustrate the concept
+// of non-generic collection using Queue
+using System;
+using System.Collections;
+class GFG {
+    // Driver code
+    public static void Main()
+    {
+        // Creating a Queue
+        Queue myQueue = new Queue();
+        // Inserting the elements into the Queue
+        myQueue.Enqueue("C#");
+        myQueue.Enqueue("PHP");
+        myQueue.Enqueue("Perl");
+        myQueue.Enqueue("Java");
+        myQueue.Enqueue("C");
+        // Displaying the count of elements
+        // contained in the Queue
+        Console.Write("Total number of elements present in the Queue are: ");
+        Console.WriteLine(myQueue.Count);
+        // Displaying the beginning element of Queue
+        Console.WriteLine("Beginning Item is: " + myQueue.Peek());
+    }
+}
+
+**Output:**
+
+Total number of elements present in the Queue are: 5
+Beginning Item is: C#
+```
+
+**Note:** C# also provides some specialized collection that is optimized to work on a specific type of data type and the specialized collection are found in `System.Collections.Specialized` namespace.
+
+#### System.Collections.Concurrent
+
+It came in `.NET Framework Version 4` and onwards. It provides various threads-safe collection classes that are used in the place of the corresponding types in the `System.Collections` and `System.Collections.Generic` namespaces, when multiple threads are accessing the collection simultaneously. The classes present in this collection are:
+
+| Class name | Description |
+| --- | --- |
+| **BlockingCollection** | It provides blocking and bounding capabilities for thread-safe collections that implement IProducerConsumerCollection. |
+| **ConcurrentBag** | It represents a thread-safe, an unordered collection of objects. |
+| **ConcurrentDictionary** | It represents a thread-safe collection of key/value pairs that can be accessed by multiple threads concurrently. |
+| **ConcurrentQueue** | It represents a thread-safe first in-first out (FIFO) collection. |
+| **ConcurrentStack** | It represents a thread-safe last in-first out (LIFO) collection. |
+| **OrderablePartitioner** | It represents a particular manner of splitting an orderable data source into multiple partitions. |
+| **Partitioner** | It provides common partitioning strategies for arrays, lists, and enumerables. |
+| **Partitioner** | It represents a particular manner of splitting a data source into multiple partitions. |
+
+### Lists in `C#`
+
+<https://www.youtube.com/watch?v=vQzREQUhGSA&list=PLZPZq0r_RZOPNy28FDBys3GVP2LiaIyP_&index=46>
+
+```csharp
+List<string> food = new List<string>();
+food.Add("pizza"); //0th index
+food.Add("onion"); //1
+food.Add("semi"); //2
+food.Add("full"); //3
+
+food.Remove("semi");
+food.Remove("full");
+food.Insert(2, "semolina"); //2 
+food.Insert(3, "full biryani"); //3
+food.Insert(0, "pataka burger"); //0th index, +1 to rest ahead of it
+food.Add("pizza"); //5th index
+
+Console.WriteLine("List in index-based order is:\n");
+foreach (var item in food)
+{
+    Console.WriteLine(item);
+
+}
+Console.WriteLine();
+
+
+Console.WriteLine(food.Count); // number of elements in list, length not used here
+Console.WriteLine(food.IndexOf("pizza")); // 1st index
+Console.WriteLine(food.LastIndexOf("pizza")); // 5th index
+Console.WriteLine(food.Contains("pataka burger")); //returns boolean
+Console.WriteLine();
+
+
+food.Sort(); //changes the food list
+Console.WriteLine("Sorted list is:");
+
+foreach (var item in food)
+{
+    Console.WriteLine(item);
+
+}
+Console.WriteLine();
+
+
+food.Reverse(); //reverses the sorted list
+Console.WriteLine("Reversed list(previously sorted) is:");
+
+foreach (var item in food)
+{
+    Console.WriteLine(item);
+
+}
+
+food.Clear();
+
+// Converting the list to an array:
+Console.WriteLine("Converting the list to an array:\n");
+string[] foodArray = food.ToArray();
+foreach (var item in foodArray)
+{
+    Console.WriteLine(item);
+}
+```
+
+## Non-Generic Collections
+
+ArrayList, Stack, Queue, Hashtable, SortedList, BitArray, and HybridDictionary.
+
+### ArrayList in C #
+
+#### Steps to Create and Use
 
 1. Include the `System.Collections` namespace.
 
@@ -796,7 +1348,7 @@ class Geeks
 3. Add elements using `Add()`.
 4. Access elements using loops or indexers.
 
-### Example: ArrayList Operations
+#### Example: ArrayList Operations
 
 ```csharp
 using System; 
@@ -869,276 +1421,6 @@ class GFG
 ```
 
 ---
-
-## C# StringBuilder
-
-- **String objects are immutable** → once created, they cannot be changed.
-- To avoid string replacing, appending, removing or inserting new strings in the initial string C# introduced StringBuilder concept.
-- StringBuilder is a Dynamic Object. It doesn’t create a new object in the memory but dynamically expands the needed memory to accommodate the modified or new string.
-- **StringBuilder is mutable** → it allows modification of string data without creating new objects in memory.
-
-![alt text](image-2.png)
-
----
-
-## Declaration and Initialization
-
-- StringBuilder can be declared like a class object:
-
-```csharp
-StringBuilder s = new StringBuilder();
-```
-
-- You can also initialize it with a value:
-
-```csharp
-StringBuilder s = new StringBuilder("GeeksforGeeks");
-```
-
-- Here, `s` is an object of the `StringBuilder` class.
-
----
-
-## Defining Capacity
-
-- Even though StringBuilder grows dynamically, you can set a **capacity** (maximum character storage).
-
-```csharp
-StringBuilder s = new StringBuilder(20); 
-StringBuilder s = new StringBuilder("GeeksForGeeks", 20);
-```
-
-- First statement: initializes with max capacity `20`.
-- Second statement: initializes with string `"GeeksForGeeks"` and capacity `20`.
-
----
-
-## Important Methods of StringBuilder
-
-### `Append(string value)`
-
-- Adds string data to the end of the current StringBuilder object.
-
-### `AppendFormat()`
-
-- Formats an input string and appends it.
-
-### `Insert(int index, string value)`
-
-- Inserts a string at the specified index.
-
-### `Remove(int start, int length)`
-
-- Removes a given number of characters from the specified start index.
-
-### `Replace(oldValue, newValue)`
-
-- Replaces all occurrences of a string/character with another.
-
----
-
-## Examples
-
-### Example 1: Append & AppendLine
-
-```csharp
-using System;
-using System.Text;
-
-class Geeks
-{
-    public static void Main()
-    {
-        StringBuilder s = new StringBuilder("HELLO ", 20);
-
-        s.Append("GFG");
-        s.AppendLine("GEEKS"); // adds "GEEKS" + newline
-        s.Append("GeeksForGeeks");
-
-        Console.WriteLine(s);
-    }
-}
-```
-
-**Output**
-
-```
-HELLO GFGGEEKS
-GeeksForGeeks
-```
-
----
-
-### Example 2: AppendFormat
-
-```csharp
-using System;
-using System.Text;
-
-class Geeks
-{
-    public static void Main()
-    {
-        StringBuilder s = new StringBuilder("Your total amount is ");
-        s.AppendFormat("{0:C} ", 50);
-        Console.WriteLine(s);
-    }
-}
-```
-
-**Output**
-
-```
-Your total amount is ₹50.00
-```
-
----
-
-### Example 3: Insert
-
-```csharp
-using System;
-using System.Text;
-
-class Geeks
-{
-    public static void Main()
-    {
-        StringBuilder s = new StringBuilder("HELLO ", 20);
-        s.Insert(6, "GEEKS"); // insert at index 6
-        Console.WriteLine(s);
-    }
-}
-```
-
-**Output**
-
-```
-HELLO GEEKS
-```
-
----
-
-### Example 4: Remove
-
-```csharp
-using System;
-using System.Text;
-
-class Geeks
-{
-    public static void Main()
-    {
-        StringBuilder s = new StringBuilder("GeeksForGeeks", 20);
-        s.Remove(5, 3); // removes 3 chars starting from index 5
-        Console.WriteLine(s);
-    }
-}
-```
-
-**Output**
-
-```
-GeeksGeeks
-```
-
----
-
-### Example 5: Replace
-
-```csharp
-using System;
-using System.Text;
-
-class Geeks
-{
-    public static void Main()
-    {
-        StringBuilder s = new StringBuilder("GFG Geeks ", 20);
-        s.Replace("GFG", "Geeks For");
-        Console.WriteLine(s);
-    }
-}
-```
-
-**Output**
-
-```
-Geeks For Geeks
-```
-
----
-
-Do you want me to also include a **comparison table (String vs StringBuilder)** for quick revision like I did in arrays?
-
-## Collections & Generics in `C#`
-
-[https://www.geeksforgeeks.org/c-sharp/collections-in-c-sharp/]
-
-### Lists in `C#`
-
-<https://www.youtube.com/watch?v=vQzREQUhGSA&list=PLZPZq0r_RZOPNy28FDBys3GVP2LiaIyP_&index=46>
-
-```csharp
-List<string> food = new List<string>();
-food.Add("pizza"); //0th index
-food.Add("onion"); //1
-food.Add("semi"); //2
-food.Add("full"); //3
-
-food.Remove("semi");
-food.Remove("full");
-food.Insert(2, "semolina"); //2 
-food.Insert(3, "full biryani"); //3
-food.Insert(0, "pataka burger"); //0th index, +1 to rest ahead of it
-food.Add("pizza"); //5th index
-
-Console.WriteLine("List in index-based order is:\n");
-foreach (var item in food)
-{
-    Console.WriteLine(item);
-
-}
-Console.WriteLine();
-
-
-Console.WriteLine(food.Count); // number of elements in list, length not used here
-Console.WriteLine(food.IndexOf("pizza")); // 1st index
-Console.WriteLine(food.LastIndexOf("pizza")); // 5th index
-Console.WriteLine(food.Contains("pataka burger")); //returns boolean
-Console.WriteLine();
-
-
-food.Sort(); //changes the food list
-Console.WriteLine("Sorted list is:");
-
-foreach (var item in food)
-{
-    Console.WriteLine(item);
-
-}
-Console.WriteLine();
-
-
-food.Reverse(); //reverses the sorted list
-Console.WriteLine("Reversed list(previously sorted) is:");
-
-foreach (var item in food)
-{
-    Console.WriteLine(item);
-
-}
-
-food.Clear();
-
-// Converting the list to an array:
-Console.WriteLine("Converting the list to an array:\n");
-string[] foodArray = food.ToArray();
-foreach (var item in foodArray)
-{
-    Console.WriteLine(item);
-}
-```
 
 # Object-Oriented Programming (OOP): Classes and Objects (Code With Harry)
 
@@ -2204,12 +2486,51 @@ You covered several important concepts of data conversion and casting:
 
 ## Array operations using helper methods in `C#`
 
-### Learning objectives - arrays
-
 - Clear items in an array, learning the elements are set to null, using the `Array.Clear()`method.
 - Resize an array to add and remove elements using the `Array.Resize()` method.
 - Convert a string into an array using `String.Split()` specifying a string separator character to produce a value in the returned array.
 - Combine all of the elements of an array into a single string using the `String.Join()` method.
+
+> Table is from: <https://www.geeksforgeeks.org/c-sharp/array-class-in-c-sharp/>
+
+| ****Method**** | Description |
+| --- | --- |
+| [AsReadOnly()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-asreadonlyt-method/) | Returns a read-only wrapper for the specified array. |
+| [BinarySearch()](https://www.geeksforgeeks.org/c-sharp/how-to-use-array-binarysearch-method-in-c-sharp-set-1/) | Searches a sorted one-dimensional array using binary search. |
+| [Clear()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-clear-method/) | Sets elements in a range to their default values. |
+| [Clone()](https://www.geeksforgeeks.org/c-sharp/c-sharp-string-clone-method/) | Creates a shallow copy of the array. |
+| [ConstrainedCopy()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-constrainedcopy-method/) | Copies a range of elements with rollback if the copy fails. |
+| [ConvertAll()](https://www.geeksforgeeks.org/c-sharp/c-sharp-converting-an-array-of-one-type-to-an-array-of-another-type/) | Converts an array of one type to another type. |
+| [Copy()](https://www.geeksforgeeks.org/c-sharp/c-sharp-copy-method/) | Copies elements from one array to another (with type casting if needed). |
+| [CopyTo()](https://www.geeksforgeeks.org/c-sharp/c-sharp-copyto-method/) | Copies all elements to another one-dimensional array. |
+| CreateInstance() | Creates a new instance of the Array class. |
+| Empty() | Returns an empty array of a specified type. |
+| [Equals()](https://www.geeksforgeeks.org/c-sharp/c-sharp-check-if-an-array-object-is-equal-to-another-array-object/) | Checks if two arrays are equal. |
+| [Exists()](https://www.geeksforgeeks.org/c-sharp/c-sharp-check-if-an-array-contain-the-elements-that-match-the-specified-conditions/) | Checks if any element matches a given condition. |
+| [Find()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-find-method/) | Returns the first element that matches a condition. |
+| [FindAll()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-findall-method/) | Returns all elements that match a condition. |
+| [FindIndex()](https://www.geeksforgeeks.org/c-sharp/list-findindex-method-in-c-sharp-with-examples/) | Returns the index of the first element that matches a condition. |
+| [FindLast()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-findlast-method/) | Returns the last element that matches a condition. |
+| [FindLastIndex()](https://www.geeksforgeeks.org/c-sharp/list-findlastindex-method-in-c-sharp-set-1/) | Returns the index of the last element that matches a condition. |
+| [ForEach()](https://www.geeksforgeeks.org/c-sharp/c-sharp-performing-specified-action-on-each-element-of-array/) | Performs an action on each element of the array. |
+| [GetEnumerator()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-getenumerator-method/) | Returns an IEnumerator for the Array. |
+| [GetHashCode()](https://www.geeksforgeeks.org/c-sharp/c-sharp-how-to-get-the-hashcode-for-the-string/) | Returns the hash code for the array. |
+| [GetLength()](https://www.geeksforgeeks.org/c-sharp/c-sharp-total-number-of-elements-present-in-an-array/) | Gets the number of elements in a specified dimension (32-bit). |
+| [GetLongLength()](https://www.geeksforgeeks.org/c-sharp/total-number-of-elements-in-a-specified-dimension-of-an-array-in-c-sharp/) | Gets the number of elements in a specified dimension (64-bit). |
+| [GetLowerBound()](https://www.geeksforgeeks.org/c-sharp/c-sharp-finding-the-index-of-first-element-in-the-array/) | Gets the index of the first element of a dimension. |
+| [GetType()](https://www.geeksforgeeks.org/c-sharp/c-sharp-getting-the-type-of-the-current-instance/) | Gets the runtime type of the array. |
+| [GetUpperBound()](https://www.geeksforgeeks.org/c-sharp/c-sharp-finding-the-index-of-last-element-in-the-array/) | Gets the index of the last element of a dimension. |
+| [GetValue()](https://www.geeksforgeeks.org/c-sharp/array-getvalue-method-in-csharp-with-examples-set-1/) | Gets the value of the specified element in the current Array. |
+| [IndexOf()](https://www.geeksforgeeks.org/c-sharp/c-sharp-string-indexof-method-set-1/) | Returns the index of the first occurrence of a value. |
+| [Initialize()](https://www.geeksforgeeks.org/c-sharp/object-and-collection-initializer-in-c-sharp/) | Initializes each element of a value-type array. |
+| [LastIndexOf()](https://www.geeksforgeeks.org/c-sharp/array-lastindexof-method-in-c-sharp-set-1/) | Returns the index of the last occurrence of a value. |
+| MemberwiseClone() | Creates a shallow copy of the object. |
+| [Resize()](https://www.geeksforgeeks.org/c-sharp/c-sharp-how-to-change-the-size-of-one-dimensional-array/) | Resizes a one-dimensional array to the specified size. |
+| Reverse() | Reverses the order of elements in an array. |
+| SetValue() | Sets the value of an element at a specified index. |
+| [Sort()](https://www.geeksforgeeks.org/c-sharp/how-to-sort-an-array-in-c-sharp-array-sort-method-set-1/) | Sorts the elements in a one-dimensional array. |
+| [ToString()](https://www.geeksforgeeks.org/c-sharp/single-tostring-method-in-c-sharp-set-1/) | Returns a string representation of the array (inherited from Object). |
+| [TrueForAll()](https://www.geeksforgeeks.org/c-sharp/c-sharp-array-trueforall-method/) | Checks if all elements match a specified condition. |
 
 #### Create an array of pallets, then sort them & reverse the order of the pallets
 

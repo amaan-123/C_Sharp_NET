@@ -1,9 +1,5 @@
-﻿////Topics included: Arrays, ArrayList(using System.Collections), StringBuilder(using System.Text), Collections & Generics 
+﻿////Topics included: Arrays, ArrayList(using System.Collections), StringBuilder(using System.Text), Collections
 ////This project will contain many code topics that are not common with the MS_Learn freecodecamp
-
-using System;
-using System.Collections;
-using System.Text;
 
 ////Arrays:
 ////Arrays can be initialized after the declaration. It is not necessary to declare and initialize at the same time using the new keyword.
@@ -53,8 +49,18 @@ using System.Text;
 //    public static void Main()
 //    {
 //        // Declaring Jagged Array
-//        int[][] arr = { new int[] { 1, 3, 5, 7, 9 },
-//                        new int[] { 2, 4, 6, 8 } };
+//        //int[][] arr = { new int[] { 1, 3, 5, 7, 9 },
+//        //                new int[] { 2, 4, 6, 8 } };
+
+
+//        //int[][] arr = new int[2][];   // Declare jagged array with 2 rows
+//        //arr[0] = new int[] { 1, 3, 5, 7, 9 }; // Assign first inner array
+//        //arr[1] = new int[] { 2, 4, 6, 8 };    // Assign second inner array
+
+//        //Since C# 9, you can also use target-typed new if the compiler already knows the type:
+//        int[][] arr = new int[2][];
+//        arr[0] = new[] { 1, 3, 5, 7, 9 }; // compiler infers int[]
+//        arr[1] = new[] { 2, 4, 6, 8 };
 
 //        Console.WriteLine("Arrays :");
 
@@ -216,6 +222,9 @@ using System.Text;
 
 //        s.Append("GeeksForGeeks");
 //        Console.WriteLine(s);
+
+//        Console.WriteLine(s.Length);
+//        Console.WriteLine(s.Capacity);
 //        Console.ReadKey();
 
 //    }
@@ -236,6 +245,70 @@ using System.Text;
 //        Console.WriteLine(s);
 //        Console.ReadKey();
 
+//    }
+//}
+
+////Insert, similarly, remove & replace
+//class Geeks
+//{
+//    public static void Main()
+//    {
+//        StringBuilder s = new StringBuilder("HELLO ", 20);
+//        s.Insert(6, "GEEKS"); // insert at index 6
+//        Console.WriteLine(s);
+//    }
+//}
+
+
+//// C# program to illustrate the concept 
+//// of generic collection using List<T>
+
+//class Geeks
+//{
+
+//    // Main Method
+//    public static void Main(String[] args)
+//    {
+
+//        // Creating a List of integers
+//        List<int> mylist = new List<int>();
+
+//        // adding items in mylist
+//        for (int j = 5; j < 10; j++)
+//        {
+//            mylist.Add(j * 3);
+//        }
+
+//        // Displaying items of mylist
+//        // by using foreach loop
+//        foreach (int items in mylist)
+//        {
+//            Console.WriteLine(items);
+//        }
+//    }
+//}
+
+////C# to illustrate the concept
+//// of non-generic collection using Queue
+//class GFG
+//{
+//    //// Driver code
+//    public static void Main()
+//    {
+//        //// Creating a Queue
+//        Queue myQueue = new Queue();
+//        //// Inserting the elements into the Queue
+//        myQueue.Enqueue("C#");
+//        myQueue.Enqueue("PHP");
+//        myQueue.Enqueue("Perl");
+//        myQueue.Enqueue("Java");
+//        myQueue.Enqueue("C");
+//        //// Displaying the count of elements
+//        //// contained in the Queue
+//        Console.Write("Total number of elements present in the Queue are: ");
+//        Console.WriteLine(myQueue.Count);
+//        //// Displaying the beginning element of Queue
+//        Console.WriteLine("Beginning Item is: " + myQueue.Peek());
 //    }
 //}
 
