@@ -683,7 +683,7 @@ finally
   - **Resetting anything** that needs to be reset after the try/catch process.
 - The `finally` block will execute both when no exception occurs and when an exception is successfully caught and handled.
 
-## Arrays in C #(Geekss)
+## Arrays in C #(Geeks)
 
 ### Declaration and Initialization
 
@@ -1159,8 +1159,8 @@ Generic collection in C# is defined in `System.Collection.Generic` namespace. It
 | **`List<T>`** | It is a dynamic array that provides functionality similar to that found in the non-generic ArrayList class. |
 | **`Queue<T>`** | A first-in, first-out list and provides functionality similar to that found in the non-generic Queue class. |
 | **`SortedList<TKey,TValue>`** | It is a sorted list of key/value pairs and provides functionality similar to that found in the non-generic SortedList class. |
-| **`Stack<T>`** | It is a first-in, last-out list and provides functionality similar to that found in the non-generic Stack class. |
-| **`HashSet<T>`** | It is an unordered collection of the unique elements. It prevent duplicates from being inserted in the collection. |
+| **`Stack<T>`** | It is a last-in, first-out(LIFO) list and provides functionality similar to that found in the non-generic Stack class. |
+| **`HashSet<T>`** | It is an unordered collection of unique elements. It prevents duplicates from being inserted in the collection. |
 | **`LinkedList<T>`** | It allows fast inserting and removing of elements. It implements a classic linked list. |
 
 **Example:**
@@ -1260,7 +1260,343 @@ It came in `.NET Framework Version 4` and onwards. It provides various threads-s
 | **Partitioner** | It provides common partitioning strategies for arrays, lists, and enumerables. |
 | **Partitioner** | It represents a particular manner of splitting a data source into multiple partitions. |
 
-### Lists in `C#`
+### List<T> (Generic)
+
+In C#, a List is a generic collection used to store the elements or objects in the form of a list defined under System.Collection.Generic namespace. It provides the same functionality as [ArrayList](https://www.geeksforgeeks.org/c-sharp/arraylist-in-c-sharp/), the difference is a list is generic whereas ArrayList is a non-generic collection. It is dynamic means the size of the list grows, according to the need.
+
+- The List class implements the ICollection<T>, IEnumerable<T>, IList<T>, IReadOnlyCollection<T>, IReadOnlyList<T>, ICollection, IEnumerable, and IList interface.
+- It can accept null as a valid value for reference types and also allows duplicate elements.
+- If the Count becomes equal to Capacity, then the capacity of the List increases automatically by reallocating the internal array. The existing elements will be copied to the new array before the addition of the new element.
+- The elements present in the list are not sorted by default and elements are accessed by zero-based index.
+
+****Example:****
+
+```csharp
+// Creating and printing  a List
+using System;
+using System.Collections.Generic;
+class Geeks
+{
+
+    public static void Main()
+
+    {
+        // Adding elements using the
+        // Collection initializers
+        
+        List<string> l = new List<string> { "C#", "Java", "Javascript" };
+
+        foreach (string name in l)
+
+        {
+
+            Console.WriteLine(name);
+
+        }
+
+    }
+
+}
+
+**Output**
+
+C#
+Java
+Javasccript
+```
+
+#### Creating List Using Constructors
+
+The list class has 3 constructors which are used to create a list as follows:  
+
+- ****List<T>():**** This constructor is used to create an instance of the List<T> class that is empty and has the default initial capacity.
+- ****List<T>(IEnumerable):**** This constructor is used to create an instance of the List<T> class that contains elements copied from the specified collection and has sufficient capacity to accommodate the number of elements copied.
+- ****List<T>(Int32):**** This constructor is used to create an instance of the List<T> class that is empty and has the specified initial capacity.
+
+****Example:****
+
+```csharp
+// Creating List using Constructors
+
+using System;
+
+using System.Collections.Generic;
+class Geeks
+
+{
+
+    public static void Main()
+
+    {
+
+        // default constructor creates an empty list
+
+        List<int\> list \= new List<int\>();
+
+        list.Add(10);
+
+        list.Add(20);
+
+        Console.WriteLine("Default Constructor: ");
+
+        foreach (var item in list)
+
+        {
+
+            Console.WriteLine(item);
+
+        }
+        // Construnctors from IEnumerable
+
+        int\[\] num \= { 10, 20 };
+
+        List<int\> enumerableList \= new List<int\>(num);
+
+        Console.WriteLine("Constructor with IEnumerable: ");
+
+        foreach (var item in enumerableList)
+
+        {
+
+            Console.WriteLine(item);
+
+        }
+        // Constructor with Initial Capacity 
+
+        List<int\> Clist \= new List<int\>(2);
+
+        Clist.Add(10);
+
+        Clist.Add(20);
+
+        Console.WriteLine("Constructor with Initial Capacity: ");
+
+        foreach (var item in Clist)
+
+        {
+
+            Console.WriteLine(item);
+
+        }
+
+    }
+
+}
+
+**Output**
+
+Default Constructor:
+10
+20
+Constructor with IEnumerable:
+10
+20
+Constructor with Initial Capacity:
+10
+20
+```
+
+##### Steps to Create a List
+
+****Step 1: Including System.Collection.Generics namespace.****
+
+> using System.Collections.Generic;
+
+****Step 2: Create a list using the List<T> class.****
+
+> List list\_name = new List();
+
+#### Performing Different Operations on List
+
+##### ****1\. Adding Elements****
+
+For adding elements list, The List<T> class provides **two** different methods which are:
+
+- [****Add(T)****](https://www.geeksforgeeks.org/c-sharp/c-sharp-adding-an-element-to-the-list/)****:**** This method is used to add an object to the end of the List<T>.
+- [****AddRange(IEnumerable<T>)****](https://www.geeksforgeeks.org/c-sharp/c-sharp-adding-the-elements-of-the-specified-collection-to-the-end-of-the-list/)****:**** This method is used to add the elements of the specified collection to the end of the List<T>.
+
+> **// Add element using AddRange method**
+
+```csharp
+// C# program to illustrate the
+// List.AddRange Method
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+
+    // Main Method
+    public static void Main(String[] args)
+    {
+
+        // Creating a List of Strings
+        List<String> firstlist = new List<String>();
+
+        // adding elements in firstlist
+        firstlist.Add("Geeks");
+        firstlist.Add("GFG");
+        firstlist.Add("C#");
+        firstlist.Add("Tutorials");
+
+        Console.WriteLine("Before AddRange Method");
+        Console.WriteLine();
+
+        // displaying the item of List
+        foreach(String str in firstlist)
+        {
+            Console.WriteLine(str);
+        }
+
+        Console.WriteLine("\nAfter AddRange Method\n");
+
+        // taking array of String
+        string[] str_add = { "Collections",
+                             "Generic",
+                             "List" };
+
+        // here we are adding the elements
+        // of the str_add to the end of
+        // the List<T>.
+        firstlist.AddRange(str_add);
+
+        // displaying the item of List
+        foreach(String str in firstlist)
+        {
+            Console.WriteLine(str);
+        }
+    }
+}
+```
+
+##### ****2\. Accessing List****
+
+We can access the elements of the list by using the following ways:
+
+****foreach loop:**** We can use a foreach loop to access the elements/objects of the List.
+
+> // Accessing elements of my\_list
+> // Using foreach loop
+> foreach(int a in my\_list)
+> {
+> Console.WriteLine(a);
+> }
+
+****ForEach loop****: It is used to perform the specified action on each element of the List<T>.
+
+> // Accessing elements of my\_list
+>
+> // Using ForEach method
+>
+> my\_list.ForEach(a = > Console.WriteLine(a));
+
+****3\. for loop****: We can use a for loop to access the elements/objects of the List.
+
+> **// Accessing elements of my\_list**
+> **// Using for loop**
+> **for (int a = 0; a < my\_list.Count; a++)**
+> **{**
+> **Console.WriteLine(my\_list\[a\]);**
+> **}**
+
+****Indexers****: Indexers used to access the elements/objects of the List.
+
+> **// Accessing elements of my\_list**
+> **// Using indexers**
+> **Console.WriteLine(my\_list\[3\]);**
+> **Console.WriteLine(my\_list\[4\]);**
+
+##### 3\. Remove Elements from the List
+
+- [****Remove(T)****](https://www.geeksforgeeks.org/c-sharp/c-sharp-removing-the-specified-element-from-the-list/)****:**** This method is used to remove the first occurrence of a specific object from the List.
+- [****RemoveAll(Predicate<T>)****](https://www.geeksforgeeks.org/c-sharp/c-sharp-remove-all-elements-of-a-list-that-match-the-conditions-defined-by-the-predicate/)****:**** This method is used to remove all the elements that match the conditions defined by the specified predicate.
+- [****RemoveAt(Int32)****](https://www.geeksforgeeks.org/c-sharp/c-sharp-how-to-remove-the-element-from-the-specified-index-of-the-list/)****:**** This method is used to remove the element at the specified index of the List.
+- [****RemoveRange(Int32, Int32)****](https://www.geeksforgeeks.org/c-sharp/c-sharp-removing-a-range-of-elements-from-the-list/)****:**** This method is used to remove a range of elements from the List<T>.
+- [****Clear()****](https://www.geeksforgeeks.org/c-sharp/c-sharp-removing-all-the-elements-from-the-list/)****:**** This method is used to remove all elements from the List<T>.
+
+****Example:****
+
+```csharp
+// C# program to remove elements from the list
+
+using System;
+
+using System.Collections.Generic;
+class Geeks
+
+{
+
+    static public void Main()
+
+    {
+
+        // Creating list using List class
+
+        // and List<T>() Constructor
+
+        List<int\> l \= new List<int\>();
+        // Adding elements to List
+
+        // Using Add() method
+
+        l.Add(1);
+
+        l.Add(2);
+
+        l.Add(3);
+
+        l.Add(4);
+
+        l.Add(5);
+        // Initial count
+
+        Console.WriteLine("Initial count:{0}", l.Count);
+
+        l.Remove(3);
+
+        Console.WriteLine("after removing 3");
+
+        Console.WriteLine("2nd count:{0}", l.Count);
+        l.RemoveAt(3);
+
+        Console.WriteLine("after removing at 4th index");
+
+        Console.WriteLine("3rd count:{0}", l.Count);
+        l.RemoveRange(0, 2);
+
+        Console.WriteLine("after removing range from index 0 for 2 counts");
+
+        Console.WriteLine("4th count:{0}", l.Count);
+        l.Clear();
+
+        Console.WriteLine("after removing all elements");
+
+        Console.WriteLine("5th count:{0}", l.Count);
+
+    }
+
+}
+
+**Output**
+
+Initial count:5
+after removing 3
+2nd count:4
+after removing at 4th index
+3rd count:3
+after removing range from 0 to 2
+4th count:1
+after removing all elements
+5th count:0
+```
+
+#### Ways to Implement List
+
+- ****Built-In Class List<T>****: This is the most common way to implement a list in C#. It provides a generic list that can store elements of any type. It supports adding, removing, and accessing elements by index, as well as other useful methods like sorting and searching.
+- ****LinkedList<T> Class:**** This class implements a doubly linked list, which is a list in which each element has a reference to both the next and previous elements. It provides efficient insertion and removal of elements in the middle of the list, but accessing elements by index is slower than with List<T>.
+- ****Array****: An array can also be used to implement a list in C#. However, this approach is less flexible than using List<T>, as the size of the array is fixed when it is created. To add or remove elements, the array must be resized, which can be inefficient.
+- ****Custom List Class:**** It is also possible to create a custom class that implements a list. This approach allows for greater flexibility and customization.
+
+#### Some other methods of List<T>
 
 <https://www.youtube.com/watch?v=vQzREQUhGSA&list=PLZPZq0r_RZOPNy28FDBys3GVP2LiaIyP_&index=46>
 
@@ -1325,11 +1661,327 @@ foreach (var item in foodArray)
 }
 ```
 
-## Non-Generic Collections
+### SortedList(Non-Generic & Generic)
 
-ArrayList, Stack, Queue, Hashtable, SortedList, BitArray, and HybridDictionary.
+In C#, **SortedList** is a collection of key-value pairs sorted according to keys (by default in ascending order).
+There are **two types** of SortedList in .NET:
 
-### ArrayList in C #
+- **Generic SortedList<TKey, TValue>** (in `System.Collections.Generic`) – strongly typed, no boxing/unboxing.
+- **Non-generic SortedList** (in `System.Collections`) – older, stores keys/values as `object`, requires casting.
+
+---
+
+#### General Features
+
+- Elements are sorted by key in ascending order.
+- Keys must be unique, but values can be duplicated.
+- Stores data in key–value pairs.
+- Size grows dynamically (unlike arrays).
+
+---
+
+#### 1. **Generic SortedList**
+
+- Declared with type parameters:
+
+  ```csharp
+  SortedList<TKey, TValue>
+  ```
+
+- Defined in the namespace **`System.Collections.Generic`**.
+
+- Provides **compile-time type safety** (no boxing/unboxing, no casting).
+- Example (your code):
+
+  ```csharp
+  SortedList<int, string> sl = new SortedList<int, string>();
+  ```
+
+  Here, `int` is the key type, and `string` is the value type.
+
+---
+
+#### 2. **Non-generic SortedList**
+
+- Declared without type parameters:
+
+  ```csharp
+  SortedList sl = new SortedList();
+  ```
+
+- Defined in **`System.Collections`** (not `System.Collections.Generic`).
+
+- Stores keys and values as `object`, so casting is needed.
+- Keys/values may involve **boxing/unboxing** if they’re value types.
+
+---
+
+#### 🔑 Difference in real-world use
+
+- **Generic version (`SortedList<TKey,TValue>`):**
+  Safer, faster (no boxing), recommended in modern C#.
+- **Non-generic version (`SortedList`):**
+  Older, still exists for backward compatibility.
+
+---
+
+#### Example – Generic SortedList
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks
+{
+    public static void Main()
+    {
+        // Creating a generic SortedList<TKey, TValue>
+        SortedList<int, string> sl = new SortedList<int, string>();
+
+        // Adding key-value pairs
+        sl.Add(3, "Three");
+        sl.Add(1, "One");
+        sl.Add(2, "Two");
+
+        // Displaying elements sorted by key
+        foreach (var item in sl)
+            Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
+    }
+}
+```
+
+**Output**
+
+```
+Key: 1, Value: One
+Key: 2, Value: Two
+Key: 3, Value: Three
+```
+
+---
+
+#### Steps to Create a Non-Generic SortedList
+
+We can also use the **non-generic SortedList** (`System.Collections.SortedList`) which stores keys and values as `object`.
+
+##### Step 1: Include namespace
+
+```csharp
+using System.Collections;
+```
+
+##### Step 2: Create a non-generic SortedList
+
+```csharp
+SortedList list = new SortedList();
+```
+
+---
+
+#### Performing Different Operations on SortedList
+
+##### 1. Adding Elements
+
+- **Generic**: use `Add()` or collection initializer.
+- **Non-generic**: use `Add()`, values stored as `object`.
+
+**Syntax (generic):**
+
+```csharp
+// Add method
+mySortedList.Add(key, value);
+
+// Collection initializer
+SortedList<int, string> mySortedList = new SortedList<int, string>()
+{
+    { 1, "One" },
+    { 2, "Two" }
+};
+```
+
+**Example – Non-Generic**
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static public void Main() {
+        SortedList sl = new SortedList();
+        sl.Add(1.02, "This");
+        sl.Add(1.07, "Is");
+        sl.Add(1.04, "SortedList");
+
+        foreach(DictionaryEntry pair in sl)
+            Console.WriteLine($"{pair.Key} and {pair.Value}");
+    }
+}
+```
+
+---
+
+##### 2. Accessing SortedList
+
+- **Using for loop** with `GetKey(i)` and `GetByIndex(i)`.
+- **Using foreach** (generic → `KeyValuePair`, non-generic → `DictionaryEntry`).
+- **Using indexers** (`sl[key]`).
+
+**Example – Non-Generic**
+
+```csharp
+SortedList sl = new SortedList { {1, "Geek1"}, {2, "Geek2"}, {3, "Geek3"} };
+
+// For loop
+for (int i = 0; i < sl.Count; i++)
+    Console.WriteLine($"{sl.GetKey(i)}: {sl.GetByIndex(i)}");
+
+// Foreach
+foreach (DictionaryEntry entry in sl)
+    Console.WriteLine($"{entry.Key}: {entry.Value}");
+
+// Indexer
+Console.WriteLine($"Key 2: {sl[2]}");
+```
+
+---
+
+##### 3. Removing Elements
+
+- **Clear()** → removes all elements.
+- **Remove(key)** → removes by key.
+- **RemoveAt(index)** → removes by index.
+
+```csharp
+SortedList sl = new SortedList();
+sl.Add(1, "one");
+sl.Add(2, "two");
+sl.Add(3, "three");
+
+sl.Remove(1);
+sl.RemoveAt(1);
+sl.Clear();
+```
+
+---
+
+##### 4. Checking Elements
+
+- **Contains(keyOrValue)** (non-generic only).
+- **ContainsKey(key)**.
+- **ContainsValue(value)**.
+
+```csharp
+if (sl.ContainsKey(2)) Console.WriteLine("Key found");
+if (sl.ContainsValue("one")) Console.WriteLine("Value found");
+```
+
+---
+
+#### Important Points
+
+- **Generic SortedList<TKey, TValue>**: strongly typed, avoids boxing/unboxing, type-safe.
+- **Non-generic SortedList**: stores data as `object`, requires casting.
+- Elements can be accessed by **key or index**.
+- Internally uses **two arrays** (keys and values).
+- Keys cannot be `null`, but values can be.
+- Duplicate keys are not allowed.
+- Keys must all be of the same type.
+- Implements `IEnumerable`, `ICollection`, `IDictionary`, `ICloneable`.
+
+#### 1. **Data Type of Keys & Values in Selected Code**
+
+##### a. For `SortedList sl = new SortedList();`
+
+- **Keys:** In the lines:
+
+```csharp
+sl.Add(1.02, "This");
+  sl.Add(1.07, "Is");
+  sl.Add(1.04, "SortedList");
+```
+
+- **Key type:** `double`
+- **Value type:** `string`
+
+##### b. For `SortedList my_slist2 = new SortedList() { ... };`
+
+- **Keys:** `"b.09"`, `"b.11"`, etc. (type: `string`)
+- **Values:** `234`, `395`, etc. (type: `int`)
+
+##### c. **How to Find the Data Types?**
+
+- For non-generic `SortedList` (from `System.Collections`), the keys and values are stored as `object`.
+- The actual type depends on what you add. You can check the type at runtime:
+
+```csharp
+foreach (DictionaryEntry pair in sl)
+{
+    Console.WriteLine(pair.Key.GetType());   // Shows the type of key
+    Console.WriteLine(pair.Value.GetType()); // Shows the type of value
+  }
+```
+
+- For generic `SortedList<TKey, TValue>`, the types are specified at declaration.
+
+---
+
+#### 2. **Properties & Methods: Generic vs Non-Generic SortedList**
+
+##### a. **Non-Generic SortedList (`System.Collections.SortedList`):**
+
+- When you enumerate, you get `DictionaryEntry` objects.
+  - Properties: `.Key`, `.Value` (both are of type `object`)
+- Example:
+
+```csharp
+foreach (DictionaryEntry pair in sl)
+  {
+      var key = pair.Key;   // object
+      var value = pair.Value; // object
+  }
+```
+
+##### b. **Generic SortedList (`System.Collections.Generic.SortedList<TKey, TValue>`):**
+
+- When you enumerate, you get `KeyValuePair<TKey, TValue>` objects.
+  - Properties: `.Key`, `.Value` (typed as `TKey` and `TValue`)
+- Example:
+
+```csharp
+SortedList<int, string> sl = new SortedList<int, string>();
+  foreach (var pair in sl)
+  {
+      var key = pair.Key;   // int
+      var value = pair.Value; // string
+  }
+```
+
+##### c. **Are Properties & Methods the Same?**
+
+- **.Key** and **.Value** exist in both, but:
+  - Non-generic: `.Key` and `.Value` are `object` (need casting).
+  - Generic: `.Key` and `.Value` are strongly typed.
+- Other methods (like `Add`, `Remove`, `ContainsKey`, etc.) are similar, but generic collections provide type safety and avoid boxing/unboxing.
+
+---
+
+#### **Summary Table**
+
+| Collection Type                | Key Type      | Value Type    | Enumerator Type         | .Key/.Value Typed? |
+|-------------------------------|---------------|---------------|------------------------|--------------------|
+| `SortedList` (non-generic)    | object        | object        | DictionaryEntry        | No (object)        |
+| `SortedList<TKey, TValue>`    | TKey          | TValue        | KeyValuePair<TKey, TValue> | Yes (typed)    |
+
+---
+
+**How to check types:**  
+
+- Use `.GetType()` on keys/values at runtime for non-generic.
+- For generic, types are known at compile time.
+
+---
+
+### ArrayList(Non-Generic)
 
 #### Steps to Create and Use
 
@@ -1419,6 +2071,251 @@ class GFG
     } 
 }
 ```
+
+---
+
+Got it — I cleaned up and clarified your Queue notes so the difference between **generic** (`System.Collections.Generic.Queue<T>`) and **non-generic** (`System.Collections.Queue`) is explicit everywhere, kept your structure, and removed extra blank lines inside code blocks for compact viewing.
+
+---
+
+### Queue (Non-Generic & Generic)
+
+A **Queue** in C# is a collection that follows **First-In-First-Out (FIFO)** — elements are processed in the same order they are added. There are two flavors:
+
+- **Generic**: `System.Collections.Generic.Queue<T>` — strongly typed, type-safe, no boxing/unboxing.
+- **Non-generic**: `System.Collections.Queue` — older API, stores items as `object`, requires casting.
+
+**Key Features**
+
+- **FIFO behavior:** First element added is first removed.
+- **Dynamic size:** Queue grows/shrinks automatically.
+- **Thread safety:** `Queue` is not thread-safe; use `ConcurrentQueue<T>` for thread-safe scenarios.
+- **Common operations:** `Enqueue`, `Dequeue`, `Peek`, `Contains`.
+
+![CSharp-Queue](https://media.geeksforgeeks.org/wp-content/uploads/20250127172322938181/CSharp-Queue.webp)
+
+**Example (generic Queue)**
+
+```csharp
+// C# program demonstrating generic Queue<T>
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Queue<int> q = new Queue<int>();
+        q.Enqueue(1);
+        q.Enqueue(2);
+        q.Enqueue(3);
+        q.Enqueue(4);
+        while (q.Count > 0) {
+            Console.WriteLine(q.Dequeue());
+        }
+    }
+}
+```
+
+**Output**
+
+```
+1
+2
+3
+4
+```
+
+---
+
+#### Hierarchy of Queue Class
+
+![CSharp-Queue-Hierarchy](https://media.geeksforgeeks.org/wp-content/uploads/20250127172617415292/CSharp-Queue-Hierarchy.webp)
+
+- `Queue` implements `IEnumerable`, `ICollection`, `ICloneable`.
+- Enqueue = add, Dequeue = remove.
+- `Queue` accepts `null` for reference types.
+- Capacity grows by reallocating its internal array as needed.
+- Duplicate elements are allowed.
+- Capacity = number of elements it can hold before resizing.
+
+---
+
+#### Creating a Queue
+
+`Queue` has four constructors (applies to non-generic `Queue`; generic `Queue<T>` has similar overloads):
+
+- `Queue()` — empty with default capacity.
+- `Queue(ICollection)` — initialize from an existing collection.
+- `Queue(int capacity)` — specify initial capacity.
+- `Queue(int capacity, float growFactor)` — specify grow factor.
+
+**Non-generic creation (example)**
+
+```csharp
+using System.Collections;
+Queue q = new Queue();
+```
+
+**Generic creation (example)**
+
+```csharp
+using System.Collections.Generic;
+Queue<int> q = new Queue<int>();
+```
+
+---
+
+#### Performing Various Operations on Queue
+
+##### 1. Adding Elements
+
+Use `Enqueue()`.
+
+**Generic example (initializer & Add):**
+
+```csharp
+Queue<int> q = new Queue<int>();
+q.Enqueue(1);
+q.Enqueue(2);
+q.Enqueue(3);
+
+// or initialize from collection
+var initial = new[] { 1, 2, 3 };
+Queue<int> q2 = new Queue<int>(initial);
+```
+
+**Non-generic example (mixed types supported because of object storage):**
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    public static void Main() {
+        Queue q = new Queue();
+        q.Enqueue("Geeks");
+        q.Enqueue("geeksforgeeks");
+        q.Enqueue(null);
+        q.Enqueue(1);
+        q.Enqueue(10.0);
+        foreach (var e in q) Console.WriteLine(e);
+    }
+}
+```
+
+**Output**
+
+```
+Geeks
+geeksforgeeks
+
+1
+10
+```
+
+---
+
+##### 2. Removing Elements
+
+- `Clear()` removes all elements.
+- `Dequeue()` removes and returns the first element.
+
+**Example (generic):**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Queue<string> q = new Queue<string>();
+        q.Enqueue("Geeks");
+        q.Enqueue("For");
+        q.Enqueue("Geeks");
+        q.Enqueue("For");
+        Console.WriteLine("Initial queue:");
+        foreach (var item in q) Console.WriteLine(item);
+        q.Dequeue(); // removes first
+        Console.WriteLine("\nUpdated queue after Dequeue:");
+        foreach (var item in q) Console.WriteLine(item);
+    }
+}
+```
+
+---
+
+##### 3. Peek (get front element without removing)
+
+- `Peek()` returns the front element; `Dequeue()` returns and removes it.
+
+**Example**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Queue<int> q = new Queue<int>();
+        q.Enqueue(10);
+        q.Enqueue(20);
+        q.Enqueue(30);
+        if (q.Count > 0) {
+            int f = q.Peek();
+            Console.WriteLine("The frontmost element in the queue is: " + f);
+        } else {
+            Console.WriteLine("The queue is empty.");
+        }
+    }
+}
+```
+
+**Output**
+
+```
+The frontmost element in the queue is: 10
+```
+
+---
+
+##### 4. Check Availability
+
+- `Contains(item)` checks membership (generic/non-generic both have this).
+
+**Example (generic):**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Queue<int> q = new Queue<int>();
+        q.Enqueue(10);
+        q.Enqueue(20);
+        q.Enqueue(30);
+        Console.WriteLine("The element 20 is present in the queue: " + q.Contains(20));
+        Console.WriteLine("The element 100 is present in the queue: " + q.Contains(100));
+    }
+}
+```
+
+**Output**
+
+```
+The element 20 is present in the queue: True
+The element 100 is present in the queue: False
+```
+
+---
+
+##### Generic Queue vs Non-Generic Queue
+
+| Generic Queue (`Queue<T>`)              | Non-Generic Queue (`Queue`)                           |
+| --------------------------------------- | ----------------------------------------------------- |
+| Defined in `System.Collections.Generic` | Defined in `System.Collections`                       |
+| Stores elements of the same type `T`    | Stores elements as `object` — different types allowed |
+| Type-safe at compile time               | Not type-safe; requires casting                       |
+| No boxing/unboxing for value types      | Value types boxed when added (performance cost)       |
 
 ---
 

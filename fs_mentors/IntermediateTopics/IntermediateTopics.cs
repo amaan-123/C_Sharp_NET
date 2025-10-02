@@ -1,4 +1,6 @@
-﻿////Topics included: Arrays, ArrayList(using System.Collections), StringBuilder(using System.Text), Collections
+﻿////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic/Non-generic
+////Generic collections: 
+////Non-generic collections:ArrayList(using System.Collections), 
 ////This project will contain many code topics that are not common with the MS_Learn freecodecamp
 
 ////Arrays:
@@ -313,3 +315,486 @@
 //}
 
 
+////List<T>:
+////Creating and printing  a List
+//class Geeks
+//{
+//    public static void Main()
+//    {
+//        List<string> l = new List<string> { "C#", "Java", "Javascript" };
+
+//        foreach (string name in l)
+//        {
+//            Console.WriteLine(name);
+//        }
+//    }
+//}
+
+//// Creating List using Constructors
+//class Geeks
+//{
+//    public static void Main()
+//    {
+//        // default constructor creates an empty list
+//        List<int> list = new List<int>();
+//        list.Add(10);
+//        list.Add(20);
+//        Console.WriteLine("Default Constructor: ");
+//        foreach (var item in list)
+//        {
+//            Console.WriteLine(item);
+//        }
+
+//        // Construnctors from IEnumerable
+//        int[] num = { 10, 20 };
+//        List<int> enumerableList = new List<int>(num);
+//        Console.WriteLine("Constructor with IEnumerable: ");
+//        foreach (var item in enumerableList)
+//        {
+//            Console.WriteLine(item);
+//        }
+
+//        // Constructor with Initial Capacity 
+//        List<int> Clist = new List<int>(2);
+//        Clist.Add(10);
+//        Clist.Add(20);
+//        Console.WriteLine("Constructor with Initial Capacity: ");
+//        foreach (var item in Clist)
+//        {
+//            Console.WriteLine(item);
+//        }
+//    }
+//}
+
+
+////Insert(), Sort(), Reverse(), ToArray():
+//List<string> food = new List<string>();
+//food.Add("pizza"); //0th index
+//food.Add("onion"); //1
+//food.Add("semi"); //2
+//food.Add("full"); //3
+
+//food.Remove("semi");
+//food.Remove("full");
+//food.Insert(2, "semolina"); //2 
+//food.Insert(3, "full biryani"); //3
+//food.Insert(0, "pataka burger"); //0th index, +1 to rest ahead of it
+//food.Add("pizza"); //5th index
+
+//Console.WriteLine("List in index-based order is:\n");
+//foreach (var item in food)
+//{
+//    Console.WriteLine(item);
+
+//}
+//Console.WriteLine();
+
+//Console.WriteLine(food.Count); // number of elements in list, length not used here
+//Console.WriteLine(food.IndexOf("pizza")); // 1st index
+//Console.WriteLine(food.LastIndexOf("pizza")); // 5th index
+//Console.WriteLine(food.Contains("pataka burger")); //returns boolean
+//Console.WriteLine();
+
+//food.Sort(); //changes the food list
+//Console.WriteLine("Sorted list is:");
+
+//foreach (var item in food)
+//{
+//    Console.WriteLine(item);
+
+//}
+//Console.WriteLine();
+
+//food.Reverse(); //reverses the sorted list
+//Console.WriteLine("Reversed list(previously sorted) is:");
+
+//foreach (var item in food)
+//{
+//    Console.WriteLine(item);
+
+//}
+
+//food.Clear();
+
+//// Converting the list to an array:
+//Console.WriteLine("Converting the list to an array:\n");
+//string[] foodArray = food.ToArray();
+//foreach (var item in foodArray)
+//{
+//    Console.WriteLine(item);
+//}
+
+
+//// C# program to illustrate the
+//// List.AddRange Method
+//class Geeks
+//{
+
+//    // Main Method
+//    public static void Main(String[] args)
+//    {
+
+//        // Creating a List of Strings
+//        List<String> firstlist = new List<String>();
+
+//        // adding elements in firstlist
+//        firstlist.Add("Geeks");
+//        firstlist.Add("GFG");
+//        firstlist.Add("C#");
+//        firstlist.Add("Tutorials");
+
+//        Console.WriteLine("Before AddRange Method");
+//        Console.WriteLine();
+
+//        // displaying the item of List
+//        foreach (String str in firstlist)
+//        {
+//            Console.WriteLine(str);
+//        }
+
+//        Console.WriteLine("\nAfter AddRange Method\n");
+
+//        // taking array of String
+//        string[] str_add = { "Collections",
+//                             "Generic",
+//                             "List" };
+
+//        // here we are adding the elements
+//        // of the str_add to the end of
+//        // the List<T>.
+//        firstlist.AddRange(str_add);
+
+//        // displaying the item of List
+//        foreach (String str in firstlist)
+//        {
+//            Console.WriteLine(str);
+//        }
+//    }
+//}
+
+//// C# program to remove elements from the list
+//// interesting: RemoveRange(startIndex, count)
+//class Geeks
+
+//{
+
+//    static public void Main()
+
+//    {
+
+//        // Creating list using List class
+
+//        // and List<T>() Constructor
+
+//        List < int\> l \= new List<int\>();
+//        // Adding elements to List
+
+//        // Using Add() method
+
+//        l.Add(1);
+
+//        l.Add(2);
+
+//        l.Add(3);
+
+//        l.Add(4);
+
+//        l.Add(5);
+//        // Initial count
+
+//        Console.WriteLine("Initial count:{0}", l.Count);
+
+//        l.Remove(3);
+
+//        Console.WriteLine("after removing 3");
+
+//        Console.WriteLine("2nd count:{0}", l.Count);
+//        l.RemoveAt(3);
+
+//        Console.WriteLine("after removing at 4th index");
+
+//        Console.WriteLine("3rd count:{0}", l.Count);
+//        l.RemoveRange(0, 2);
+
+//        Console.WriteLine("after removing range from index 0 for 2 counts");
+
+//        Console.WriteLine("4th count:{0}", l.Count);
+//        l.Clear();
+
+//        Console.WriteLine("after removing all elements");
+
+//        Console.WriteLine("5th count:{0}", l.Count);
+
+//    }
+
+//}
+
+
+//// Creating and adding key, values to the sorted list(generic)
+//class Geeks
+//{
+//    public static void Main()
+//    {
+//        // Creating a SortedList
+//        SortedList<int, string> sl = new SortedList<int, string>();
+
+//        // Adding key-value pairs
+//        sl.Add(3, "Three");
+//        sl.Add(1, "One");
+//        sl.Add(2, "Two");
+
+//        // Displaying elements in sorted by key
+//        foreach (var item in sl)
+//        {
+//            Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
+//        }
+//    }
+//}
+
+
+//// C# program to illustrate how
+//// to create a sortedlist
+//using System.Collections;
+
+//class Geeks
+//{
+//    static public void Main()
+//    {
+
+//        // Creating a sortedlist
+//        // Using SortedList class
+//        SortedList sl = new SortedList();
+
+//        // Adding key-value pairs in 
+//        // SortedList using Add() method
+//        sl.Add(1.02, "This");
+//        sl.Add(1.07, "Is");
+//        sl.Add(1.04, "SortedList");
+
+//        foreach (DictionaryEntry pair in sl)
+//        {
+//            Console.WriteLine("{0}(type:{2}) and {1}(type:{3})",
+//            pair.Key, pair.Value, pair.Key.GetType(), pair.Value.GetType());
+//        }
+//        Console.WriteLine();
+
+//        // Creating another SortedList
+//        // using Object Initializer Syntax
+//        // to initialize sortedlist
+//        SortedList my_slist2 = new SortedList() {
+//                                { "b.09", 234 },
+//                                { "b.11", 395 },
+//                                { "b.01", 405 },
+//                                { "b.67", 100 }};
+
+//        foreach (DictionaryEntry pair in my_slist2)
+//        {
+//            Console.WriteLine("{0}(type:{2}) and {1}(type:{3})",
+//            pair.Key, pair.Value, pair.Key.GetType(), pair.Value.GetType());
+//        }
+//    }
+//}
+
+//// Creating a SortedList and
+//// accessing its elements .GetKey(i), .GetByIndex(i)
+//using System.Collections;
+
+//class Geeks
+//{
+//    static void Main()
+//    {
+//        SortedList sl = new SortedList {
+//        { 1, "Geek1" }, { 2, "Geek2" }, { 3, "Geek3" }
+//        };
+
+//        // Using for loop
+//        Console.WriteLine("Access using for loop");
+//        for (int i = 0; i < sl.Count; i++)
+//            Console.WriteLine($"{sl.GetKey(i)}: {sl.GetByIndex(i)}");
+
+
+//        // Using foreach loop
+//        Console.WriteLine("Access using foreach loop");
+
+//        foreach (DictionaryEntry entry in sl)
+//            Console.WriteLine($"{entry.Key}: {entry.Value}");
+
+//        // Using indexer
+//        Console.WriteLine("Access using indexer");
+//        Console.WriteLine($"Key 2: {sl[2]}");
+//    }
+//}
+
+//// Removing key-value pairs from 
+//// the sortedlist
+//using System.Collections;
+
+//class Geeks
+//{
+//    static public void Main()
+//    {
+//        // Creating a sortedlist
+//        // Using SortedList class
+//        SortedList sl = new SortedList();
+
+//        // Adding key/value pairs in SortedList
+//        // Using Add() method
+//        sl.Add(1, "one");
+//        sl.Add(2, "two");
+//        sl.Add(3, "three");
+
+//        foreach (DictionaryEntry pair in sl)
+//        {
+//            Console.WriteLine("{0} and {1}",
+//                    pair.Key, pair.Value);
+//        }
+//        Console.WriteLine();
+
+//        // Remove value having 1.07 key
+//        // Using Remove() method
+//        sl.Remove(1);
+
+//        // After Remove() method
+//        foreach (DictionaryEntry pair in sl)
+//        {
+//            Console.WriteLine("{0} and {1}",
+//            pair.Key, pair.Value);
+//        }
+//        Console.WriteLine();
+
+//        // Remove element at index 2
+//        // Using RemoveAt() method
+//        sl.RemoveAt(1);
+
+//        // After RemoveAt() method
+//        foreach (DictionaryEntry pair in sl)
+//        {
+//            Console.WriteLine("{0} and {1}",
+//            pair.Key, pair.Value);
+//        }
+//        Console.WriteLine();
+
+//        // Remove all key/value pairs
+//        // Using Clear method
+//        sl.Clear();
+//        Console.WriteLine("Total pairs" +
+//        " present in sorted list is: {0}", sl.Count);
+//    }
+//}
+
+//// C# program to demonstrates how to use Queue
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+//        // Create a new queue
+//        Queue<int> q = new Queue<int>();
+
+//        // Enqueue elements into the queue
+//        q.Enqueue(1);
+//        q.Enqueue(2);
+//        q.Enqueue(3);
+//        q.Enqueue(4);
+
+//        // Dequeue elements from the queue
+//        while (q.Count > 0)
+//        {
+//            Console.WriteLine(q.Dequeue());
+//        }
+//    }
+//}
+
+
+////C# Program to remove
+////  elements from a queue
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+//        // Initialize a queue
+//        Queue<string> q = new Queue<string>();
+
+//        // Inserting elements into the 
+//        // queue using Enqueue()
+//        q.Enqueue("Geeks");
+//        q.Enqueue("For");
+//        q.Enqueue("Geeks");
+//        q.Enqueue("For");
+
+//        // Initial queue
+//        Console.WriteLine("Initial queue: ");
+//        foreach (var item in q)
+//        {
+//            Console.WriteLine(item);
+//        }
+
+//        // Removing the front element
+//        q.Dequeue();
+
+//        // Final queue after removal
+//        Console.WriteLine("\nUpdated queue after Dequeue:");
+//        foreach (var item in q)
+//        {
+//            Console.WriteLine(item);
+//        }
+//    }
+//}
+
+
+//// C# Program to get the
+//// front element of the Queue
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+//        // Create a new queue of integers
+//        Queue<int> q = new Queue<int>();
+
+//        // Enqueue elements into the queue
+//        q.Enqueue(10);
+//        q.Enqueue(20);
+//        q.Enqueue(30);
+
+//        // Checking if the queue is not empty before
+//        // accessing the front element
+//        if (q.Count > 0)
+//        {
+
+//            // Peek() returns the frontmost element without
+//            // removing it
+//            int f = q.Peek();
+//            Console.WriteLine(
+//                "The frontmost element in the queue is: "
+//                + f);
+//        }
+//        else
+//        {
+//            Console.WriteLine("The queue is empty.");
+//        }
+//    }
+//}
+
+// C# Program to check the
+// availability of elements in the queue
+class Geeks
+{
+    public static void Main(string[] args)
+    {
+        // Create a new queue of integers
+        Queue<int> q = new Queue<int>();
+
+        // Enqueue elements into the queue
+        q.Enqueue(10);
+        q.Enqueue(20);
+        q.Enqueue(30);
+
+        // Check if the element 20 is present in the queue
+        Console.WriteLine(
+            "The element 20 is present in the queue: "
+            + q.Contains(20));
+
+        Console.WriteLine(
+            "The element 100 is present in the queue: "
+            + q.Contains(100));
+    }
+}
