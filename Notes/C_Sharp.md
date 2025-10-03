@@ -2074,10 +2074,6 @@ class GFG
 
 ---
 
-Got it — I cleaned up and clarified your Queue notes so the difference between **generic** (`System.Collections.Generic.Queue<T>`) and **non-generic** (`System.Collections.Queue`) is explicit everywhere, kept your structure, and removed extra blank lines inside code blocks for compact viewing.
-
----
-
 ### Queue (Non-Generic & Generic)
 
 A **Queue** in C# is a collection that follows **First-In-First-Out (FIFO)** — elements are processed in the same order they are added. There are two flavors:

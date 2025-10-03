@@ -1,4 +1,4 @@
-﻿////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic/Non-generic
+﻿////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic(List)/Non-generic(ArrayList), Both(SortedList, Queue, Stack, ...)
 ////Generic collections: 
 ////Non-generic collections:ArrayList(using System.Collections), 
 ////This project will contain many code topics that are not common with the MS_Learn freecodecamp
@@ -262,6 +262,8 @@
 //}
 
 
+
+////List
 //// C# program to illustrate the concept 
 //// of generic collection using List<T>
 
@@ -292,6 +294,7 @@
 
 ////C# to illustrate the concept
 //// of non-generic collection using Queue
+//using System.Collections;
 //class GFG
 //{
 //    //// Driver code
@@ -301,16 +304,20 @@
 //        Queue myQueue = new Queue();
 //        //// Inserting the elements into the Queue
 //        myQueue.Enqueue("C#");
-//        myQueue.Enqueue("PHP");
-//        myQueue.Enqueue("Perl");
-//        myQueue.Enqueue("Java");
-//        myQueue.Enqueue("C");
+//        myQueue.Enqueue(1);
+//        myQueue.Enqueue(1.01);
+//        myQueue.Enqueue(true);
+//        myQueue.Enqueue(Math.Pow(10.01, 31));
 //        //// Displaying the count of elements
 //        //// contained in the Queue
 //        Console.Write("Total number of elements present in the Queue are: ");
 //        Console.WriteLine(myQueue.Count);
 //        //// Displaying the beginning element of Queue
 //        Console.WriteLine("Beginning Item is: " + myQueue.Peek());
+//        foreach (var item in myQueue)
+//        {
+//            Console.WriteLine($"{item} is of type:\r\n\t{item.GetType()}");
+//        }
 //    }
 //}
 
@@ -530,6 +537,7 @@
 //}
 
 
+//// SortedList
 //// Creating and adding key, values to the sorted list(generic)
 //class Geeks
 //{
@@ -682,6 +690,9 @@
 //    }
 //}
 
+
+////Queue
+///
 //// C# program to demonstrates how to use Queue
 //class Geeks
 //{
@@ -774,27 +785,127 @@
 //    }
 //}
 
-// C# Program to check the
-// availability of elements in the queue
-class Geeks
-{
-    public static void Main(string[] args)
-    {
-        // Create a new queue of integers
-        Queue<int> q = new Queue<int>();
+//// C# Program to check the
+//// availability of elements in the queue
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+//        // Create a new queue of integers
+//        Queue<int> q = new Queue<int>();
 
-        // Enqueue elements into the queue
-        q.Enqueue(10);
-        q.Enqueue(20);
-        q.Enqueue(30);
+//        // Enqueue elements into the queue
+//        q.Enqueue(10);
+//        q.Enqueue(20);
+//        q.Enqueue(30);
 
-        // Check if the element 20 is present in the queue
-        Console.WriteLine(
-            "The element 20 is present in the queue: "
-            + q.Contains(20));
+//        // Check if the element 20 is present in the queue
+//        Console.WriteLine(
+//            "The element 20 is present in the queue: "
+//            + q.Contains(20));
 
-        Console.WriteLine(
-            "The element 100 is present in the queue: "
-            + q.Contains(100));
-    }
-}
+//        Console.WriteLine(
+//            "The element 100 is present in the queue: "
+//            + q.Contains(100));
+//    }
+//}
+
+
+////Stack
+//// C# Program Implementing Stack Class 
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+//        // Create a new stack
+//        Stack<int> s = new Stack<int>();
+
+//        // Push elements onto the stack
+//        s.Push(1);
+//        s.Push(2);
+//        s.Push(3);
+//        s.Push(4);
+
+//        // Pop elements from the stack
+//        while (s.Count > 0)
+//        {
+//            Console.WriteLine(s.Pop());
+//        }
+//    }
+//}
+
+//// C# program to demonstrates how to
+//// create and add elements into a stack
+//using System.Collections;
+
+//class Geeks
+//{
+
+//    static public void Main()
+//    {
+
+//        // Create a stack
+//        // Using Stack class
+//        Stack s = new Stack();
+
+//        // Adding elements in the Stack
+//        // Using Push method
+//        s.Push("Geek");
+//        s.Push("geeksforgeeks");
+//        s.Push(null);
+//        s.Push(1);
+//        s.Push(10.0);
+
+//        // Accessing the elements
+//        // of s Stack
+//        // Using foreach loop
+//        foreach (var elem in s)
+//        {
+//            if (elem != null)
+//            {
+//                Console.WriteLine($"{elem} is of type: \r\n\t {elem.GetType()}");
+//            }
+//            else
+//            {
+//                Console.WriteLine("null");
+//            }
+//        }
+//    }
+//}
+
+
+//// C# Program to remove elements
+//// from a stack
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+//        // Initialize a stack
+//        Stack<string> s = new Stack<string>();
+
+//        // Inserting elements into the s using Push()
+//        s.Push("Geeks");
+//        s.Push("For");
+//        s.Push("Geeks");
+//        s.Push("For");
+
+//        // Initial stack
+//        Console.WriteLine("Initial stack: ");
+//        foreach (var item in s)
+//        {
+//            Console.WriteLine(item);
+//        }
+
+//        // Removing the top element 
+//        // from the stack
+//        s.Pop();
+
+//        // Final s after removal
+//        Console.WriteLine("\nUpdated stack after Pop:");
+//        foreach (var item in s)
+//        {
+//            Console.WriteLine(item);
+//        }
+//    }
+//}
+
