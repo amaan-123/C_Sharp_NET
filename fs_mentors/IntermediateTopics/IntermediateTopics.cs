@@ -1,4 +1,6 @@
-﻿////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic(List)/Non-generic(ArrayList), Both(SortedList, Queue, Stack, ...)
+﻿////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic(List<T>, LinkedList<T>, Dictionary)/Non-generic(ArrayList, Hashtable), Both(SortedList, Queue, Stack,...)
+
+
 ////Generic collections: 
 ////Non-generic collections:ArrayList(using System.Collections), 
 ////This project will contain many code topics that are not common with the MS_Learn freecodecamp
@@ -909,3 +911,364 @@
 //    }
 //}
 
+
+////LinkedList<T>
+//class Geeks
+//{
+//    static void Main()
+//    {
+//        LinkedList<int> l = new LinkedList<int>();
+
+//        // Adds at the end
+//        l.AddLast(10);
+//        // Adds at the beginning
+//        l.AddFirst(20);
+//        // Adds at the end
+//        l.AddLast(30);
+//        // Adds at the end
+//        l.AddLast(40);
+
+//        // Display the elements in the LinkedList
+//        Console.WriteLine("Elements in the LinkedList:");
+//        foreach (var i in l)
+//        {
+//            Console.WriteLine(i);
+//        }
+//    }
+//}
+
+//class Geeks
+//{
+
+//    static void Main()
+//    {
+//        // Creating a LinkedList of integers
+//        LinkedList<int> l = new LinkedList<int>();
+
+//        // Adding elements to the LinkedList using AddLast()
+//        l.AddLast(10);
+//        l.AddLast(20);
+//        l.AddLast(30);
+//        l.AddLast(40);
+//        l.AddLast(50);
+//        l.AddLast(60);
+
+//        // Initial list of numbers
+//        Console.WriteLine("Initial List of Numbers: " + string.Join(" ", l));
+
+//        // Removing the first element using Remove(LinkedListNode)
+//        l.Remove(l.First);
+//        Console.WriteLine("\nAfter Removing the First Element: " + string.Join(" ", l));
+
+//        // Removing a specific element (20) using Remove(T)
+//        l.Remove(20);
+//        Console.WriteLine("\nAfter Removing Number 20: " + string.Join(" ", l));
+
+//        // Removing the first element using RemoveFirst()
+//        l.RemoveFirst();
+//        Console.WriteLine("\nAfter Removing the First Element Again: " + string.Join(" ", l));
+
+//        // Removing the last element using RemoveLast()
+//        l.RemoveLast();
+//        Console.WriteLine("\nAfter Removing the Last Element: " + string.Join(" ", l));
+
+//        // Clearing the entire linkedlist
+//        l.Clear();
+//        Console.WriteLine("\nNumber of elements in the list after clearing: " + l.Count);
+//    }
+//}
+
+//class Geeks
+//{
+//    public static void Main(string[] args)
+//    {
+
+//        // Create a new LinkedList of integers
+//        LinkedList<int> l = new LinkedList<int>();
+
+//        // Add elements to the LinkedList using AddLast()
+//        l.AddLast(10);
+//        l.AddLast(20);
+//        l.AddLast(30);
+
+//        // Check if the element 20 is present in the LinkedList
+//        Console.WriteLine("The element 20 is present in the LinkedList: " + l.Contains(20));
+
+//        // Check if the element 100 is present in the LinkedList
+//        Console.WriteLine("The element 100 is present in the LinkedList: " + l.Contains(100));
+//    }
+//}
+
+//class Geeks
+//{
+//    static void Main()
+//    {
+//        LinkedList<string> l = new LinkedList<string>();
+//        l.AddLast("A");
+//        l.AddLast("C");
+
+//        // Get a reference to the node containing "A"
+//        LinkedListNode<string> nodeA = l.Find("A");
+
+//        // Insert "B" after nodeA
+//        l.AddAfter(nodeA, "B");
+
+//        // Insert "Start" before the first node
+//        l.AddBefore(l.First, "Start");
+
+//        Console.WriteLine("LinkedList after AddAfter and AddBefore:");
+//        foreach (string s in l) Console.WriteLine(s);
+//    }
+//}
+
+
+////Dictionary
+//class Geeks
+//{
+//    public static void Main()
+//    {
+//        // Creating a dictionary
+//        Dictionary<int, string> sub = new Dictionary<int, string>();
+
+//        // Adding elements
+//        sub.Add(1, "C#");
+//        sub.Add(2, "Javascript");
+//        sub.Add(3, "Dart");
+
+//        // Displaying dictionary
+//        foreach (var ele in sub)
+//        {
+//            Console.WriteLine($"Key: {ele.Key}, Value: {ele.Value}");
+//        }
+//    }
+//}
+
+//class Geeks
+//{
+//    static public void Main()
+//    {
+//        // Creating a dictionary
+//        Dictionary<int, string> dict = new Dictionary<int, string>();
+
+//        // Adding key-value pairs
+//        dict.Add(1, "Welcome");
+//        dict.Add(2, "to");
+//        dict.Add(3, "GeeksforGeeks");
+
+//        // Before Remove() method
+//        foreach (KeyValuePair<int, string> ele in dict)
+//        {
+//            Console.WriteLine("key: {0}, Value: {1}", ele.Key, ele.Value);
+//        }
+
+//        // Remove a key-value pair
+//        dict.Remove(1);
+
+//        Console.WriteLine("\nAfter Remove() method:");
+//        foreach (KeyValuePair<int, string> ele in dict)
+//        {
+//            Console.WriteLine("key: {0}, Value: {1}", ele.Key, ele.Value);
+//        }
+//    }
+//}
+
+
+////Hashtable(non-generic only)
+//// C# program to add elements to the hashtable
+//using System.Collections;
+
+//class Geeks
+//{
+//    static void Main()
+//    {
+//        // Create a new Hashtable
+//        Hashtable ht = new Hashtable();
+
+//        // Add key-value pairs to the Hashtable
+//        ht.Add("One", 1);
+//        ht.Add("Two", 2);
+//        ht.Add("Three", 3);
+
+//        Console.WriteLine("Hashtable elements:");
+//        foreach (DictionaryEntry e in ht)
+//        {
+//            Console.WriteLine($"{e.Key}: {e.Value}");
+//        }
+//    }
+//}
+
+
+//// Add Elements in Hashtable
+//using System.Collections;
+
+//class Geeks
+//{
+
+//    // Main Method
+//    static public void Main()
+//    {
+//        // Create a hashtable using the Hashtable class
+//        Hashtable h1 = new Hashtable();
+
+//        // Adding key/value pairs using Add() method
+//        h1.Add("1", "Welcome");
+//        h1.Add("2", "to");
+//        h1.Add("3", "GeeksforGeeks");
+
+//        Console.WriteLine("Key and Value pairs from h1:");
+
+//        // Iterating through the hashtable using
+//        // DictionaryEntry
+//        foreach (DictionaryEntry ele1 in h1)
+//        {
+//            Console.WriteLine("{0} and {1}", ele1.Key,
+//                              ele1.Value);
+//        }
+
+//        // Create another hashtable using the Hashtable
+//        // class and a collection initializer
+//        Hashtable h2 = new Hashtable() {
+//            { 1, "hello" }, { 2, 234 }, { 3, 230.45 },
+//            {
+//                4, null
+//            }
+//        };
+
+//        Console.WriteLine(
+//            "Key and Value pairs from h2:");
+
+//        // Iterating through the hashtable using the Keys
+//        // collection
+//        foreach (var ele2 in h2.Keys)
+//        {
+//            Console.WriteLine("{0} and {1}", ele2,
+//                              h2[ele2]);
+//        }
+//    }
+//}
+
+//// Remove Elements from Hashtable
+//using System.Collections;
+
+//class Geeks
+//{
+
+//    // Main Method
+//    static public void Main()
+//    {
+
+//        // Create a hashtable
+//        // Using Hashtable class
+//        Hashtable h1 = new Hashtable();
+
+//        // Adding key/value pair
+//        // in the hashtable
+//        // Using Add() method
+//        h1.Add("1", "Welcome");
+//        h1.Add("2", "to");
+//        h1.Add("3", "GeeksforGeeks");
+
+//        // Using remove method
+//        // remove A2 key/value pair
+//        h1.Remove("2");
+
+//        Console.WriteLine("Key and Value pairs :");
+
+//        foreach (DictionaryEntry e1 in h1)
+//        {
+//            Console.WriteLine("{0} and {1} ", e1.Key,
+//                              e1.Value);
+//        }
+
+//        // Before using Clear method
+//        Console.WriteLine("Total number of elements present"
+//                              + " in h1:{0}",
+//                          h1.Count);
+
+//        h1.Clear();
+
+//        // After using Clear method
+//        Console.WriteLine(
+//            "Total number of elements present in"
+//                + " h1:{0}",
+//            h1.Count);
+//    }
+//}
+
+//// C# program to illustrate how
+//// to check key/value present
+//// in the hashtable or not
+//using System.Collections;
+
+//class Geeks
+//{
+
+//    // Main Method
+//    static public void Main()
+//    {
+
+//        // Create a hashtable
+//        // Using Hashtable class
+//        Hashtable ht = new Hashtable();
+
+//        // Adding key/value pair in the hashtable
+//        // Using Add() method
+//        ht.Add("1", "Welcome");
+//        ht.Add("2", "to");
+//        ht.Add("3", "GeeksforGeeks");
+
+//        // Determine whether the given
+//        // key present or not
+//        // using Contains method
+//        Console.WriteLine(ht.Contains("3"));
+//        Console.WriteLine(ht.Contains(12));
+//        Console.WriteLine();
+
+//        // Determine whether the given
+//        // key present or not
+//        // using ContainsKey method
+//        Console.WriteLine(ht.ContainsKey("1"));
+//        Console.WriteLine(ht.ContainsKey(1));
+//        Console.WriteLine();
+
+//        // Determine whether the given
+//        // value present or not
+//        // using ContainsValue method
+//        Console.WriteLine(ht.ContainsValue("geeks"));
+//        Console.WriteLine(ht.ContainsValue("to"));
+//    }
+//}
+
+// C# Program to demonstrates how to update the hashtable
+using System.Collections;
+
+class Geeks
+{
+    static void Main()
+    {
+        // Create a new Hashtable
+        Hashtable ht = new Hashtable();
+
+        // Add some key-value pairs
+        ht.Add("key1", "value1");
+        ht.Add("key2", "value2");
+
+        // Updating the value of an existing key
+        string s = "key1";
+        if (ht.ContainsKey(s))
+        {
+            ht[s] = "s1";
+        }
+
+        // Accessing the updated value
+        string s1 = (string)ht[s];
+        Console.WriteLine("Updated value: " + s1);
+
+        // Print all key-value pairs in the ht
+        foreach (DictionaryEntry e in ht)
+        {
+            Console.WriteLine("Key: " + e.Key
+                              + ", Value: " + e.Value);
+        }
+    }
+}

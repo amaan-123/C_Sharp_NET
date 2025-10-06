@@ -1260,7 +1260,7 @@ It came in `.NET Framework Version 4` and onwards. It provides various threads-s
 | **Partitioner** | It provides common partitioning strategies for arrays, lists, and enumerables. |
 | **Partitioner** | It represents a particular manner of splitting a data source into multiple partitions. |
 
-### List<T> (Generic)
+### List<T> (is Generic only)
 
 In C#, a List is a generic collection used to store the elements or objects in the form of a list defined under System.Collection.Generic namespace. It provides the same functionality as [ArrayList](https://www.geeksforgeeks.org/c-sharp/arraylist-in-c-sharp/), the difference is a list is generic whereas ArrayList is a non-generic collection. It is dynamic means the size of the list grows, according to the need.
 
@@ -1660,6 +1660,831 @@ foreach (var item in foodArray)
     Console.WriteLine(item);
 }
 ```
+
+### LinkedList<T> (is Generic only)
+
+A `LinkedList<T>` in C# is a **doubly linked list** that allows fast insertion and deletion at any position. Unlike arrays or `List<T>`, it does **not** use contiguous memory — each element (a node) contains a value and references to both the previous and next nodes.
+
+![CSharp-LinkedList](https://media.geeksforgeeks.org/wp-content/uploads/20250910173115066194/CSharp-LinkedList.webp)
+
+---
+
+#### Quick example
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static void Main() {
+        LinkedList<int> l = new LinkedList<int>();
+        l.AddLast(10);    // Adds at the end
+        l.AddFirst(20);   // Adds at the beginning
+        l.AddLast(30);
+        l.AddLast(40);
+
+        Console.WriteLine("Elements in the LinkedList:");
+        foreach (var i in l) Console.WriteLine(i);
+    }
+}
+```
+
+**Output**
+
+```
+Elements in the LinkedList:
+20
+10
+30
+40
+```
+
+---
+
+#### Syntax
+
+```csharp
+LinkedList<int> list = new LinkedList<int>();
+```
+
+- Supports enumerators for easy traversal (`foreach`).
+- Nodes are `LinkedListNode<T>` instances.
+- Can remove and reinsert nodes (even between lists) without allocating new node objects.
+- Can store duplicate values.
+- Capacity = number of elements (no fixed capacity).
+
+---
+
+#### Implemented interfaces
+
+`LinkedList<T>` implements:
+
+- `ICollection<T>`
+- `IEnumerable<T>`
+- `IEnumerable`
+- `ICollection`
+
+---
+
+#### Constructors
+
+- `LinkedList()` — empty list.
+- `LinkedList(IEnumerable<T>)` — copy elements from an enumerable.
+- `LinkedList(SerializationInfo, StreamingContext)` — used for serialization.
+
+---
+
+#### Creating a LinkedList
+
+```csharp
+using System.Collections.Generic;
+LinkedList<string> l = new LinkedList<string>();
+```
+
+---
+
+#### Performing operations
+
+##### 1. Adding elements
+
+Methods:
+
+- `AddAfter(LinkedListNode<T>, T)` — insert after a node.
+- `AddBefore(LinkedListNode<T>, T)` — insert before a node.
+- `AddFirst(T)` — insert at the head.
+- `AddLast(T)` — insert at the tail.
+
+**Example:**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static void Main() {
+        LinkedList<int> l = new LinkedList<int>();
+        l.AddLast(10);
+        l.AddLast(20);
+        l.AddLast(30);
+        l.AddLast(40);
+        l.AddLast(50);
+
+        Console.WriteLine("List of numbers:");
+        foreach (int num in l) Console.WriteLine(num);
+    }
+}
+```
+
+**Output**
+
+```
+List of numbers:
+10
+20
+30
+40
+50
+```
+
+---
+
+##### 2. Removing elements
+
+Methods:
+
+- `Clear()` — remove all nodes.
+- `Remove(LinkedListNode<T>)` — remove a specific node.
+- `Remove(T)` — remove the first occurrence of a value.
+- `RemoveFirst()` — remove head.
+- `RemoveLast()` — remove tail.
+
+**Example:**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static void Main() {
+        LinkedList<int> l = new LinkedList<int>();
+        l.AddLast(10); l.AddLast(20); l.AddLast(30); l.AddLast(40); l.AddLast(50); l.AddLast(60);
+
+        Console.WriteLine("Initial List of Numbers: " + string.Join(" ", l));
+
+        l.Remove(l.First);            // remove first node
+        Console.WriteLine("After Removing the First Element: " + string.Join(" ", l));
+
+        l.Remove(20);                 // remove first occurrence of 20
+        Console.WriteLine("After Removing Number 20: " + string.Join(" ", l));
+
+        l.RemoveFirst();              // remove head
+        Console.WriteLine("After Removing the First Element Again: " + string.Join(" ", l));
+
+        l.RemoveLast();               // remove tail
+        Console.WriteLine("After Removing the Last Element: " + string.Join(" ", l));
+
+        l.Clear();
+        Console.WriteLine("Number of elements after clearing: " + l.Count);
+    }
+}
+```
+
+**Output (truncated)**
+
+```
+Initial List of Numbers: 10 20 30 40 50 60
+After Removing the First Element: 20 30 40 50 60
+After Removing Number 20: 30 40 50 60
+After Removing the First Element Again: 40 50 60
+After Removing the Last Element: 40 50
+Number of elements after clearing: 0
+```
+
+---
+
+##### 3. Checking availability
+
+- `Contains(T)` — returns `true` if the value exists.
+
+**Example:**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main() {
+        LinkedList<int> l = new LinkedList<int>();
+        l.AddLast(10); l.AddLast(20); l.AddLast(30);
+
+        Console.WriteLine("The element 20 is present: " + l.Contains(20));
+        Console.WriteLine("The element 100 is present: " + l.Contains(100));
+    }
+}
+```
+
+**Output**
+
+```
+The element 20 is present in the LinkedList: True
+The element 100 is present in the LinkedList: False
+```
+
+---
+
+#### Notes & when to use
+
+- **Fast inserts/removals** in the middle or ends (O(1) if you already have the node).
+- **Slow random access** — indexing into a `LinkedList<T>` is O(n). If you need frequent indexed access, prefer `List<T>`.
+- Useful for implementing queues, deques, LRU caches, and when you need stable node references that can be moved between lists without reallocation.
+
+#### Using `AddAfter()` and `AddBefore()` with LinkedListNode
+
+`LinkedList<T>` provides node-level methods that let you insert new elements relative to an existing node reference — something not possible in `List<T>`.
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static void Main() {
+        LinkedList<string> l = new LinkedList<string>();
+        l.AddLast("A");
+        l.AddLast("C");
+
+        // Get a reference to the node containing "A"
+        LinkedListNode<string> nodeA = l.Find("A");
+
+        // Insert "B" after nodeA
+        l.AddAfter(nodeA, "B");
+
+        // Insert "Start" before the first node
+        l.AddBefore(l.First, "Start");
+
+        Console.WriteLine("LinkedList after AddAfter and AddBefore:");
+        foreach (string s in l) Console.WriteLine(s);
+    }
+}
+```
+
+**Output**
+
+```
+LinkedList after AddAfter and AddBefore:
+Start
+A
+B
+C
+```
+
+✅ **Key takeaway:** You can directly manipulate nodes, allowing constant-time insertion anywhere if you already have a node reference.
+
+---
+
+#### LinkedList<T> vs List<T> — Performance Overview
+
+| Operation                             | LinkedList<T>                  | List<T>                  | Notes                                       |
+| ------------------------------------- | ------------------------------ | ------------------------ | ------------------------------------------- |
+| **Add at End**                        | O(1)                           | Amortized O(1)           | Both efficient                              |
+| **Add at Beginning**                  | O(1)                           | O(n)                     | LinkedList much faster                      |
+| **Insert in Middle (known position)** | O(1) if node known, else O(n)  | O(n)                     | LinkedList wins if node reference is stored |
+| **Remove by Node**                    | O(1)                           | O(n)                     | LinkedList wins if node reference known     |
+| **Random Access (by index)**          | O(n)                           | O(1)                     | List<T> wins                                |
+| **Memory Overhead**                   | Higher (extra node references) | Lower (contiguous array) | LinkedList uses more memory                 |
+| **Traversal Speed**                   | Slightly slower                | Faster (cache-friendly)  | List<T> benefits from contiguous memory     |
+
+✅ **Rule of thumb:**
+
+- Use **`List<T>`** when you need **fast random access** and mostly append/remove at the end.
+- Use **`LinkedList<T>`** when you need **fast inserts/removals anywhere** and can keep track of nodes.
+
+---
+
+### Dictionary (Generic Only)
+
+A **Dictionary** in C# is a **generic collection** that stores **key–value pairs**.
+It is defined in the `System.Collections.Generic` namespace and functions similarly to the non-generic `Hashtable`, but with **type safety** and **better performance** for strongly typed data.
+
+**Key characteristics:**
+
+- **Generic:** Works with specific data types (`Dictionary<TKey, TValue>`), avoiding boxing/unboxing.
+- **Dynamic size:** Automatically grows as needed.
+- **Unique keys:** Duplicate keys cause a runtime exception.
+- **Efficient lookup:** Provides average O(1) lookup time using hashing.
+
+---
+
+#### Example 1: Creating and Displaying a Dictionary
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main() {
+        // Creating a dictionary
+        Dictionary<int, string> sub = new Dictionary<int, string>();
+
+        // Adding elements
+        sub.Add(1, "C#");
+        sub.Add(2, "JavaScript");
+        sub.Add(3, "Dart");
+
+        // Displaying dictionary
+        foreach (var ele in sub)
+            Console.WriteLine($"Key: {ele.Key}, Value: {ele.Value}");
+    }
+}
+```
+
+**Output**
+
+```
+Key: 1, Value: C#
+Key: 2, Value: JavaScript
+Key: 3, Value: Dart
+```
+
+---
+
+#### Steps to Create a Dictionary
+
+**Step 1:** Include the namespace
+
+```csharp
+using System.Collections.Generic;
+```
+
+**Step 2:** Create the dictionary
+
+```csharp
+Dictionary<int, string> dict = new Dictionary<int, string>();
+```
+
+---
+
+### Performing Different Operations on Dictionary
+
+#### 1. Adding Elements
+
+- **`Add()`** – Adds a key/value pair.
+- **Collection Initializer** – Adds items when declaring.
+- **Indexers** – Add or update values using `[]`.
+
+```csharp
+// Using Add()
+Dictionary<int, string> dict = new Dictionary<int, string>();
+dict.Add(1, "One");
+
+// Using Collection Initializer
+Dictionary<int, string> dict2 = new Dictionary<int, string> {
+    { 1, "One" },
+    { 2, "Two" }
+};
+
+// Using Indexers
+Dictionary<int, string> dict3 = new Dictionary<int, string>();
+dict3[1] = "One";
+dict3[2] = "Two";
+```
+
+💡 **Tip:** Using indexers can *add new* keys or *overwrite existing* ones.
+
+---
+
+#### 2. Accessing Elements
+
+You can access key–value pairs using:
+
+- **For loop** (via `Keys.ElementAt()` – requires `System.Linq`)
+- **Indexer** (`dict[key]`)
+- **foreach loop**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static public void Main() {
+        Dictionary<int, string> dict = new Dictionary<int, string>();
+        dict.Add(1, "Welcome");
+        dict.Add(2, "to");
+        dict.Add(3, "GeeksforGeeks");
+
+        // Access using foreach
+        foreach (var ele in dict)
+            Console.WriteLine($"Key: {ele.Key}, Value: {ele.Value}");
+
+        // Access using indexer
+        Console.WriteLine($"Value at key 1: {dict[1]}");
+    }
+}
+```
+
+**Output**
+
+```
+Key: 1, Value: Welcome
+Key: 2, Value: to
+Key: 3, Value: GeeksforGeeks
+Value at key 1: Welcome
+```
+
+⚠️ **Note:** Accessing a non-existent key using `dict[key]` throws `KeyNotFoundException`.
+Use `TryGetValue(key, out value)` to safely retrieve values.
+
+---
+
+#### 3. Removing Elements
+
+Use the following methods:
+
+- **`Remove(key)`** – Removes an entry with the given key.
+- **`Clear()`** – Removes all entries.
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static public void Main() {
+        Dictionary<int, string> dict = new Dictionary<int, string>();
+        dict.Add(1, "Welcome");
+        dict.Add(2, "to");
+        dict.Add(3, "GeeksforGeeks");
+
+        Console.WriteLine("Before Remove:");
+        foreach (var ele in dict)
+            Console.WriteLine($"Key: {ele.Key}, Value: {ele.Value}");
+
+        dict.Remove(1);
+        Console.WriteLine("\nAfter Remove:");
+        foreach (var ele in dict)
+            Console.WriteLine($"Key: {ele.Key}, Value: {ele.Value}");
+    }
+}
+```
+
+**Output**
+
+```
+Before Remove:
+Key: 1, Value: Welcome
+Key: 2, Value: to
+Key: 3, Value: GeeksforGeeks
+
+After Remove:
+Key: 2, Value: to
+Key: 3, Value: GeeksforGeeks
+```
+
+---
+
+#### 4. Checking Existence of Elements
+
+Check if a key or value exists using:
+
+- **`ContainsKey(key)`**
+- **`ContainsValue(value)`**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    static public void Main() {
+        Dictionary<int, string> dict = new Dictionary<int, string>();
+        dict.Add(1, "Welcome");
+        dict.Add(2, "to");
+        dict.Add(3, "GeeksforGeeks");
+
+        if (dict.ContainsKey(1))
+            Console.WriteLine("Key 1 found!");
+        else
+            Console.WriteLine("Key 1 not found!");
+
+        if (dict.ContainsValue("to"))
+            Console.WriteLine("Value 'to' found!");
+        else
+            Console.WriteLine("Value 'to' not found!");
+    }
+}
+```
+
+**Output**
+
+```
+Key 1 found!
+Value 'to' found!
+```
+
+---
+
+#### Key Points about Dictionary
+
+- Defined only as **generic** (`Dictionary<TKey, TValue>`).
+- Offers **O(1)** average-time lookups and inserts.
+- Keys must be **unique** and **non-null**; values can be null (for reference types).
+- Uses **hashing** internally to locate items efficiently.
+- Throws exceptions if:
+
+  - Duplicate key is added (`ArgumentException`).
+  - Invalid key accessed (`KeyNotFoundException`).
+
+---
+
+#### Dictionary vs Hashtable (for context)
+
+| Feature       | Dictionary<TKey, TValue>    | Hashtable                  |
+| ------------- | --------------------------- | -------------------------- |
+| Namespace     | System.Collections.Generic  | System.Collections         |
+| Type Safety   | Generic (type-safe)         | Non-generic (casts needed) |
+| Performance   | Faster (no boxing/unboxing) | Slower due to boxing       |
+| Key Type      | Must match `TKey`           | Can be any `object`        |
+| Thread Safety | Not thread-safe by default  | Also not thread-safe       |
+| Recommended   | ✅ Use in modern C# code     | ❌ Legacy usage             |
+
+---
+
+#### Real-World Use
+
+Dictionaries are ideal for:
+
+- Caching data with identifiers (`id → object`).
+- Mapping configuration keys to values.
+- Quick lookups in web APIs or backend services.
+- Counting or grouping (e.g., word frequency).
+
+---
+Here’s your **refined and polished markdown notes** for **Hashtable** — rewritten for clarity and compactness while maintaining the same structure and layout.
+Added contextual notes on how it differs from `Dictionary<TKey, TValue>`, along with brief explanations of important points for real-world understanding.
+
+---
+
+### Hashtable
+
+In C#, a **Hashtable** is a **non-generic** collection that stores **key–value pairs**.
+It uses a **hash code** internally to organize keys for fast lookups, insertions, and deletions.
+Defined under the **`System.Collections`** namespace, it can store **mixed types** of objects (both keys and values).
+
+**Key characteristics:**
+
+- Keys must be **unique** and **non-null**; values can be null.
+- Keys should be **immutable** while used in the Hashtable (e.g., strings, numbers).
+- Stores data as **`DictionaryEntry`** objects (unlike `KeyValuePair<TKey, TValue>` in generic Dictionary).
+- Supports **O(1)** average lookup time using hashing.
+- As a non-generic type, **boxing/unboxing** may occur for value types.
+
+---
+
+#### Example: Creating and Displaying a Hashtable
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static void Main() {
+        // Create a new Hashtable
+        Hashtable ht = new Hashtable();
+
+        // Add key-value pairs
+        ht.Add("One", 1);
+        ht.Add("Two", 2);
+        ht.Add("Three", 3);
+
+        Console.WriteLine("Hashtable elements:");
+        foreach (DictionaryEntry e in ht)
+            Console.WriteLine($"{e.Key}: {e.Value}");
+    }
+}
+```
+
+**Output**
+
+```
+Hashtable elements:
+Two: 2
+Three: 3
+One: 1
+```
+
+*(Note: Order of elements is not guaranteed — Hashtable is unordered.)*
+
+---
+
+### Creating a Hashtable
+
+The [Hashtable class](https://www.geeksforgeeks.org/c-sharp/c-sharp-hashtable-class/) has multiple constructors; the most common one is:
+
+**`Hashtable()`** → Creates an empty hashtable with default capacity and load factor.
+
+**Example:**
+
+```csharp
+using System.Collections;
+Hashtable ht = new Hashtable();
+```
+
+---
+
+### Performing Different Operations on Hashtable
+
+#### 1. Adding Elements
+
+Elements can be added using the **`Add()`** method or **collection initializers**.
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static public void Main() {
+        Hashtable h1 = new Hashtable();
+        h1.Add("1", "Welcome");
+        h1.Add("2", "to");
+        h1.Add("3", "GeeksforGeeks");
+
+        Console.WriteLine("Key and Value pairs from h1:");
+        foreach (DictionaryEntry e in h1)
+            Console.WriteLine($"{e.Key} and {e.Value}");
+
+        Hashtable h2 = new Hashtable() {
+            { 1, "hello" }, { 2, 234 }, { 3, 230.45 }, { 4, null }
+        };
+
+        Console.WriteLine("\nKey and Value pairs from h2:");
+        foreach (var key in h2.Keys)
+            Console.WriteLine($"{key} and {h2[key]}");
+    }
+}
+```
+
+**Output**
+
+```
+Key and Value pairs from h1:
+3 and GeeksforGeeks
+2 and to
+1 and Welcome
+
+Key and Value pairs from h2:
+4 and
+3 and 230.45
+2 and 234
+1 and hello
+```
+
+✅ **Note:** Since `Hashtable` is non-generic, it can store mixed-type data (e.g., string, int, double, null).
+
+---
+
+#### 2. Removing Elements
+
+The Hashtable class provides two main methods:
+
+- **`Remove(key)`** – Removes an entry with the given key.
+- **`Clear()`** – Removes all entries.
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static public void Main() {
+        Hashtable h1 = new Hashtable();
+        h1.Add("1", "Welcome");
+        h1.Add("2", "to");
+        h1.Add("3", "GeeksforGeeks");
+
+        h1.Remove("2"); // Removes key "2"
+
+        Console.WriteLine("Key and Value pairs:");
+        foreach (DictionaryEntry e in h1)
+            Console.WriteLine($"{e.Key} and {e.Value}");
+
+        Console.WriteLine($"Total elements before Clear(): {h1.Count}");
+        h1.Clear();
+        Console.WriteLine($"Total elements after Clear(): {h1.Count}");
+    }
+}
+```
+
+**Output**
+
+```
+Key and Value pairs:
+3 and GeeksforGeeks
+1 and Welcome
+Total elements before Clear(): 2
+Total elements after Clear(): 0
+```
+
+---
+
+#### 3. Checking Availability of Elements
+
+Use any of these methods:
+
+- **`Contains(object keyOrValue)`** – Checks if the key or value exists.
+- **`ContainsKey(object key)`** – Checks if a specific key exists.
+- **`ContainsValue(object value)`** – Checks if a specific value exists.
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static public void Main() {
+        Hashtable ht = new Hashtable();
+        ht.Add("1", "Welcome");
+        ht.Add("2", "to");
+        ht.Add("3", "GeeksforGeeks");
+
+        Console.WriteLine(ht.Contains("3"));      // True (key)
+        Console.WriteLine(ht.Contains(12));       // False
+        Console.WriteLine(ht.ContainsKey("1"));   // True
+        Console.WriteLine(ht.ContainsKey(1));     // False
+        Console.WriteLine(ht.ContainsValue("geeks")); // False
+        Console.WriteLine(ht.ContainsValue("to"));    // True
+    }
+}
+```
+
+**Output**
+
+```
+True
+False
+True
+False
+False
+True
+```
+
+💡 **Tip:** The `Contains()` method behaves like `ContainsKey()` but is less explicit; prefer `ContainsKey()` for clarity.
+
+---
+
+#### 4. Updating Elements
+
+Hashtable does not have a direct `Update()` method, but you can reassign values using the indexer `[]`.
+
+**Steps to update a key’s value:**
+
+1. Check if the key exists using `ContainsKey()`.
+2. Reassign its value using the indexer.
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static void Main() {
+        Hashtable ht = new Hashtable();
+        ht.Add("key1", "value1");
+        ht.Add("key2", "value2");
+
+        string keyToUpdate = "key1";
+        if (ht.ContainsKey(keyToUpdate))
+            ht[keyToUpdate] = "updatedValue"; // overwrites existing value
+
+        Console.WriteLine("Updated Hashtable:");
+        foreach (DictionaryEntry e in ht)
+            Console.WriteLine($"Key: {e.Key}, Value: {e.Value}");
+    }
+}
+```
+
+**Output**
+
+```
+Updated Hashtable:
+Key: key1, Value: updatedValue
+Key: key2, Value: value2
+```
+
+---
+
+### Key Points about Hashtable
+
+- Belongs to **`System.Collections`** (non-generic).
+- Keys must be **unique**, **non-null**, and **immutable**.
+- Values **can be null**.
+- Internally uses **hashing** for O(1) average performance.
+- Not **type-safe** — requires explicit casting when retrieving values.
+- Not **thread-safe** by default; use `Hashtable.Synchronized()` for a synchronized wrapper.
+- Iteration order is **not guaranteed** (unlike `SortedList`).
+
+---
+
+### Hashtable vs Dictionary<TKey, TValue>
+
+| Feature         | Hashtable                | Dictionary<TKey, TValue>      |
+| --------------- | ------------------------ | ----------------------------- |
+| Namespace       | System.Collections       | System.Collections.Generic    |
+| Type Safety     | ❌ Non-generic            | ✅ Generic (type-safe)         |
+| Key Type        | Any `object`             | Must match `TKey`             |
+| Value Type      | Any `object`             | Must match `TValue`           |
+| Performance     | Slower (boxing/unboxing) | Faster                        |
+| Null Keys       | ❌ Not allowed            | ❌ Not allowed                 |
+| Null Values     | ✅ Allowed                | ✅ Allowed                     |
+| Order           | Unordered                | Unordered                     |
+| Recommended Use | Legacy / mixed-type data | Modern, type-safe collections |
+
+---
+
+### Real-World Use Cases
+
+Use **Hashtable** when:
+
+- Working with legacy .NET codebases.
+- You need to store mixed-type objects dynamically.
+- Interfacing with APIs that still return non-generic collections.
+
+Otherwise, **prefer** `Dictionary<TKey, TValue>` for type safety and modern coding standards.
+
+---
 
 ### SortedList(Non-Generic & Generic)
 
@@ -2312,6 +3137,241 @@ The element 100 is present in the queue: False
 | Stores elements of the same type `T`    | Stores elements as `object` — different types allowed |
 | Type-safe at compile time               | Not type-safe; requires casting                       |
 | No boxing/unboxing for value types      | Value types boxed when added (performance cost)       |
+
+---
+
+### Stack (Non-Generic & Generic)
+
+In C#, a **Stack** is a collection that follows the **Last-In-First-Out (LIFO)** principle — the last item pushed is the first popped. There are two flavors:
+
+- **Generic:** `System.Collections.Generic.Stack<T>` — strongly typed, type-safe, no boxing/unboxing.
+- **Non-generic:** `System.Collections.Stack` — older API, stores items as `object`, requires casting.
+
+The stack can dynamically store elements (same type with generic, mixed types with non-generic for reference/value boxing).
+
+---
+
+#### Example — Generic Stack
+
+```csharp
+// C# Program Implementing Stack<T>
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Stack<int> s = new Stack<int>();
+        s.Push(1);
+        s.Push(2);
+        s.Push(3);
+        s.Push(4);
+        while (s.Count > 0) {
+            Console.WriteLine(s.Pop());
+        }
+    }
+}
+```
+
+**Output**
+
+```
+4
+3
+2
+1
+```
+
+Below is the diagrammatic representation of the working of a stack:
+
+![Stack-diagram](https://media.geeksforgeeks.org/wp-content/uploads/20250127144828247228/Stack-diagram.webp)
+
+---
+
+#### Hierarchy of Stack Class
+
+![CSharp-Stack-Hierarchy](https://media.geeksforgeeks.org/wp-content/uploads/20250127160715467066/CSharp-Stack-Hierarchy.webp)
+
+- `Stack` implements `IEnumerable`, `ICollection`, and `ICloneable`.
+- Push = add, Pop = remove.
+- Capacity grows automatically by reallocating the internal array.
+- Duplicate elements allowed.
+- Accepts `null` for reference-type elements (non-generic stores `null` as `object` too).
+
+---
+
+#### Creating a Stack
+
+`Stack` constructors (applies to generic and non-generic variants with similar overloads):
+
+- `Stack()` — empty stack with default capacity.
+- `Stack(ICollection)` — initialize from an existing collection.
+- `Stack(int capacity)` — specify initial capacity.
+
+**Non-generic creation (example):**
+
+```csharp
+using System.Collections;
+Stack s = new Stack();
+```
+
+**Generic creation (example):**
+
+```csharp
+using System.Collections.Generic;
+Stack<int> s = new Stack<int>();
+```
+
+---
+
+#### Performing Various Operations on Stack
+
+##### 1. Adding Elements
+
+Use `Push()`.
+
+**Non-generic example (mixed types allowed):**
+
+```csharp
+using System;
+using System.Collections;
+
+class Geeks {
+    static public void Main() {
+        Stack s = new Stack();
+        s.Push("Geek");
+        s.Push("geeksforgeeks");
+        s.Push(null);
+        s.Push(1);
+        s.Push(10.0);
+        foreach (var elem in s) Console.WriteLine(elem);
+    }
+}
+```
+
+**Output**
+
+```
+10
+1
+
+geeksforgeeks
+Geek
+```
+
+##### 2. Removing Elements
+
+- `Clear()` removes all items.
+- `Pop()` removes and returns the top element.
+
+**Generic example:**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Stack<string> s = new Stack<string>();
+        s.Push("Geeks");
+        s.Push("For");
+        s.Push("Geeks");
+        s.Push("For");
+        Console.WriteLine("Initial stack:");
+        foreach (var item in s) Console.WriteLine(item);
+        s.Pop();
+        Console.WriteLine("\nUpdated stack after Pop:");
+        foreach (var item in s) Console.WriteLine(item);
+    }
+}
+```
+
+**Output**
+
+```
+Initial stack:
+For
+Geeks
+For
+Geeks
+
+Updated stack after Pop:
+Geeks
+For
+Geeks
+```
+
+##### 3. Topmost Element (Peek)
+
+- `Peek()` returns the topmost element without removing it.
+- `Pop()` returns and removes it.
+
+**Example (generic):**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Stack<int> s1 = new Stack<int>();
+        s1.Push(10);
+        s1.Push(20);
+        s1.Push(30);
+        if (s1.Count > 0) {
+            int t = s1.Peek();
+            Console.WriteLine("The topmost element in the stack is: " + t);
+        } else {
+            Console.WriteLine("The stack is empty.");
+        }
+    }
+}
+```
+
+**Output**
+
+```
+The topmost element in the stack is: 30
+```
+
+##### 4. Checking Availability
+
+- `Contains(item)` checks membership (exists for both generic and non-generic).
+
+**Example (generic):**
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main(string[] args) {
+        Stack<int> s = new Stack<int>();
+        s.Push(10);
+        s.Push(20);
+        s.Push(30);
+        Console.WriteLine("The element 20 is present in the stack: " + s.Contains(20));
+        Console.WriteLine("The element 100 is present in the stack: " + s.Contains(100));
+    }
+}
+```
+
+**Output**
+
+```
+The element 20 is present in the stack: True
+The element 100 is present in the stack: False
+```
+
+---
+
+#### Generic Stack vs Non-Generic Stack
+
+| Generic Stack (`Stack<T>`)                      | Non-Generic Stack (`Stack`)                          |
+| ----------------------------------------------- | ---------------------------------------------------- |
+| Defined in `System.Collections.Generic`         | Defined in `System.Collections`                      |
+| Stores elements of a single type `T`            | Stores elements as `object` (mixed types possible)   |
+| Type must be declared; compile-time type safety | No compile-time type checking; needs casting         |
+| No boxing/unboxing for value types              | Value types are boxed when pushed (performance cost) |
 
 ---
 
