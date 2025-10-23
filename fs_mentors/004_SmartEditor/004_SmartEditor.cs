@@ -2,7 +2,7 @@
 Console.WriteLine("Type the string to edit (only use alphabets a-z and symbols: * and ~)");
 
 string S = Console.ReadLine();
-char[] sChars = S.Trim().ToCharArray();
+//char[] sChars = S.Trim().ToCharArray();
 
 if (ConstraintCheck(S))
 {
@@ -17,16 +17,18 @@ bool ConstraintCheck(string S)
 {
     if ((S.Length >= 1) && (S.Length <= Math.Pow(10, 5)))
     {
-        //check ascii of char
-        //97-122 || 42
-        foreach (char c in sChars)
-        {
-            if ((((int)c >= 97 && (int)c <= 122) || ((int)c == 42) || ((int)c == 126)) == false)
-            {
-                return false;
-            }
-        }
-        return true;
+        ////check ascii of char
+        ////97-122 || 42
+        //foreach (char c in sChars)
+        //{
+        //    //if ((((int)c >= 97 && (int)c <= 122) || ((int)c == 42) || ((int)c == 126)) == false)
+        //    //{
+        //    //    return false;
+        //    //}
+        //}
+
+        //// using System.Linq allow only lowercase a-z and '*' (ASCII)
+        return S.All(ch => ch == '*' || ch == '~' || (ch >= 'a' && ch <= 'z'));
     }
     else return false;
 }

@@ -1,9 +1,5 @@
-﻿////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic(List<T>, LinkedList<T>, Dictionary)/Non-generic(ArrayList, Hashtable), Both(SortedList, Queue, Stack,...)
-
-
-////Generic collections: 
-////Non-generic collections:ArrayList(using System.Collections), 
-////This project will contain many code topics that are not common with the MS_Learn freecodecamp
+﻿////This project will contain many code topics that are not common with the MS_Learn freecodecamp
+////Topics included: Arrays, StringBuilder(using System.Text), Collections:Generic(List<T>, LinkedList<T>, Dictionary)/Non-generic(ArrayList, Hashtable), Both(SortedList, Queue, Stack,...)
 
 ////Arrays:
 ////Arrays can be initialized after the declaration. It is not necessary to declare and initialize at the same time using the new keyword.
@@ -85,8 +81,10 @@
 //    }
 //}
 
-
+////Generic collections: 
+////Non-generic collections:ArrayList(using System.Collections)
 ////ArrayList
+
 ////Let's see how to create an ArrayList using ArrayList() constructor:
 ////Step 1: Include System.Collections namespace in your program with the help of using keyword.
 ////Syntax: 
@@ -101,21 +99,23 @@
 ////find the Capacity and Count of elements of the ArrayList
 ////remove elements from the ArrayList
 ////sort the elements of the ArrayList
+
+//using System.Collections;
 //class GFG
 //{
 
-//    Main Method
-//static public void Main()
+//    //    Main Method
+//    static public void Main()
 //    {
 
-//        Creating ArrayList
-//ArrayList My_array = new ArrayList();
+//        //Creating ArrayList
+//        ArrayList My_array = new ArrayList();
 
-//        Adding elements in the
-//        My_array ArrayList
-//        This ArrayList contains elements
-//        of different types
-//My_array.Add(12.56);
+//        //Adding elements in the
+//        //My_array ArrayList
+//        //This ArrayList contains elements
+//        //of different types
+//        My_array.Add(12.56);
 //        My_array.Add("GeeksforGeeks");
 //        My_array.Add(null);
 //        My_array.Add('G');
@@ -144,13 +144,13 @@
 //        My_array.Add(2);
 //        My_array.Add(4);
 
-//        Accessing the elements
-//        of My_array ArrayList
-// Using foreach loop
-//foreach (var elements in My_array)
-//            {
-//                Console.WriteLine(elements);
-//            }
+//        //   Accessing the elements
+//        //   of My_array ArrayList
+//        //Using foreach loop
+//        foreach (var elements in My_array)
+//        {
+//            Console.WriteLine(elements);
+//        }
 
 //        Console.WriteLine("---------------------------------");
 //        // Displaying count of elements of ArrayList 
@@ -180,12 +180,12 @@
 //        // Remove the all element 
 //        // present in ArrayList
 //        // Using Clear() method
-//        My_array.Clear();
-//        Console.WriteLine("After Clear() method the " +
-//            "number of elements: " + My_array.Count);
+//        //My_array.Clear();
+//        //Console.WriteLine("After Clear() method the " +
+//        //    "number of elements: " + My_array.Count);
 
 //        //ArrayList before sorting
-//        Console.WriteLine(" ArrayList before using Sort() method: ");
+//        Console.WriteLine("ArrayList before using Sort() method: ");
 
 //        foreach (var elements in My_array)
 //        {
@@ -197,7 +197,7 @@
 //        My_array.Sort();
 
 //        // ArrayList after sorting
-//        Console.WriteLine(" ArrayList after using Sort() method: ");
+//        Console.WriteLine("ArrayList after using Sort() method: ");
 //        foreach (var elements in My_array)
 //        {
 //            Console.WriteLine(elements);
@@ -206,7 +206,6 @@
 //        Console.ReadKey();
 //    }
 //}
-
 
 ////StringBuilder
 //// Adding element in StringBuilder Object
@@ -423,7 +422,7 @@
 
 //}
 
-//food.Clear();
+////food.Clear();
 
 //// Converting the list to an array:
 //Console.WriteLine("Converting the list to an array:\n");
@@ -694,8 +693,7 @@
 
 
 ////Queue
-///
-//// C# program to demonstrates how to use Queue
+////C# program to demonstrates how to use Queue
 //class Geeks
 //{
 //    public static void Main(string[] args)
@@ -718,8 +716,8 @@
 //}
 
 
-////C# Program to remove
-////  elements from a queue
+//C# Program to remove
+//  elements from a queue
 //class Geeks
 //{
 //    public static void Main(string[] args)
@@ -754,8 +752,8 @@
 //}
 
 
-//// C# Program to get the
-//// front element of the Queue
+// C# Program to get the
+// front element of the Queue
 //class Geeks
 //{
 //    public static void Main(string[] args)
@@ -1239,36 +1237,93 @@
 //    }
 //}
 
-// C# Program to demonstrates how to update the hashtable
-using System.Collections;
+//// C# Program to demonstrates how to update the hashtable
+//using System.Collections;
 
-class Geeks
-{
-    static void Main()
-    {
-        // Create a new Hashtable
-        Hashtable ht = new Hashtable();
+//class Geeks
+//{
+//    static void Main()
+//    {
+//        // Create a new Hashtable
+//        Hashtable ht = new Hashtable();
 
-        // Add some key-value pairs
-        ht.Add("key1", "value1");
-        ht.Add("key2", "value2");
+//        // Add some key-value pairs
+//        ht.Add("key1", "value1");
+//        ht.Add("key2", "value2");
 
-        // Updating the value of an existing key
-        string s = "key1";
-        if (ht.ContainsKey(s))
-        {
-            ht[s] = "s1";
-        }
+//        // Updating the value of an existing key
+//        string s = "key1";
+//        if (ht.ContainsKey(s))
+//        {
+//            ht[s] = "s1";
+//        }
 
-        // Accessing the updated value
-        string s1 = (string)ht[s];
-        Console.WriteLine("Updated value: " + s1);
+//        // Accessing the updated value
+//        string s1 = (string)ht[s];
+//        Console.WriteLine("Updated value: " + s1);
 
-        // Print all key-value pairs in the ht
-        foreach (DictionaryEntry e in ht)
-        {
-            Console.WriteLine("Key: " + e.Key
-                              + ", Value: " + e.Value);
-        }
-    }
-}
+//        // Print all key-value pairs in the ht
+//        foreach (DictionaryEntry e in ht)
+//        {
+//            Console.WriteLine("Key: " + e.Key
+//                              + ", Value: " + e.Value);
+//        }
+//    }
+//}
+
+
+////HashSet
+//class Geeks
+//{
+//    public static void Main()
+//    {
+//        // Create a HashSet 
+//        HashSet<int> hs = new HashSet<int>();
+
+//        // Add elements to the HashSet
+//        hs.Add(10);
+//        hs.Add(20);
+//        hs.Add(30);
+//        hs.Add(10);
+
+//        // Display elements in the HashSet
+//        Console.WriteLine("Elements in the HashSet: ");
+//        foreach (int number in hs)
+//            Console.WriteLine(number);
+//    }
+//}
+
+//class Geeks
+//{
+
+//    static public void Main()
+//    {
+//        // Creating HashSet Using HashSet class
+//        HashSet<string> set1 = new HashSet<string>();
+
+//        // Add the elements in HashSet Using Add method
+//        set1.Add("C");
+//        set1.Add("C++");
+//        set1.Add("C#");
+//        set1.Add("Java");
+//        set1.Add("Ruby");
+//        Console.WriteLine("Elements of set1:");
+
+//        // Accessing elements of HashSet Using foreach loop
+//        foreach (var val in set1)
+//        {
+//            Console.WriteLine(val);
+//        }
+
+//        // Creating another HashSet using collection initializer to initialize HashSet
+//        HashSet<int> set2 = new HashSet<int>() { 1, 2, 3 };
+
+//        // Display elements of set2
+//        Console.WriteLine("Elements of set2:");
+//        foreach (var value in set2)
+//        {
+//            Console.WriteLine(value);
+//        }
+//    }
+//}
+

@@ -993,6 +993,12 @@ Geeks For Geeks
 
 ### String vs StringBuilder
 
+**`StringBuilder` (`System.Text`)**
+
+- Typical use: building or mutating long strings (logs, CSV rows, code generation) inside loops.
+- Why it fits: avoids repeated string allocation — `Append`/`AppendLine` are cheap compared to `string` concatenation.
+- When not to use: tiny or few concatenations — plain `string` is simpler.
+
 ```csharp
 // Difference between String Vs StringBuilder
 using System;
@@ -1259,6 +1265,77 @@ It came in `.NET Framework Version 4` and onwards. It provides various threads-s
 | **OrderablePartitioner** | It represents a particular manner of splitting an orderable data source into multiple partitions. |
 | **Partitioner** | It provides common partitioning strategies for arrays, lists, and enumerables. |
 | **Partitioner** | It represents a particular manner of splitting a data source into multiple partitions. |
+
+#### Quick scenarios
+
+**Arrays (`T[]`)**
+
+- Typical use: fixed-size collections, small contiguous buffers, grid/board problems (chess, matrix DP), fast indexed access.
+- Why it fits: O(1) random access, compact memory, predictable layout.
+- When not to use: frequent inserts/deletes or unknown final size (those are O(n) because elements must shift).
+
+**`List<T>` (generic dynamic array)**
+
+- Typical use: a resizable array for ordered collections where you need random access and frequent appends (e.g., collecting results, dynamic arrays).
+- Why it fits: amortized O(1) append, O(1) indexed access, familiar API (`Add`, `Insert`, `RemoveAt`).
+- When not to use: many mid-list insertions/deletions (O(n) shifts) or when you need constant-time removes by reference.
+
+**`LinkedList<T>`**
+
+- Typical use: when you need fast O(1) insertion/removal at known positions (e.g., implementing LRU cache with Dictionary + LinkedList).
+- Why it fits: insertion/removal at a node is O(1) without shifting.
+- When not to use: random access (no indexer — O(n) to reach the k-th element) or memory-sensitive cases (higher per-element overhead).
+
+**`Dictionary<TKey,TValue>`**
+
+- Typical use: frequency counters, mapping IDs → objects, memoization, fast membership + value lookup.
+- Why it fits: average O(1) lookup/insert/delete; ideal when you fetch data by key.
+- When not to use: need ordered traversal by key (use `SortedDictionary` / `SortedList`) or need set semantics without values (use `HashSet`).
+
+**`HashSet<T>`**
+
+- Typical use: uniqueness checks, fast membership, set operations (union/intersect/difference) — e.g., "have I seen this value before?" in one pass.
+- Why it fits: average O(1) add/contains/remove and no duplicate storage.
+- When not to use: need mapping to values (use `Dictionary`) or need deterministic ordered iteration.
+
+**Legacy non-generic (`ArrayList`, `Hashtable`)**
+
+- Typical use: older codebases.
+- Why it fits: backwards compatibility.
+- When not to use: new code — they box value types, lack compile-time type safety; prefer generics.
+
+**`SortedList<TKey,TValue>` / `SortedDictionary<TKey,TValue>`**
+
+- Typical use: maintain key-sorted data (leaderboards, range queries, floor/ceiling lookups).
+- Why it fits: supports ordered traversal and range queries. `SortedDictionary` uses a tree (balanced), `SortedList` is array-backed (compact but O(n) inserts).
+- When not to use: performance-critical frequent inserts if you need O(1) lookup (use `Dictionary`) or you don’t need ordering.
+
+**`Queue<T>` (FIFO)**
+
+- Typical use: breadth-first search (BFS), task scheduling, streaming processors where oldest item is processed first.
+- Why it fits: O(1) enqueue/dequeue, models real-world waiting lines.
+- When not to use: LIFO behavior or random access.
+
+**`Stack<T>` (LIFO)**
+
+- Typical use: expression parsing, DFS, undo stacks, recursion elimination.
+- Why it fits: O(1) push/pop, simple last-in-first-out semantics.
+- When not to use: when you need FIFO or ordered traversal.
+
+---
+
+##### Short decision cheat-sheet (problem → pick)
+
+- Need O(1) key lookup or count frequencies → **Dictionary**.
+- Need uniqueness check or set algebra → **HashSet**.
+- Need indexed random access and fast append → **List<T>** or **array** (if size fixed).
+- Need fast insert/remove at arbitrary known nodes → **LinkedList** (plus Dictionary for O(1) lookup of nodes).
+- Need ordered keys / range queries → **SortedDictionary/SortedList**.
+- Building/concatenating long strings → **StringBuilder**.
+- BFS/task queue → **Queue**.
+- DFS/undo/history → **Stack**.
+
+Keep this mapping in mind when you read a problem: identify the *dominant operation* (frequent lookups? frequent middle inserts? ordering?) and pick the structure that makes that operation cheap.
 
 ### List<T> (is Generic only)
 
@@ -2201,7 +2278,7 @@ Added contextual notes on how it differs from `Dictionary<TKey, TValue>`, along 
 
 ---
 
-### Hashtable
+### Hashtable (Non-Generic Only)
 
 In C#, a **Hashtable** is a **non-generic** collection that stores **key–value pairs**.
 It uses a **hash code** internally to organize keys for fast lookups, insertions, and deletions.
@@ -2253,7 +2330,7 @@ One: 1
 
 ---
 
-### Creating a Hashtable
+#### Creating a Hashtable
 
 The [Hashtable class](https://www.geeksforgeeks.org/c-sharp/c-sharp-hashtable-class/) has multiple constructors; the most common one is:
 
@@ -2268,9 +2345,9 @@ Hashtable ht = new Hashtable();
 
 ---
 
-### Performing Different Operations on Hashtable
+#### Performing Different Operations on Hashtable
 
-#### 1. Adding Elements
+##### 1. Adding Elements
 
 Elements can be added using the **`Add()`** method or **collection initializers**.
 
@@ -2319,7 +2396,7 @@ Key and Value pairs from h2:
 
 ---
 
-#### 2. Removing Elements
+##### 2. Removing Elements
 
 The Hashtable class provides two main methods:
 
@@ -2362,7 +2439,7 @@ Total elements after Clear(): 0
 
 ---
 
-#### 3. Checking Availability of Elements
+##### 3. Checking Availability of Elements
 
 Use any of these methods:
 
@@ -2406,7 +2483,7 @@ True
 
 ---
 
-#### 4. Updating Elements
+##### 4. Updating Elements
 
 Hashtable does not have a direct `Update()` method, but you can reassign values using the indexer `[]`.
 
@@ -2446,7 +2523,7 @@ Key: key2, Value: value2
 
 ---
 
-### Key Points about Hashtable
+#### Key Points about Hashtable
 
 - Belongs to **`System.Collections`** (non-generic).
 - Keys must be **unique**, **non-null**, and **immutable**.
@@ -2458,7 +2535,7 @@ Key: key2, Value: value2
 
 ---
 
-### Hashtable vs Dictionary<TKey, TValue>
+#### Hashtable vs Dictionary<TKey, TValue>
 
 | Feature         | Hashtable                | Dictionary<TKey, TValue>      |
 | --------------- | ------------------------ | ----------------------------- |
@@ -2474,7 +2551,7 @@ Key: key2, Value: value2
 
 ---
 
-### Real-World Use Cases
+#### Real-World Use Cases
 
 Use **Hashtable** when:
 
@@ -2485,6 +2562,141 @@ Use **Hashtable** when:
 Otherwise, **prefer** `Dictionary<TKey, TValue>` for type safety and modern coding standards.
 
 ---
+
+### HashSet (Generic only)
+
+A `HashSet<T>` is a collection of **unique** elements. It **does not allow duplicates** and does **not maintain any particular order**. Internally it’s backed by a hash table and implements `ISet<T>`, so it supports standard set operations (union, intersection, difference).
+
+**Key facts**
+
+- Implemented using hashing internally.
+- Average-time complexity: **O(1)** for `Add`, `Remove`, and `Contains`.
+- Does **not preserve** insertion order.
+- Uses an **equality comparer** (`IEqualityComparer<T>`) to determine uniqueness (by default `EqualityComparer<T>.Default`, which calls `GetHashCode()` / `Equals()` for `T`).
+- Generic only (`System.Collections.Generic`), so no boxing/unboxing for value types.
+- Not thread-safe by default; use synchronization or `Concurrent` collections in multi-threaded scenarios.
+
+---
+
+#### Example — creating a HashSet
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Geeks {
+    public static void Main() {
+        HashSet<int> hs = new HashSet<int>();
+        hs.Add(10);
+        hs.Add(20);
+        hs.Add(30);
+        hs.Add(10); // ignored because 10 already exists
+        Console.WriteLine("Elements in the HashSet:");
+        foreach (int number in hs) Console.WriteLine(number);
+    }
+}
+```
+
+**Output** (order not guaranteed)
+
+```
+Elements in the HashSet:
+10
+20
+30
+```
+
+---
+
+#### How to create
+
+```csharp
+using System.Collections.Generic;
+HashSet<T> set = new HashSet<T>();
+// or with initializer:
+HashSet<int> set2 = new HashSet<int>{1,2,3};
+```
+
+You can also pass a custom equality comparer:
+
+```csharp
+var ciNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+```
+
+---
+
+#### Operations
+
+##### 1. Adding
+
+- `Add(T)` — returns `true` if the element was added, `false` if it already existed.
+- Collection initializer also works.
+
+```csharp
+set.Add(1);
+bool added = set.Add(1); // false if 1 was already present
+```
+
+##### 2. Access / iteration
+
+- No indexer; iterate with `foreach`.
+
+```csharp
+foreach (var x in set) Console.WriteLine(x);
+```
+
+##### 3. Removing
+
+- `Remove(T)` — removes specific element.
+- `RemoveWhere(Predicate<T>)` — removes matching elements.
+- `Clear()` — removes all.
+
+```csharp
+set.Remove(2);
+set.RemoveWhere(x => x % 2 == 0);
+set.Clear();
+```
+
+##### 4. Set operations
+
+- `UnionWith(IEnumerable<T>)` — set ∪ other
+- `IntersectWith(IEnumerable<T>)` — set ∩ other
+- `ExceptWith(IEnumerable<T>)` — set \ other
+- `SymmetricExceptWith(IEnumerable<T>)` — elements in either set, but not both
+
+```csharp
+var a = new HashSet<int>{1,2,3,5};
+var b = new HashSet<int>{3,4,5};
+a.UnionWith(b);          // a now contains {1,2,3,5,4}
+a.IntersectWith(new[]{3,5}); // a now {3,5}
+a.ExceptWith(new[]{5});  // a now {3}
+```
+
+---
+
+#### Important notes (practical)
+
+- **Equality / hashing matters**: correct `GetHashCode()` and `Equals()` implementations (or a custom `IEqualityComparer<T>`) are required for types used as elements. Bad hash functions hurt performance and correctness.
+- **No duplicates**: `Add` silently fails (returns `false`) for duplicates — useful for deduplication.
+- **Order is undefined**: don’t rely on enumeration order (use `SortedSet<T>` if you need order).
+- **Memory/overhead**: `HashSet<T>` has capacity and resize behavior similar to dictionaries; it trades memory for fast lookups.
+- **Threading**: not thread-safe for concurrent writes; synchronize externally or use concurrent-safe patterns.
+
+---
+
+#### When to use HashSet
+
+- **Deduplication** (quickly check whether a value exists).
+- **Membership tests** (frequent `Contains` checks).
+- **Set operations** (union/intersection/difference).
+- Use `List<T>` (or `Array`) if you need ordered or indexed access.
+
+---
+
+If you’d like, I can:
+
+- add a tiny example showing a **custom `IEqualityComparer<T>`**, or
+- provide a short benchmark snippet comparing `List<T>.Contains` vs `HashSet<T>.Contains` for large collections. Which would you prefer?
 
 ### SortedList(Non-Generic & Generic)
 
