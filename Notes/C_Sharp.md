@@ -3642,6 +3642,108 @@ namespace Hello
 - **`public`**: The member is accessible from anywhere, both inside and outside the class.
 - **`private`**: The member is accessible **only within the same class**.
 - **`protected`**: The member is accessible within the same class and by derived classes (classes that inherit from this class).
+- **`internal`**: The member is accessible **only within the same assembly** (more on this below).
+
+#### 🔹 What “internal” means
+
+In C#, the **`internal`** access modifier means:
+
+> The member or type is accessible **only within the same assembly** (but not from another assembly).
+
+---
+
+#### 🔹 So, what is an *assembly*?
+
+An **assembly** is a **compiled output unit** in .NET — essentially a **`.dll`** or **`.exe`** file that the C# compiler produces.
+
+- When you **build your project**, the compiler generates a `.dll` (for class libraries) or `.exe` (for executables).
+- That compiled file is an **assembly**.
+- It contains metadata, IL code, manifest info, etc.
+
+> Think of an assembly as a *package of compiled code* representing your project output.
+
+---
+
+#### 🔹 Example — single project case
+
+If your project is called `MyApp`, building it will generate:
+
+```
+bin/Debug/net9.0/MyApp.dll
+```
+
+If you mark something as `internal`, **it can be used anywhere inside MyApp.dll**, but not from another DLL or executable.
+
+```csharp
+// In MyApp.dll
+internal class InternalClass
+{
+    internal void Show() => Console.WriteLine("Hello from internal class");
+}
+
+// In another class in same project:
+class Test
+{
+    static void Main()
+    {
+        var obj = new InternalClass(); // ✅ works — same assembly
+        obj.Show();                    // ✅ works — same assembly
+    }
+}
+```
+
+If you reference `MyApp.dll` from another project, you **cannot** use `InternalClass`:
+
+```csharp
+// In AnotherProject referencing MyApp.dll
+var obj = new InternalClass(); // ❌ Error: inaccessible due to its protection level
+```
+
+---
+
+#### 🔹 Example — multiple project solution
+
+Imagine your solution has:
+
+- `LibraryProject` (class library → produces **LibraryProject.dll**)
+- `AppProject` (console app → produces **AppProject.exe**)
+
+If a class in `LibraryProject` is declared `internal`, it’s **visible only inside that DLL**, i.e., to other code *inside LibraryProject*, but **not to AppProject**, even if AppProject references it.
+
+---
+
+#### 🔹 Exception — `InternalsVisibleTo` attribute
+
+You *can* make internals of one assembly visible to another using this attribute, placed in `AssemblyInfo.cs`:
+
+```csharp
+[assembly: InternalsVisibleTo("AppProject")]
+```
+
+This makes all `internal` members of `LibraryProject.dll` visible to `AppProject`.
+
+✅ This is often used for **unit testing** — so test assemblies can access internal methods.
+
+---
+
+#### 🔹 Summary Table
+
+| Modifier             | Accessible In                        | Notes                                |
+| -------------------- | ------------------------------------ | ------------------------------------ |
+| `private`            | Same class only                      | Most restrictive                     |
+| `protected`          | Same class + derived classes         | Even across assemblies               |
+| `internal`           | Same **assembly (DLL/EXE)**          | Not accessible from other assemblies |
+| `protected internal` | Derived classes OR same assembly     | Union of both                        |
+| `private protected`  | Derived classes within same assembly | Intersection of both                 |
+| `public`             | Everywhere                           | Least restrictive                    |
+
+---
+
+✅ **Quick summary definition for interviews or notes:**
+
+> `internal` restricts access to all code defined in the **same compiled assembly** (same .dll or .exe file). It’s mainly used to hide implementation details from other assemblies but keep them accessible throughout your own project.
+
+---
 
 ### Creating an Object
 
@@ -4090,6 +4192,12 @@ The standard `Console.ReadLine()` method returns a `string?` because if the user
 string? userInput = Console.ReadLine();
 
 // Safe check before using it
+if (number.HasValue) 
+{ 
+    Console.WriteLine("You typed: " + userInput);
+}
+
+// or Safe check before using it
 if (userInput != null)
 {
     Console.WriteLine("You typed: " + userInput);
@@ -6671,3 +6779,1715 @@ No two coins make change
 ```
 
 ---
+
+# 50+ Interview Questions For Your CSharp Interview
+
+<https://tutorials.eu/50-interview-questions-for-your-csharp-interview/>
+
+## 1. What is a class?
+
+A **class** is a **template to create an object**. It contains properties (data members) as well as methods. Many instances (objects) can be created from a single class.
+
+**Example (class `Student`)**:
+
+```csharp
+public class Student
+{
+    // data members
+    public int RollNumber { get; set; }
+    public string FullName { get; set; }
+
+    // method
+    public void PrintDetails()
+    {
+        // code of method
+        Console.WriteLine($"Roll: {RollNumber}, Name: {FullName}");
+    }
+}
+```
+
+---
+
+## 2. What are the main concepts of object-oriented programming?
+
+The main concepts of object-oriented programming (OOP) are:
+
+- **Encapsulation**
+- **Abstraction**
+- **Polymorphism**
+- **Inheritance**
+
+These concepts are used in many programming languages, C## being one of them.
+
+---
+
+## 3. Explain Encapsulation
+
+**Encapsulation** is the process of **wrapping functions and data members together in a class** — like a capsule (a single unit).
+
+- **Purpose:** To **prevent unauthorized or unwanted changes** to data from outside the class.
+- **Implementation:** Often achieved by using properties (getters/setters) to control access to private fields.
+
+**Example (using properties with `get`/`set`):**
+
+```csharp
+class User
+{
+    private string address;
+    private string name;
+
+    public string Address
+    {
+        get { return address; }
+        set { address = value; }
+    }
+
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+}
+
+class MyProgram
+{
+    static void Main(string[] args)
+    {
+        User u = new User();
+        // set accessors invoked
+        u.Name = "Denis";
+        u.Address = "Germany";
+
+        // get accessors invoked
+        Console.WriteLine("Name: " + u.Name);
+        Console.WriteLine("Location: " + u.Address);
+
+        Console.WriteLine("\nPress Enter Key");
+        Console.ReadLine();
+    }
+}
+```
+
+---
+
+## 4. What is abstraction?
+
+**Abstraction** is exposing **only the required features** of a class and hiding unnecessary implementation details.
+
+- **Focus:** Provide access to specific functionality **without exposing how it works internally**.
+- **Example analogy:** A motorbike rider knows the color, model, etc., but not the internal engine workings.
+
+---
+
+## 5. What is polymorphism?
+
+**Polymorphism** means an object can **take many forms**, or the same method can have **different implementations**.
+
+Two types:
+
+- **Compile-time polymorphism (method overloading)** — same method name, different signatures (parameters).
+- **Run-time polymorphism (method overriding)** — derived class provides its own implementation of a virtual method from the base class using `override`.
+
+**Example — Compile-time polymorphism (method overloading):**
+
+```csharp
+public class Cellphone
+{
+    // function with same name but different parameters
+    public void Typing()
+    {
+        Console.WriteLine("Using keypad");
+    }
+
+    public void Typing(bool isSmartPhone)
+    {
+        Console.WriteLine("Using qwerty keyboard");
+    }
+}
+```
+
+**Example — Run-time polymorphism (method overriding):**
+
+```csharp
+public class CellPhone
+{
+    public virtual void Typing()
+    {
+        Console.WriteLine("Using keypad");
+    }
+}
+
+public class SmartPhone : CellPhone
+{
+    // method override
+    public override void Typing()
+    {
+        Console.WriteLine("Typing function from child class");
+    }
+}
+```
+
+---
+
+## 6. What is Inheritance in C##?
+
+Inheritance allows a class to **inherit data members and methods** from another class (parent/base).
+
+- **Child (derived) class:** Inherits properties and methods.
+- **Parent (base) class:** Class being inherited from.
+
+**Example of inheritance:**
+
+```csharp
+using System;
+
+public class A
+{
+    protected int value = 1337;
+
+    public class B : A
+    {
+        public int GetValue()
+        {
+            return this.value;
+        }
+    }
+}
+
+public class InheritanceExample
+{
+    public static void Main(string[] args)
+    {
+        var b = new A.B();
+        Console.WriteLine(b.GetValue());
+    }
+}
+```
+
+**Output:**
+
+```
+1337
+```
+
+---
+
+## 7. What is an object?
+
+An **object** is an **instance of a class** through which we access the methods and data of that class.
+
+- **Creation:** Use the `new` keyword.
+- **Memory:** An object in memory holds data for that instance and references class behavior.
+
+**Example (object creation and use):**
+
+```csharp
+public class Employee
+{
+    // private members
+    private string fName { get; set; }
+    private string lName { get; set; }
+
+    // Method
+    public void Display()
+    {
+        Console.WriteLine("Full name is {0} {1}", fName, lName);
+    }
+
+    public void SetName(string firstName, string lastName)
+    {
+        fName = firstName;
+        lName = lastName;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // create object
+        Employee employee = new Employee();
+        employee.SetName("John", "Grande");
+        employee.Display();
+    }
+}
+```
+
+---
+
+## 8. What is a constructor, and what are its different types?
+
+A **constructor** is a method with the **same name as the class**, used to initialize objects.
+
+- **Default constructor:** Provided by compiler if none defined.
+- **Purpose:** Initialize the object with default or initial values.
+
+**Types of constructors:**
+
+- Default constructor
+- Parameterized constructor
+- Copy constructor
+- Static constructor
+- Private constructor
+
+**Example showing different constructor types:**
+
+```csharp
+public class Student
+{
+    private int rollNumber { get; set; }
+    private string fullName { get; set; }
+
+    // default constructor
+    public Student()
+    {
+        // code
+    }
+
+    // parameterized constructor
+    public Student(int rNum, string fName)
+    {
+        this.rollNumber = rNum;
+        this.fullName = fName;
+    }
+
+    // static constructor
+    static Student()
+    {
+        // initialize static data
+    }
+
+    // copy constructor
+    public Student(Student student)
+    {
+        rollNumber = student.rollNumber;
+        fullName = student.fullName;
+    }
+}
+```
+
+> **Note:** A static constructor initializes static data and runs once before the first instance or any static members are accessed.
+
+---
+
+## 9. What is a destructor in C##?
+
+A **destructor** is used to release resources before an object is reclaimed by garbage collection.
+
+- In C##, cleanup is **managed by the garbage collector**.
+- You can define a destructor using `~ClassName()` to release unmanaged resources.
+
+**Example:**
+
+```csharp
+public class Purchase
+{
+    ~Purchase()
+    {
+        // code here to release resources
+    }
+}
+```
+
+---
+
+## 10. Is C## code managed or unmanaged code?
+
+**C## is managed code.**
+
+- **Reason:** Code runs under the Common Language Runtime (CLR) and is compiled to Intermediate Language (IL).
+- **CLR services:** Automatic memory management, security, type safety, and JIT compilation to machine code.
+
+---
+
+## 11. What are value types and reference types?
+
+- **Value Types:** Store the value directly. Examples: `bool`, `byte`, `int`, `char`, `decimal`.
+- **Reference Types:** Store a reference (memory address) to the value. Examples: `string`, `class`, `delegate`.
+
+Value types are typically more compact; reference types point to objects stored on the heap.
+
+---
+
+## 12. What are namespaces, and is that compulsory?
+
+A **namespace** organizes related classes under a common name (like a module).
+
+- **Not compulsory** to put a class in a namespace.
+- **Benefit:** Helps create modules/libraries that are reusable.
+
+**Example:**
+
+```csharp
+namespace demoapp
+{
+    class SomeClass
+    {
+        public static void SomeMethod()
+        {
+            Console.WriteLine("Creating my namespace");
+        }
+    }
+}
+```
+
+---
+
+## 13. Explain types of comments in C## with examples
+
+Three types:
+
+- **Single-line comment:** `//`
+- **Multi-line comment:** `/* ... */`
+- **XML comment:** `///` (used for documentation)
+
+**Examples:**
+
+```csharp
+// Hey, this is a single line comment
+
+/* This is a multiline comment
+   written in two lines */
+
+/// <summary>
+/// Here you can write documentation for a method or class
+/// </summary>
+```
+
+---
+
+## 14. What is an interface? Give an example
+
+An **interface** defines **abstract public methods** (declarations without implementations). A class implementing the interface **must implement all methods**.
+
+**Example (`IPencil` and implementation):**
+
+```csharp
+interface IPencil
+{
+    void Write(string text);
+    void Sharpen(string text);
+}
+
+class Pencil : IPencil
+{
+    public void Write(string text)
+    {
+        // some code here
+    }
+
+    public void Sharpen(string text)
+    {
+        // some code here
+    }
+}
+```
+
+---
+
+## 15. How to implement multiple interfaces with the same method name in the same class?
+
+When multiple interfaces define the same method, implement them **explicitly** using the interface name to resolve ambiguity.
+
+**Example:**
+
+```csharp
+interface IMyInterface1 { void Print(); }
+interface IMyInterface2 { void Print(); }
+
+class Student : IMyInterface1, IMyInterface2
+{
+    void IMyInterface1.Print()
+    {
+        Console.WriteLine("For IMyInterface1 !!");
+    }
+
+    void IMyInterface2.Print()
+    {
+        Console.WriteLine("For IMyInterface2 !!");
+    }
+}
+```
+
+---
+
+## 16. What is the virtual method, and how is it different from the abstract method?
+
+- **Virtual method:** Has a default implementation; derived classes **may** override it using `override`. Overriding is optional.
+- **Abstract method:** Declared in an `abstract` class without implementation; derived classes **must** override it.
+
+**Virtual example:**
+
+```csharp
+public class CellPhone
+{
+    public virtual void Typing()
+    {
+        Console.WriteLine("Using old keypad");
+    }
+}
+
+public class SmartPhone : CellPhone
+{
+    public override void Typing()
+    {
+        Console.WriteLine("Using qwerty keyboard");
+    }
+}
+```
+
+**Abstract example:**
+
+```csharp
+public abstract class CellPhones
+{
+    public abstract void Typing();
+}
+
+public class OldPhones : CellPhones
+{
+    public override void Typing()
+    {
+        Console.WriteLine("Using keypad");
+    }
+}
+
+public class SmartPhones : CellPhones
+{
+    public override void Typing()
+    {
+        Console.WriteLine("Using Qwerty keyboard");
+    }
+}
+```
+
+---
+
+## 17. What is method overloading and method overriding?
+
+- **Method overloading:** Same method name, different signature (parameters). (Compile-time polymorphism)
+- **Method overriding:** Derived class overrides a base class virtual method using `override`. (Run-time polymorphism)
+
+---
+
+## 18. What is the static keyword?
+
+`static` creates static classes, methods, or fields.
+
+- **Static class:** Cannot be instantiated; contains only static members.
+- **Access:** Static members are accessed via `ClassName.MemberName`.
+- **Use case:** Shared data or application-level utilities.
+
+**Example:**
+
+```csharp
+public static class Setting
+{
+    public static int FetchDefault()
+    {
+        int maxAmount = 0;
+        // code to fetch/set the value from config or file
+        return maxAmount;
+    }
+}
+
+public class Sales
+{
+    // not required to create an instance of Setting
+    int maxAmount = Setting.FetchDefault();
+}
+```
+
+---
+
+## 19. Can we use `this` with a static class?
+
+**No.** `this` cannot be used in a static class — static members do not belong to an instance.
+
+---
+
+## 20. What is the difference between constants and read-only?
+
+| Feature         | Constant (`const`)               | Read-only (`readonly`)                            |
+| :-------------- | :------------------------------- | :------------------------------------------------ |
+| Assignment time | Must be assigned at declaration. | Can be assigned at declaration or in constructor. |
+| Changeability   | Value cannot change.             | Value cannot be changed after assignment.         |
+
+**Constant example:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    class DemoClass
+    {
+        public const int MyVar = 101;
+        public const string Str = "staticstring";
+
+        static public void Main()
+        {
+            Console.WriteLine("The value of MyVar: {0}", MyVar);
+            Console.WriteLine("The value of Str: {0}", Str);
+        }
+    }
+}
+```
+
+**Read-only example:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    class MyClass
+    {
+        public readonly int myvar1;
+        public readonly int myvar2;
+
+        public MyClass(int b, int c)
+        {
+            myvar1 = b;
+            myvar2 = c;
+            Console.WriteLine("Display value of myvar1 {0}, and myvar2 {1}", myvar1, myvar2);
+        }
+
+        static public void Main()
+        {
+            MyClass obj1 = new MyClass(100, 200);
+        }
+    }
+}
+```
+
+---
+
+## 21. Difference between `string` and `StringBuilder`
+
+- **String (`System.String`)**: Immutable — modifying creates new instances.
+- **StringBuilder (`System.Text.StringBuilder`)**: Mutable — modifies the same instance, better performance for repeated modifications.
+
+**String example:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    class StringClass
+    {
+        public static void Main(string[] args)
+        {
+            string val = "Hello";
+            val += "World"; // creates a new string instance
+            Console.WriteLine(val);
+        }
+    }
+}
+```
+
+**StringBuilder example:**
+
+```csharp
+using System;
+using System.Text;
+
+namespace demoapp
+{
+    class StringClass
+    {
+        public static void Main(string[] args)
+        {
+            StringBuilder val = new StringBuilder("Hello");
+            val.Append("World"); // modifies same object
+            Console.WriteLine(val);
+        }
+    }
+}
+```
+
+---
+
+## 22. Explain `continue` and `break` statements
+
+Both are used within loops.
+
+- **`break`:** Exits the loop immediately.
+- **`continue`:** Skips remaining statements in current iteration and moves to next iteration.
+
+**`break` example:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    class LoopingStatements
+    {
+        public static void Main(string[] args)
+        {
+            for (int i = 0; i <= 5; i++)
+            {
+                if (i == 4)
+                {
+                    break; // breaks the loop
+                }
+                Console.WriteLine("The number is " + i);
+            }
+        }
+    }
+}
+```
+
+**`continue` example:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    class LoopingStatements
+    {
+        public static void Main(string[] args)
+        {
+            for (int i = 0; i <= 5; i++)
+            {
+                if (i == 4)
+                {
+                    continue; // skips this iteration
+                }
+                Console.WriteLine("The number is " + i);
+            }
+        }
+    }
+}
+```
+
+---
+
+## 23. What are boxing and unboxing?
+
+- **Boxing:** Converting a value type to a reference type (`object`).
+
+```csharp
+namespace demoapp
+{
+    class Conversion
+    {
+        public void DoSomething()
+        {
+            int i = 10;
+            object o = i; // boxing
+        }
+    }
+}
+```
+
+- **Unboxing:** Converting a reference type back to a value type.
+
+```csharp
+namespace demoapp
+{
+    class Conversion
+    {
+        public void DoSomething()
+        {
+            object o = 222;
+            int i = (int)o; // unboxing
+        }
+    }
+}
+```
+
+---
+
+## 24. What is a sealed class?
+
+A **sealed class** (using `sealed`) cannot be inherited further.
+
+```csharp
+public sealed class MyClass
+{
+    // properties and methods
+}
+```
+
+---
+
+## 25. What is a partial class?
+
+`partial` divides a single logical class across multiple physical files. At compile time the parts are combined into one class.
+
+- **Restriction:** Same member names cannot be duplicated across partial parts.
+- **Utility:** Helps split large classes into manageable files.
+
+---
+
+## 26. What is `enum`?
+
+`enum` declares an **enumeration** — a set of named numeric constants. Enums are value types; default underlying type is `int`. First enumerator defaults to `0`.
+
+**Example:**
+
+```csharp
+enum Day { Sat, Sun, Mon, Tue, Wed, Thu, Fri };
+```
+
+---
+
+## 27. What is dependency injection, and how can it be achieved?
+
+**Dependency Injection (DI)** is a design pattern where dependencies are **provided (injected)** to a class rather than created inside it.
+
+**Ways to achieve DI:**
+
+1. **Constructor Injection** — pass dependencies via constructor (most common).
+2. **Property Injection** — set dependency via property (useful when default constructor needed).
+3. **Method Injection** — pass dependency as method parameter (useful when only specific methods need dependency).
+
+---
+
+## 28. The `using` statement
+
+`using` defines a scope for resources; objects implementing `IDisposable` get disposed at the end of the block.
+
+**Example:**
+
+```csharp
+using System;
+
+class Books : IDisposable
+{
+    private string _name { get; set; }
+    private decimal _price { get; set; }
+
+    public Books(string name, decimal price)
+    {
+        _name = name;
+        _price = price;
+    }
+
+    public void Print()
+    {
+        Console.WriteLine("Book name is {0} and price is {1}", _name, _price);
+    }
+
+    public void Dispose()
+    {
+        // free resources
+    }
+}
+
+class Students
+{
+    public void DoSomething()
+    {
+        using (Books myBook = new Books("book name", 12.45m))
+        {
+            myBook.Print();
+        } // myBook.Dispose() called automatically
+    }
+}
+```
+
+---
+
+## 29. What are the access modifiers? Explain each type
+
+Access modifiers control visibility:
+
+- **public:** Accessible anywhere.
+- **protected:** Accessible within the class and derived classes.
+- **internal:** Accessible only within the current assembly.
+- **private:** Accessible only inside the declaring class.
+
+**Example:**
+
+```csharp
+public class Product
+{
+    public void Print()
+    {
+        // code to print something
+    }
+}
+```
+
+---
+
+## 30. What are delegates?
+
+**Delegates** are type-safe function pointers — reference types that hold references to methods.
+
+- Declare with `delegate` keyword and a signature.
+- Can point to instance or static methods and be invoked dynamically.
+
+**Example:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    class DelegateClass
+    {
+        public delegate void Print(int value);
+
+        static void Main(string[] args)
+        {
+            // Print delegate points to PrintNumber
+            Print printDel = PrintNumber;
+            printDel(100000);
+            printDel(200);
+
+            // Print delegate points to PrintMoney
+            printDel = PrintMoney;
+            printDel(10000);
+            printDel(200);
+        }
+
+        public static void PrintNumber(int num)
+        {
+            Console.WriteLine("Number: {0,-12:N0}", num);
+        }
+
+        public static void PrintMoney(int money)
+        {
+            Console.WriteLine("Money: {0:C}", money);
+        }
+    }
+}
+```
+
+---
+
+## 31. What are the different types of delegates?
+
+- **Single-cast delegate:** Invokes a single method.
+- **Multicast delegate:** Can invoke multiple methods (combine with `+`, remove with `-`). Methods execute in the order added.
+- **Generic delegates:** e.g., `Func<>`, `Action<>`, `Predicate<>` introduced to avoid custom delegate types.
+
+**Multicast example snippet:**
+
+```csharp
+Print printNumDel = PrintNumber;
+Print printMonDel = PrintMoney;
+
+// MultiCast Delegate
+Print multiPrintDel = printNumDel + printMonDel;
+multiPrintDel(100);
+
+multiPrintDel = printNumDel - printMonDel;
+multiPrintDel(100);
+```
+
+---
+
+## 32. What is an array? Explain single and multi-dimensional arrays
+
+An array stores a collection of items of the **same type**.
+
+- **Single-dimensional array:** Linear array.
+
+```csharp
+int[] marks = new int[] { 25, 34, 89 };
+```
+
+- **Multi-dimensional array (rectangular):** e.g., two-dimensional.
+
+```csharp
+int[,] numbers = new int[,] { { 1, 2 }, { 2, 3 }, { 3, 4 } };
+```
+
+---
+
+## 33. Difference between `Array.CopyTo()` and `Array.Clone()`
+
+**Conceptual comparison**
+
+| Method                     | Description                                                  | Creates New Array? | Notes                                                     |
+| :------------------------- | :----------------------------------------------------------- | :----------------: | :-------------------------------------------------------- |
+| `Array.Clone()`            | Returns a **shallow copy** (creates a new array instance)    |          ✅         | Reference elements still point to same objects.           |
+| `Array.CopyTo(Array, int)` | Copies elements **into an existing array** starting at index |          ❌         | Destination array must already exist and be large enough. |
+
+**Corrected example:**
+
+```csharp
+int[] marks = { 25, 34, 89 };
+
+// Clone creates a new array
+int[] marksClone = (int[])marks.Clone();
+
+// CopyTo copies into an existing array
+int[] marksCopy = new int[marks.Length];
+marks.CopyTo(marksCopy, 0);
+
+// Verify
+Console.WriteLine(string.Join(", ", marksClone)); // 25, 34, 89
+Console.WriteLine(string.Join(", ", marksCopy));  // 25, 34, 89
+```
+
+**Bonus:** For deep copies of reference-type arrays, copy each element individually.
+
+---
+
+## 34. Difference between `Array` and `ArrayList`
+
+- **Array:** Stores items of the **same type** and has a **fixed size**.
+- **ArrayList:** (non-generic) Can store any type (heterogeneous) and **resizes dynamically**. (Prefer generic `List<T>` today.)
+
+**(Corrected example idea — prefer `List<T>` over `ArrayList`)**
+
+```csharp
+using System.Collections;
+namespace demoapp
+{
+    class Sample
+    {
+        public void ArrayFunction()
+        {
+            // Array of strings (fixed type and size defined at creation)
+            string[] countries = new string[] { "USA", "Denmark", "Russia" };
+
+            // ArrayList can hold different data types
+            ArrayList arraylist = new ArrayList();
+            arraylist.Add(3);
+            arraylist.Add("USA");
+            arraylist.Add(false);
+        }
+    }
+}
+```
+
+---
+
+## 35. What is a jagged array in C##?
+
+A **jagged array** is an array of arrays — each element is an array and inner arrays can have different sizes.
+
+**Example:**
+
+```csharp
+public class JaggedArrayClass
+{
+    public void ShowJaggedArray()
+    {
+        int[][] jaggedArray = new int[2][];
+        jaggedArray[0] = new int[] { 1, 2, 3 };
+        jaggedArray[1] = new int[] { 1, 2, 3, 4 };
+    }
+}
+```
+
+---
+
+## 36. Difference between `struct` and `class`
+
+| Feature        | Struct                                                  | Class                                                  |
+| :------------- | :------------------------------------------------------ | :----------------------------------------------------- |
+| Type category  | **Value type** (inherits `System.ValueType`)            | **Reference type** (inherits `System.Object`)          |
+| Usage scenario | Prefer small amount of data                             | Use for larger objects                                 |
+| Abstract       | Cannot be abstract                                      | Can be abstract                                        |
+| Inheritance    | Cannot inherit from another struct/class                | Supports inheritance                                   |
+| Instantiation  | Can be instantiated without `new` (default constructor) | Usually created with `new`                             |
+| Constructors   | No parameterless constructor allowed (prior to C## 10)   | Compiler provides default constructor if none provided |
+
+**Struct example:**
+
+```csharp
+struct MyStruct
+{
+    public int MyProperty1 { get; set; }
+    public int MyProperty2 { get; set; }
+}
+```
+
+---
+
+## 37. Difference between `throw` and `throw ex`
+
+- **`throw`** preserves the original stack trace.
+- **`throw ex`** resets the stack trace to the current throw point.
+
+**Advice:** Use `throw;` in a `catch` to preserve original exception stack trace.
+
+---
+
+## 38. Difference between `finally` and `finalize`
+
+- **`finally` block:** Used in exception handling; executes whether an exception occurred or not (commonly used to release resources).
+- **`finalize` method:** Called by the runtime during garbage collection before object memory is reclaimed (C## exposes finalization via destructors `~ClassName()`).
+
+---
+
+## 39. Explain `var` and `dynamic`
+
+- **`var`:** Compiler infers the type at **compile-time** from the assigned value. Must be initialized at declaration. The inferred type is **static** and cannot change.
+
+- **`dynamic`:** Type resolution happens at **run-time**. The variable can hold values of different types over its lifetime; operations are resolved at runtime.
+
+**Example illustrating `dynamic`:**
+
+```csharp
+public class Bike
+{
+    dynamic someValue = 21;
+
+    public Bike()
+    {
+        // assigned string value later
+        someValue = "Hello";
+    }
+}
+```
+
+---
+
+## 40. What are anonymous types in C##?
+
+**Anonymous types** let you create objects without explicitly defining a type — typically for read-only, ad-hoc data grouping inside a method scope.
+
+**Example:**
+
+```csharp
+public class SomeClass
+{
+    public void Print()
+    {
+        var anonymousData = new { FirstName = "John", SurName = "lastname" };
+        Console.WriteLine("First Name : " + anonymousData.FirstName);
+    }
+}
+```
+
+For more info see: `#More info: ##Anonymous Types` section below.
+
+---
+
+## 41. What is multithreading, and what are its different states?
+
+- **Thread:** Execution path of code.
+- **Multithreading:** Running multiple threads concurrently for better utilization and responsiveness. Use `System.Threading.Thread`.
+
+**Thread states (examples / flags):**
+
+- `Unstarted`
+- `Running`
+- `WaitSleepJoin` (blocked)
+- `Stopped`
+- `Background`
+- `AbortRequested`, `Aborted`
+- `SuspendRequested`, `Suspended` (legacy; avoid using suspend/resume)
+
+(States often represented as `ThreadState` enum with flags like `AbortRequested`, `Stopped`, etc.)
+
+---
+
+## 42. How is exception handling done in C##?
+
+Use `try`, `catch`, `finally`, and `throw`.
+
+- **try:** Code that may throw exceptions.
+- **catch:** Handle exceptions.
+- **finally:** Execute cleanup code regardless of exceptions.
+- **throw:** Throw an exception.
+
+**Example:**
+
+```csharp
+public class SomeClass
+{
+    public void GetData()
+    {
+        try
+        {
+            // write some code here
+        }
+        catch (Exception)
+        {
+            throw; // rethrow preserving stack trace
+        }
+        finally
+        {
+            // cleanup code (dispose objects/resources)
+        }
+    }
+}
+```
+
+---
+
+## 43. What are custom exceptions?
+
+Custom exceptions are user-defined exceptions created by inheriting from `Exception` (or a more specific base) to represent domain-specific errors.
+
+**Example:**
+
+![alt text](image-3.png)
+
+(Prefer deriving a specific exception type, e.g., `public class InvalidPurchaseException : Exception { ... }`)
+
+---
+
+## 44. What is LINQ in C##?
+
+**LINQ (Language Integrated Query)** allows querying collections (and other data sources) using C## syntax similar to SQL. Works on any `IEnumerable<T>` (lists, arrays, XML, etc.).
+
+**Example:**
+
+![alt text](image-4.png)
+
+---
+
+## 45. What is serialization?
+
+**Serialization** converts an object into a stream of bytes (for storage or transport).
+**Deserialization** reconstructs the object from the byte stream.
+
+> Note: In .NET, use serializers such as `System.Text.Json`, `Newtonsoft.Json`, `BinaryFormatter` (obsolete), or `XmlSerializer`. Objects do not implement `ISerialize` — the typical approach is attributes or using serializer APIs.
+
+---
+
+## 46. What are generics in `C#`?
+
+Generics allow writing reusable, type-safe code using parameterized types (`<T>`).
+
+**Benefits:** Better performance, type safety, and less repeated code. Prefer `System.Collections.Generic` types (`List<T>`, `Dictionary<TKey,TValue>`) over non-generic collections.
+
+**Example generic class:**
+
+```csharp
+using System;
+
+namespace demoapp
+{
+    public class GFG<T>
+    {
+        private T data;
+        public T Value
+        {
+            get { return this.data; }
+            set { this.data = value; }
+        }
+    }
+
+    class Vehicle
+    {
+        static void Main(string[] args)
+        {
+            GFG<string> company = new GFG<string>();
+            company.Value = "Tata motors";
+
+            GFG<float> version = new GFG<float>();
+            version.Value = 6.0F;
+
+            Console.WriteLine(company.Value); // Tata motors
+            Console.WriteLine(version.Value); // 6
+        }
+    }
+}
+```
+
+---
+
+## 47. What is reflection?
+
+**Reflection** lets managed code inspect metadata about assemblies, modules, types, and members at runtime.
+
+**Capabilities:**
+
+- Get `Type` information (`GetType()`, `typeof(...)`).
+- Dynamically create instances, invoke methods, access properties/fields.
+- Read custom attributes.
+
+**Example (getting a type):**
+
+![alt text](image-5.png)
+
+---
+
+## 48. How to use nullable types?
+
+Use `?` after a value type to allow `null`. Check `.HasValue` (or compare to `null`) before accessing `.Value`.
+
+**Example:**
+
+```csharp
+namespace demoapp
+{
+    class Calculate
+    {
+        int? number = null;
+
+        public Calculate(int num)
+        {
+            number = num;
+        }
+
+        public void DoCalculation()
+        {
+            if (number.HasValue)
+            {
+                // do something
+            }
+        }
+    }
+}
+```
+
+---
+
+## 49. Which is the parent class of all classes in C##?
+
+All classes inherit from **`System.Object`** (a.k.a. `object`) by default.
+
+---
+
+## 50. Explain code compilation in C #
+
+1. The **C# compiler** compiles source code into **Intermediate Language (IL)** (managed bytecode).
+2. The **JIT (Just-In-Time) compiler** compiles IL to native machine code at runtime, which the CPU executes.
+
+# More info
+
+## Anonymous Types
+
+Anonymous types in C# let you **create lightweight, unnamed objects** *on the fly* without writing a separate class definition.
+They’re **mostly used for temporary, read-only data grouping** — for example, when projecting data in LINQ queries or returning small combined values inside methods.
+
+---
+
+### 🔹 Syntax & Example
+
+```csharp
+var person = new { FirstName = "John", LastName = "Doe", Age = 25 };
+Console.WriteLine($"{person.FirstName} {person.LastName}, Age {person.Age}");
+```
+
+✅ **Key points:**
+
+- Declared with `new { ... }`
+- Property names are inferred from the object initializer.
+- The compiler **generates a class automatically** behind the scenes.
+- The generated type is **anonymous**, **sealed**, and **read-only**.
+
+---
+
+### 🔹 Read-only nature
+
+You **cannot modify** properties after creation because they are *implicitly read-only*:
+
+```csharp
+person.Age = 30; // ❌ Compile-time error
+```
+
+If you need mutable properties, use a regular class or record instead.
+
+---
+
+### 🔹 Type Inference (`var`)
+
+The type name is compiler-generated (you can’t write it directly), so you must assign it to a variable declared with `var`:
+
+```csharp
+var car = new { Make = "Tesla", Model = "Model Y" };
+```
+
+---
+
+### 🔹 Nested & Mixed Anonymous Types
+
+Anonymous types can be nested:
+
+```csharp
+var employee = new {
+    Id = 1,
+    Name = "Alice",
+    Address = new { City = "Mumbai", Zip = 400001 }
+};
+Console.WriteLine(employee.Address.City);
+```
+
+---
+
+### 🔹 Use with LINQ
+
+Very commonly used when selecting specific data from collections:
+
+```csharp
+var students = new[] {
+    new { Name = "Amaan", Marks = 90 },
+    new { Name = "Sara", Marks = 95 }
+};
+```
+
+or more practically:
+
+```csharp
+var query = from emp in employees
+            select new { emp.Name, emp.Department };
+```
+
+Here, you project only needed fields into an anonymous object.
+
+---
+
+### 🔹 Scope & Lifetime
+
+- Anonymous types are **local to the method** or block they’re defined in.
+- You can’t **return them directly** from methods (their type name is compiler-generated and inaccessible).
+  → If you need to return structured data, use a `record`, `class`, or `tuple`.
+
+---
+
+### 🔹 Summary Table
+
+| Feature           | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| **Definition**    | Compiler-generated, unnamed type for temporary data grouping |
+| **Declared with** | `new { Property = value, ... }`                              |
+| **Properties**    | Read-only (no setters)                                       |
+| **Type Name**     | Hidden — accessible only through `var`                       |
+| **Common use**    | LINQ projections, quick data aggregates                      |
+| **Scope**         | Local (cannot be returned across methods)                    |
+
+---
+
+✅ **In one line:**
+
+> Anonymous types are compiler-generated, read-only objects created with `new { ... }`, ideal for temporary data grouping within a method or LINQ query, without defining a custom class.
+
+---
+
+## Objects in collections
+
+---
+
+## 🔹 1. The problem
+
+You want a collection that can hold:
+
+- `string`
+- `int`
+- `bool`
+- **custom objects (instances of classes)**
+
+Example goal:
+
+```csharp
+ArrayList list = new ArrayList();
+list.Add("Hello");
+list.Add(25);
+list.Add(true);
+list.Add(new Student("Amaan", 90));
+```
+
+So the key question is:
+
+> How can we store *mixed-type elements* (including objects) in one collection?
+
+---
+
+## 🔹 2. Basic option — `ArrayList` (Non-Generic)
+
+✅ **Definition:**
+`ArrayList` is a **non-generic collection** from `System.Collections`.
+It stores elements as type `object`, meaning **any data type** (value or reference) can be added.
+
+```csharp
+using System;
+using System.Collections;
+
+class Student {
+    public string Name;
+    public int Marks;
+    public Student(string name, int marks) {
+        Name = name; Marks = marks;
+    }
+}
+
+class Program {
+    static void Main() {
+        ArrayList list = new ArrayList();
+        list.Add("Hello");
+        list.Add(42);
+        list.Add(false);
+        list.Add(new Student("Amaan", 95));
+
+        foreach (var item in list) {
+            Console.WriteLine(item);
+        }
+    }
+}
+```
+
+✅ **Pros:**
+
+- Can hold *any type* (because everything derives from `object`).
+- Quick for prototypes or dynamic content.
+
+❌ **Cons:**
+
+- **Not type-safe** — must cast items when retrieving.
+- **Performance hit** due to *boxing/unboxing* (for value types).
+- Avoided in modern C# (use generics or `List<object>` instead).
+
+---
+
+## 🔹 3. Modern approach — `List<object>` (Generic)
+
+Safer and more modern than `ArrayList`.
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Product {
+    public string Name;
+    public double Price;
+    public Product(string name, double price) {
+        Name = name; Price = price;
+    }
+}
+
+class Program {
+    static void Main() {
+        List<object> items = new List<object>();
+        items.Add("Amaan");
+        items.Add(25);
+        items.Add(true);
+        items.Add(new Product("Laptop", 59999.99));
+
+        foreach (var item in items) {
+            Console.WriteLine(item);
+        }
+    }
+}
+```
+
+✅ **Pros:**
+
+- Type-safe at list level (can’t add incompatible types unless allowed).
+- Works seamlessly with generics.
+- Ideal if you know all items can be represented as `object`.
+
+❌ **Cons:**
+
+- Still requires casting to original type for use:
+
+  ```csharp
+  var prod = (Product)items[3];
+  Console.WriteLine(prod.Name);
+  ```
+
+---
+
+## 🔹 4. For *structured* mixed data — Anonymous Types or Tuples
+
+If your data logically belongs together (not just random types):
+
+### 🟩 Option A — Anonymous Type
+
+For grouping mixed data fields temporarily:
+
+```csharp
+var data = new { Name = "Amaan", Age = 25, IsMember = true };
+Console.WriteLine($"{data.Name}, {data.Age}, {data.IsMember}");
+```
+
+➡ Use when grouping *related values temporarily*, especially inside methods or LINQ.
+
+### 🟩 Option B — Tuple / ValueTuple
+
+For grouping values (possibly of different types) together:
+
+```csharp
+var tuple = ("Amaan", 25, true, new { City = "Delhi" });
+Console.WriteLine(tuple.Item1); // "Amaan"
+Console.WriteLine(tuple.Item4.City); // "Delhi"
+```
+
+➡ Use when returning or passing small sets of mixed values (like method results).
+
+---
+
+## 🔹 5. For runtime-flexible data — `dynamic` or `ExpandoObject`
+
+If you don’t know structure at compile time (e.g., JSON data, APIs):
+
+```csharp
+dynamic bag = new System.Dynamic.ExpandoObject();
+bag.Name = "Amaan";
+bag.Age = 25;
+bag.IsMember = true;
+```
+
+Or store multiple dynamics:
+
+```csharp
+var list = new List<dynamic> {
+    new { Name = "Amaan", Marks = 95 },
+    new { City = "Delhi" }
+};
+```
+
+➡ Great for runtime flexibility or deserialized JSON.
+
+---
+
+## 🔹 6. Common practical scenarios & what to use
+
+| Situation                                                   | Example                          | Recommended Collection                                      |
+| ----------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------- |
+| You need to store **mixed primitive + objects temporarily** | Debugging, quick testing         | `List<object>`                                              |
+| You want **type safety** for specific data model            | List of students, products, etc. | `List<Student>`                                             |
+| You have **different types with same base class/interface** | List of shapes (`List<IShape>`)  | Generic list of interface/base type                         |
+| You group **related data temporarily** (not full class)     | Output from LINQ, projections    | Anonymous types or `ValueTuple`                             |
+| You work with **dynamic/JSON** data                         | Web APIs, dynamic forms          | `dynamic`, `ExpandoObject`, or `Dictionary<string, object>` |
+| You use **old code / backward compatibility**               | Legacy systems                   | `ArrayList` (rarely recommended)                            |
+
+---
+
+## 🔹 7. Bonus: Adding custom objects to collections
+
+You can add any **class instance**:
+
+```csharp
+class Car { public string Model; public int Year; }
+List<object> list = new List<object>();
+list.Add(new Car { Model = "Tesla", Year = 2025 });
+```
+
+Then retrieve it by casting:
+
+```csharp
+Car car = (Car)list[0];
+Console.WriteLine(car.Model);
+```
+
+---
+
+✅ **In summary:**
+
+- Use **`List<object>`** instead of `ArrayList` in modern C#.
+- For **related data**, prefer **anonymous types or tuples**.
+- For **structured collections**, use **generic lists** of a specific type.
+- Use **dynamic** types when working with *unknown or JSON-based structures*.
+
+---
+
+Nice — here’s a compact, self-contained demo program that stores *mixed* values (string, number, bool, custom object, anonymous object, value tuple) in a single collection (`List<object>`) and prints each item appropriately.
+
+The code shows two practical techniques used in real apps:
+
+- **Pattern matching** for common known types (`string`, `int`, `bool`, `ValueTuple<...>`, custom class).
+- **Reflection** (fallback) to print arbitrary objects (useful for anonymous types or any object with properties).
+
+Copy-paste and run this in a C# console (C# 8+ recommended).
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+
+class Student
+{
+    public string Name { get; }
+    public int Marks { get; }
+    public Student(string name, int marks) { Name = name; Marks = marks; }
+    public override string ToString() => $"Student(Name={Name}, Marks={Marks})";
+}
+
+class Program
+{
+    static void Main()
+    {
+        var mixed = new List<object>();
+
+        // primitives
+        mixed.Add("Hello world");
+        mixed.Add(42);
+        mixed.Add(true);
+
+        // a custom object
+        mixed.Add(new Student("Amaan", 95));
+
+        // anonymous object
+        var anon = new { FirstName = "John", LastName = "Doe", Active = true };
+        mixed.Add(anon);
+
+        // a value tuple
+        var tup = ("Amaan", 25, true);
+        mixed.Add(tup);
+
+        // iterate and print intelligently
+        foreach (var item in mixed)
+        {
+            if (item is null) { Console.WriteLine("null"); continue; }
+
+            switch (item)
+            {
+                case string s:
+                    Console.WriteLine($"string: \"{s}\"");
+                    break;
+                case int n:
+                    Console.WriteLine($"int: {n}");
+                    break;
+                case bool b:
+                    Console.WriteLine($"bool: {b}");
+                    break;
+                case Student st:
+                    Console.WriteLine($"custom object: {st}"); // uses ToString()
+                    break;
+                case ValueTuple<string, int, bool> vt:
+                    Console.WriteLine($"tuple: Name={vt.Item1}, Age={vt.Item2}, Member={vt.Item3}");
+                    break;
+                default:
+                    // generic fallback: print public properties (works for anonymous types too)
+                    var t = item.GetType();
+                    var props = t.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+                    if (props.Length > 0)
+                    {
+                        Console.Write($"{t.Name}: ");
+                        foreach (var p in props)
+                        {
+                            var val = p.GetValue(item);
+                            Console.Write($"{p.Name}={val} ");
+                        }
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        // last fallback: call ToString()
+                        Console.WriteLine($"{t.Name}: {item}");
+                    }
+                    break;
+            }
+        }
+    }
+}
+```
+
+### Example output (order may vary for objects but roughly)
+
+```
+string: "Hello world"
+int: 42
+bool: True
+custom object: Student(Name=Amaan, Marks=95)
+<>f__AnonymousType0`3: FirstName=John LastName=Doe Active=True
+tuple: Name=Amaan, Age=25, Member=True
+```
+
+---
+
+## Quick notes / best practices
+
+- **Prefer strongly typed collections** (`List<T>`) when possible — easier to work with and safer.
+- For truly mixed content use `List<object>` (modern substitute for `ArrayList`). You’ll need **casting** or **pattern matching** to use items.
+- **Anonymous types** are fine for short-lived local groupings (LINQ projections). They’re best consumed inside the same method (or reflected as above).
+- For dynamic JSON-like data, prefer `List<dynamic>` or `List<Dictionary<string, object>>` depending on needs.
+- Use **pattern matching** (`is`, `switch`) instead of blind casts — it’s safer and clearer.
+
+Would you like a version that demonstrates extracting values with safe casting (e.g., using `as` and `is`) or a variant using `dynamic` instead of reflection for anonymous objects?

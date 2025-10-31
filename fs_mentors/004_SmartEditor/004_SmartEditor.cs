@@ -2,7 +2,7 @@
 Console.WriteLine("Type the string to edit (only use alphabets a-z and symbols: * and ~)");
 
 string S = Console.ReadLine();
-//char[] sChars = S.Trim().ToCharArray();
+char[] sChars = S.Trim().ToCharArray();
 
 if (ConstraintCheck(S))
 {
