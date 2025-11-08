@@ -6972,6 +6972,156 @@ public class InheritanceExample
 
 ---
 
+## Inheritance vs Interfaces in C#: Object Oriented Programming
+
+(Tim Corey)<https://www.youtube.com/watch?v=4sxyDXt1igs>
+
+### Introduction and Core Concepts
+
+- The lesson discusses when to use inheritance and when to use an interface, as the two concepts can often get confused in Object-Oriented Programming (OOP).
+- The goal is to illustrate these principles by showing an example first done incorrectly, and then following best practices using both inheritance and interfaces.
+- The code used in the demonstration is merely a means to illustrate the concepts, not code intended for production.
+
+### Understanding Inheritance
+
+- Inheritance involves a base class (parent) and a child class that inherits the properties and methods from the base class.
+- A key mistake often made when first using inheritance is believing that it is primarily for **code sharing**.
+
+### When NOT to Use Inheritance
+
+- **Not for Code Sharing:** If the primary goal is just to share code, it can be achieved by putting code in a separate library or class and referencing it, or by creating methods that are called from other areas.
+- **Must Share Common Logic:** Sharing only properties or method signatures is insufficient. If you must override the method implementation every single time, it suggests you have an interface, not common logic, and inheritance provides no real value.
+- **Avoid Stretching the "Is A" Relationship:** Good inheritance relies on a strong "is a" relationship (e.g., a cat *is an* animal). Stretching this relationship is dangerous because it starts to make sense initially but leads to painful refactoring or difficult situations later where the relationship breaks down.
+- **Ask "What is the Point?":** You must determine the value gained from using inheritance that wouldn't be achieved in a different way. If the value is just sharing signatures, it locks you into complexity without benefit, making it harmful.
+
+### Demonstration 1: Inheritance Example Gone Wrong
+
+- The initial scenario is a rental agency in Miami, Florida, starting with a `RentalCar` class.
+
+#### Initial Rental Structure (Simplified)
+
+- The base structure, initially called `RentalCar`, holds information about the rental and the vehicle.
+- Properties include: `RentalId`, `CurrentRenter`, `PricePerDay`, `NumberOfPassengers`, and `Style` (using `CarType` enum).
+- Methods include: `StartEngine()` and `StopEngine()`.
+- Example implementation of `StartEngine()`:
+
+```csharp
+public void StartEngine()
+{
+    Console.WriteLine("Turn key to ignition setting");
+    Console.WriteLine("Turn key to on");
+}
+```
+
+#### Introducing Inheritance (Rental Vehicle Base Class)
+
+- To accommodate trucks, the base class is changed to `RentalVehicle`, and `RentalCar` and `RentalTruck` inherit from it.
+- Properties that differ (e.g., `Style` based on `CarType` vs. `TruckType`) are moved down to the specific child classes.
+- *Note:* Just because properties share the same name (like `weight` or `style`) does not mean they are the same concept or should be inherited if their meaning or storage type differs significantly (e.g., pounds vs. grams).
+
+#### The Corner: Introducing Rental Sailboat
+
+- The agency expands to rent boats, including speedboats and sailboats.
+- A `RentalBoat` class inheriting from `RentalVehicle` might work for powered boats, as the engine methods apply.
+- A `RentalSailboat` inherits from `RentalVehicle` because it still has rental properties (ID, renter, price per day).
+- **The inheritance fails here:** A sailboat does not have a mechanical engine, so `StartEngine` and `StopEngine` methods are irrelevant.
+- **The messy workaround:** To comply with the inheritance contract, the engine methods must be overridden and actively throw exceptions.
+
+```csharp
+public override void StartEngine()
+{
+    throw new Exception("I do not have an engine to start");
+}
+// Similar override for StopEngine
+```
+
+- This creates **"wonky" inheritance** where methods exist but actively fail or should not be called, necessitating "institutional knowledge" to avoid using them.
+- Expecting a method (like recording a transaction) to execute, only for it to fail silently or throw an unexpected exception, creates bugs and inconsistency.
+- The issue arose because the initial "is a" relationship (`RentalVehicle`) was stretched too far.
+
+### Demonstration 2: Using Interfaces and Inheritance Correctly
+
+#### Using an Interface for Rental
+
+- The concept of "rental" is separate from the concept of "vehicle".
+- An interface, `IRental`, is created to define the core properties necessary for anything that is rented.
+
+```csharp
+public interface IRental
+{
+    int RentalId { get; set; }
+    string CurrentRenter { get; set; }
+    decimal PricePerDay { get; set; }
+}
+```
+
+- This interface can apply to cars, trucks, boats, or even unrelated items like TVs or apartment buildings, as they all share the concept of being rentable.
+
+#### Using Inheritance for Categories
+
+- A base class is created for items that truly share common logic, such as `LandVehicle`.
+- `LandVehicle` contains shared logic like `StartEngine()`, `StopEngine()`, and properties like `NumberOfPassengers`.
+
+#### Combining Structures
+
+- Classes now inherit from a common base class (if applicable) AND implement the interface.
+- `Car` and `Truck` are now defined as:
+
+```csharp
+public class Car : LandVehicle, IRental
+{
+    // ... Car specific properties and IRental implementation
+}
+// Land vehicles inherit common engine and passenger logic
+```
+
+- The `Sailboat` implements the interface but does not inherit the land vehicle structure, solving the previous problem:
+
+```csharp
+public class Sailboat : IRental
+{
+    // Sailboat specific properties and IRental implementation
+}
+```
+
+#### Addressing DRY (Don't Repeat Yourself)
+
+- Implementing `IRental` requires duplicating the property signatures (e.g., `RentalId`) in the concrete classes, which might seem to violate the DRY principle.
+- This is not a violation of DRY because **DRY protects against repeating written logic**, not simple, auto-implemented property signatures.
+- If modifications were needed to the logic of `StartEngine` across multiple derived classes, that would be DRY violation; duplicating simple property signatures is acceptable, especially since C# does not allow multiple inheritance.
+- This duplication is considered "inevitable duplication" because the rental information and the vehicle structure are not inherently related in an inheritance structure that makes sense.
+
+#### Using the Interface in Practice
+
+- The rental agency manages a list based on the interface: `List<IRental>`.
+- When iterating through this list, only the properties defined by `IRental` are accessible.
+- To access specific properties (like `Style` or `StartEngine`) on a particular item, pattern matching with the `is` keyword can be used to check the underlying type and cast it efficiently.
+- Example of type casting using `is`:
+
+```csharp
+for each (var r in rentals)
+{
+    if (r is Truck t)
+    {
+        Console.WriteLine(t.Style);
+        // t is the same instance, allowing access to Truck-specific properties/methods
+    }
+}
+```
+
+- This approach ensures that the rental agency can flexibly add any rented object (even non-vehicles) to its list without forcing them into a complex or incorrect inheritance hierarchy.
+
+### Further Resources
+
+- The presenter has covered many other object-oriented programming topics, including:
+- SOLID principles: Single Responsibility Principle (SRP), Open/Closed Principle, Liskov Substitution Principle (LSP), Interface Segregation Principle (ISP), and Dependency Inversion Principle (DIP).
+- DRY (Don't Repeat Yourself).
+- Design patterns and principles.
+- Interfaces and abstract classes.
+- These resources are available by using the search bar found directly on the channel page.
+
+---
+
 ## 7. What is an object?
 
 An **object** is an **instance of a class** through which we access the methods and data of that class.

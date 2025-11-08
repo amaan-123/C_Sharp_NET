@@ -4,5 +4,6 @@ class Test
     {
         var obj = new InternalClass(); // ✅ works — same assembly
         obj.Show();                    // ✅ works — same assembly
+        Console.ReadLine();
     }
 }
