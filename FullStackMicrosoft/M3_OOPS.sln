@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36623.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3_OOPS", "M3_OOPS\M3_OOPS.csproj", "{CC9781F7-B921-43F9-8A63-D7C5D5798F30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3_OOPS_Interface", "M3_OOPS_Interface\M3_OOPS_Interface.csproj", "{99A5A410-8F4A-41D8-85EF-273AAC3442FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC9781F7-B921-43F9-8A63-D7C5D5798F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC9781F7-B921-43F9-8A63-D7C5D5798F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC9781F7-B921-43F9-8A63-D7C5D5798F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC9781F7-B921-43F9-8A63-D7C5D5798F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99A5A410-8F4A-41D8-85EF-273AAC3442FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99A5A410-8F4A-41D8-85EF-273AAC3442FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99A5A410-8F4A-41D8-85EF-273AAC3442FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99A5A410-8F4A-41D8-85EF-273AAC3442FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {450698E6-A322-4C21-B726-7A50B563B6AD}
+	EndGlobalSection
+EndGlobal

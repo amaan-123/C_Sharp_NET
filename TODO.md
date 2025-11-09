@@ -6,8 +6,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 - C#
   - Methods in the link: <https://www.geeksforgeeks.org/c-sharp/array-class-in-c-sharp/>  
-  - pre-saturday complete masterclass.md sessions 1&2
-  - rename MedicalDataAutomation solution & children in Practice branch, then move from Projects
+  - complete masterclass.md sessions 1&2
   - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful?
   - even later: xUnit test project to check methods
 - Videos*2 watch shared on Slack
@@ -36,13 +35,13 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 - [x] 🟢 Hello World, variables, data types
 - [x] 🔴 Control structures (if, loops)
-- [ ] 🔴 Methods and parameters
-- [ ] 🔴 Classes and Objects
+- [x] 🔴 Methods and parameters
+- [x] 🔴 Classes and Objects
 - [ ] 🔴 Properties and constructors
 - [ ] 🔴 Namespaces
-- [ ] 🔴 Interfaces and inheritance
+- [x] 🔴 Interfaces and inheritance
 - [ ] 🔴 Exception handling
-- [ ] 🔴 Collections (List, Dictionary)
+- [x] 🔴 Collections (List, Dictionary)
 - [ ] 🔴 File I/O
 - [ ] 🔴 LINQ
 - [ ] 🔴 Consuming APIs with `HttpClient`
@@ -56,8 +55,8 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 ## 🚧 Future (Cross-cutting / DevOps / Next Steps)
 
-- [ ] 🔴 SQL basics: SELECT, INSERT, UPDATE, DELETE
-- [ ] 🔴 Relational database design (ERDs, normalization)
+- [-] 🔴 SQL basics: SELECT, INSERT, UPDATE, DELETE
+- [-] 🔴 Relational database design (ERDs, normalization)
 - [ ] 🔴 Docker and container basics
 - [ ] 🔴 DevOps: CI/CD intro
 - [ ] 🔴 Cloud basics (e.g., deploying to Azure/AWS)
@@ -67,7 +66,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 ## 🚀 Real-World Application Essentials
 
-- [ ] 🔴 JavaScript Execution Context (Call Stack, Memory Heap)
+- [x] 🔴 JavaScript Execution Context (Call Stack, Memory Heap)
 - [ ] 🔴 JavaScript Prototypal Inheritance
 - [ ] 🔴 Design Patterns (Singleton, Factory, Observer)
 - [ ] 🔴 SOLID Principles
@@ -79,8 +78,8 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 - [ ] 🔴 Data Structures and Algorithms (Arrays, Linked Lists, Trees, Sorting, Searching)
 - [ ] 🔴 Time Complexity (Big O notation)
-- [ ] 🔴 Common JavaScript Questions (Closures, `this` keyword, Event Loop)
+- [x] 🔴 Common JavaScript Questions (Closures, `this` keyword, Event Loop)
 - [ ] 🔴 System Design Basics (Load Balancing, Caching)
-- [ ] 🔴 Behavioral Questions (STAR method)
+- [x] 🔴 Behavioral Questions (STAR method)
 
 ---

@@ -3644,6 +3644,12 @@ namespace Hello
 - **`protected`**: The member is accessible within the same class and by derived classes (classes that inherit from this class).
 - **`internal`**: The member is accessible **only within the same assembly** (more on this below).
 
+#### Default Access Modifier for Class
+
+In C#, the default access modifier for a top-level class (a class declared directly within a namespace or compilation unit) is `internal`, meaning it is accessible only within the same assembly.
+If no access modifier is specified for a class member—such as a field, method, property, or nested class—the default access modifier is `private`, restricting access to within the defining class.
+This behavior ensures encapsulation and security by default, allowing members to be accessed only by the class itself unless explicitly made more accessible.
+
 #### 🔹 What “internal” means
 
 In C#, the **`internal`** access modifier means:
@@ -7332,6 +7338,14 @@ class Pencil : IPencil
     }
 }
 ```
+
+### Access modifier - Interface
+
+In C#, the default access modifier for an interface declared directly within a namespace is `internal`, not public.This means that if no access modifier is explicitly specified when declaring an interface, it will be `internal` by default, limiting its visibility to the same assembly.
+
+However, interface members—such as methods, properties, indexers, and events—have a default access level of `public`.This means that any member declared within an interface is implicitly `public`, regardless of whether the interface itself is `internal` or `public`.
+
+Therefore, while the interface type itself defaults to `internal` access, its members are always `public` by default.
 
 ---
 
