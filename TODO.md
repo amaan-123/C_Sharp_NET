@@ -5,12 +5,17 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## Immediate TO-DO's
 
 - C#
-  - Methods in the link: <https://www.geeksforgeeks.org/c-sharp/array-class-in-c-sharp/>  
-  - complete masterclass.md sessions 1&2
-  - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful?
-  - even later: xUnit test project to check methods
-- Videos*2 watch shared on Slack
-- Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman)
+  - BankingApp:
+    - implement intefaces by self
+      - why use?
+      - what needs to be modified in code that has already been written?
+    - what minimalistic changes to operate BankApp from a user-focused console menu
+    <!-- - password authentication/ etc?
+  - complete masterclass.md assignments by self
+    - 1. Adding items to cart at once, instead of one-by-one - dictionary?
+      - Precedence of operators(* & /)?
+  - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful? -->
+<!-- - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman) -->
 <!-- - backend as suggested in  -->
 
 > ✅ Checkbox States
