@@ -1359,7 +1359,7 @@ It came in `.NET Framework Version 4` and onwards. It provides various threads-s
 | **Partitioner** | It provides common partitioning strategies for arrays, lists, and enumerables. |
 | **Partitioner** | It represents a particular manner of splitting a data source into multiple partitions. |
 
-## Quick scenarios
+#### Quick scenarios
 
 **Arrays (`T[]`)**
 
@@ -1429,210 +1429,6 @@ It came in `.NET Framework Version 4` and onwards. It provides various threads-s
 - DFS/undo/history → **Stack**.
 
 Keep this mapping in mind when you read a problem: identify the *dominant operation* (frequent lookups? frequent middle inserts? ordering?) and pick the structure that makes that operation cheap.
-
-Here’s a **refined, corrected, and professionally structured** version of your notes — keeping everything conceptually accurate, concise, and formatted for developer notes or documentation use.
-
----
-
-# ✅ The Best C# Collections Explained
-
-### Overview of C# Collection Interfaces
-
-C# provides several standard collection interfaces that define how you can **store, access, and manipulate** groups of data.
-The most commonly used are:
-
-- `IEnumerable`
-- `ICollection`
-- `IList`
-- `IQueryable`
-
-Each interface builds upon the previous one, adding additional functionality and use cases.
-
----
-
-## 🟩 IEnumerable
-
-`IEnumerable` is the **base interface** for all non-generic and generic collection types (`IEnumerable<T>`).
-It provides the **simplest level of collection functionality** — enumeration.
-
-### **Key Features**
-
-- Defines a single method: `GetEnumerator()`, which returns an enumerator supporting `MoveNext()` and `Current`.
-- Supports iteration using the `foreach` loop.
-- Forward-only traversal — cannot move backward or access items by index.
-- Read-only access — no `Add`, `Remove`, or `Count` functionality.
-
-### **Typical Use Case**
-
-- Best for **read-only iteration** over in-memory data.
-- When you only need to **enumerate** data (loop through items), not modify it.
-
-### **Example**
-
-```csharp
-IEnumerable<int> numbers = new List<int> { 1, 2, 3 };
-foreach (var n in numbers)
-    Console.WriteLine(n);
-```
-
----
-
-## 🟩 ICollection
-
-`ICollection` builds on top of `IEnumerable` and adds **basic collection manipulation** features.
-
-### **Additional Functionality**
-
-- Can **add**, **remove**, and **check** elements.
-- Provides the `Count` property.
-- Offers methods like `.Add()`, `.Remove()`, `.Contains()`, `.CopyTo()`.
-
-### **Limitations**
-
-- No direct positional access (cannot access by index).
-- Primarily used as a **base interface** for collections that support modification but not positional logic.
-
-### **Example**
-
-```csharp
-ICollection<string> names = new List<string>();
-names.Add("Alice");
-names.Add("Bob");
-names.Remove("Alice");
-Console.WriteLine(names.Count);  // 1
-```
-
-### **When to Use**
-
-- Use when you need to **add or remove** elements from a collection but don’t need index-based access.
-
----
-
-## 🟩 IList
-
-`IList` inherits from `ICollection` and adds **positional access** capabilities.
-
-### **Added Functionality**
-
-- Index-based element access (`list[index]`).
-- Insert or remove items at a specific position using:
-
-  - `.Insert(index, item)`
-  - `.RemoveAt(index)`
-- Full control over both **order** and **content** of the collection.
-
-### **Example**
-
-```csharp
-IList<int> numbers = new List<int> { 10, 20, 30 };
-numbers.Insert(1, 15);   // Insert 15 at index 1
-numbers.RemoveAt(2);     // Remove element at index 2
-Console.WriteLine(numbers[0]);  // 10
-```
-
-### **When to Use**
-
-- Use `IList` when you need **index-based access or ordering**, in addition to mutation.
-
----
-
-## 🟩 IQueryable
-
-`IQueryable<T>` extends `IEnumerable<T>` and lives in the **System.Linq** namespace.
-It is designed for **queryable data sources**, especially external ones like databases or web APIs.
-
-### **Key Difference**
-
-- Unlike `IEnumerable`, `IQueryable` doesn’t just enumerate data in memory — it **builds expression trees** that a query provider (e.g., Entity Framework) translates into database queries (like SQL).
-
-### **Behavior with Data Sources**
-
-| Interface         | Execution Location        | How it Works                                                            |
-| ----------------- | ------------------------- | ----------------------------------------------------------------------- |
-| **`IEnumerable`** | In-memory                 | Executes queries *after* data is loaded into memory.                    |
-| **`IQueryable`**  | At data source (e.g., DB) | Translates LINQ queries into data-source-specific language (e.g., SQL). |
-
-### **Example**
-
-```csharp
-// IQueryable (query executed on database)
-IQueryable<User> query = dbContext.Users.Where(u => u.IsActive);
-
-// IEnumerable (executed in memory)
-IEnumerable<User> inMemory = query.ToList().Where(u => u.Name.StartsWith("A"));
-```
-
-### **When to Use**
-
-- Use `IQueryable` when querying large or remote data sources.
-- Use `IEnumerable` once data is loaded in memory.
-
----
-
-## 🟩 When to Use — Summary
-
-| Interface       | Description                                  | Best Use Case                                    |
-| --------------- | -------------------------------------------- | ------------------------------------------------ |
-| **IEnumerable** | Read-only, forward-only iteration            | Looping through in-memory collections            |
-| **ICollection** | Add/remove capability, no index access       | Modifying items without needing position control |
-| **IList**       | Full index-based control                     | When order and position matter                   |
-| **IQueryable**  | Remote data querying with deferred execution | Querying databases or external data efficiently  |
-
----
-
-## 🟩 Common Translation Pattern (Real-world Workflow)
-
-In real applications, especially those using **Entity Framework (EF Core)** or **LINQ**, you often see this pattern:
-
-1. **Start with `IQueryable`** — query data from the database.
-
-   ```csharp
-   IQueryable<User> usersQuery = dbContext.Users.Where(u => u.IsActive);
-   ```
-
-2. **Execute and materialize results into memory** (e.g., `ToList()` → `IList`).
-
-   ```csharp
-   IList<User> activeUsers = usersQuery.ToList();
-   ```
-
-3. **Process or display data in-memory** efficiently using `IList` or `IEnumerable`.
-
-   ```csharp
-   foreach (var user in activeUsers)
-       Console.WriteLine(user.Name);
-   ```
-
-This approach ensures:
-
-- Efficient querying (done by `IQueryable` at DB level)
-- Fast iteration/manipulation (done in memory after loading)
-
----
-
-## 🟦 Summary Diagram
-
-```
-IEnumerable
-    ↑
-ICollection (Add, Remove, Count)
-    ↑
-IList (Index-based access)
-    
-IQueryable (extends IEnumerable for remote LINQ querying)
-```
-
----
-
-### ✅ Key Takeaways
-
-- **IEnumerable** → Iteration only
-- **ICollection** → Add/remove capability
-- **IList** → Indexed access and modification
-- **IQueryable** → Query translation for databases/external sources
-- **Pattern**: Query remotely (`IQueryable`) → Materialize locally (`IList` or `IEnumerable`)
-
----
 
 ### List<T> (is Generic only)
 
@@ -1720,7 +1516,7 @@ class Geeks
             Console.WriteLine(item);
 
         }
-        // Constructors from IEnumerable
+        // Construnctors from IEnumerable
 
         int\[\] num \= { 10, 20 };
 
@@ -3933,129 +3729,7 @@ namespace Hello
 }
 ```
 
-## Naming conventions for C #
-
-Below are the **widely used / official** naming conventions for C# (what the .NET ecosystem and style guides expect).
-
-- **PascalCase** — `PascalCase` (capitalize first letter of each word). Used for **public** API and most type/member names.
-- **camelCase** — `camelCase` (lowercase first letter). Used for **parameters**, **locals**, and sometimes private fields (without underscore).
-- **_camelCase** — `_camelCase` (leading underscore) is a very common and recommended style for **private instance fields** in modern .NET code.
-- **Do not** use Hungarian notation, embedded type prefixes, or arbitrary punctuation in names.
-
----
-
-### By language element
-
-#### Types
-
-- **Classes, structs, enums, delegates**: **PascalCase**
-  `public class OrderProcessor { }`
-  `public enum OrderStatus { Pending, Shipped }`
-
-#### Interfaces
-
-- **Start with `I` + PascalCase**
-  `public interface IRepository { }`
-  (e.g., `IService`, `IDisposable`)
-
-#### Methods
-
-- **PascalCase**. Verb-first names for actions.
-  `public void CalculateOrderTotal()`
-  `private Task LoadAsync()`
-
-#### Properties
-
-- **PascalCase**. Properties look like nouns or adjective phrases.
-  `public decimal Price { get; set; }`
-  `public string FullName { get; }`
-
-#### Fields
-
-- **Public fields** should be avoided. If used, **PascalCase** (but prefer properties).
-- **Private instance fields**: prefer **_camelCase** (leading underscore) or **camelCase** if you don’t use underscore.
-  `private int _count;` or `private int count;`
-- **Static fields**: **PascalCase** for public static, private static often `_camelCase` or `s_fieldName` in some teams. (Keep consistent per project.)
-- **Constants** (`const`, `static readonly`): **PascalCase** (not ALL_CAPS).
-  `public const int MaxRetries = 3;`
-  `private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);`
-
-#### Parameters & local variables
-
-- **camelCase**. Short, descriptive names.
-  `public void AddItem(string itemName, int quantity)`
-  `var total = 0;`
-
-#### Events & Event Handlers
-
-- **Event names**: **PascalCase** and usually a noun or noun phrase (e.g., `Clicked`, `OrderProcessed`).
-  `public event EventHandler OrderProcessed;`
-- **Raising methods**: `protected virtual void OnOrderProcessed(EventArgs e)` — `On` + Event name.
-- **Event handler delegate types**: `OrderProcessedEventHandler` or use `EventHandler<TEventArgs>`.
-
----
-
-### Special cases / extra guidance
-
-- **Access modifier matters**: public/internal API → **PascalCase**. Private/internal implementation details → **camelCase** or **_camelCase** for fields. In other words, **public vs private influences naming**: public members follow PascalCase; private members frequently follow camelCase/underscore style.
-- **Acronyms**: Treat acronyms as words. Preferred: capitalize only first letter in PascalCase: `XmlWriter`, `HttpClient` (not `XMLWriter`). Two-letter acronyms sometimes fully capitalized in older code (e.g., `IO`), but modern style usually uses `Io` only when part of PascalCase; consistency matters.
-- **Avoid terse names** for public members; prefer clarity (`CalculateTotal` not `CalcTot`). Locals can be short (`i`, `j` in loops).
-- **Backing fields for properties**: name private backing field `_camelCase` and property PascalCase:
-
-  ```csharp
-  private int _count;
-  public int Count { get => _count; set => _count = value; }
-  ```
-
-- **Readonly fields**: same naming as other private fields (`_name`).
-
-- **Generics type parameters**: single uppercase letter or descriptive `T`-prefixed: `T`, `TKey`, `TValue`, `TEntity`.
-
----
-
-### Example block
-
-```csharp
-public interface IRepository<T>
-{
-    void Add(T entity);
-    T? GetById(int id);
-}
-
-public class OrderRepository : IRepository<Order>
-{
-    private readonly DbContext _dbContext;   // private field: _camelCase
-    public OrderRepository(DbContext dbContext) { _dbContext = dbContext; } // parameter: camelCase
-
-    public void Add(Order order)             // method: PascalCase
-    {
-        // local: camelCase
-        var existing = GetById(order.Id);
-        // ...
-    }
-
-    public Order? GetById(int id)            // method + parameter naming
-    {
-        // ...
-        return null;
-    }
-
-    protected virtual void OnOrderAdded(EventArgs e) { } // events use OnX
-}
-```
-
----
-
-### Bottom line / rules to follow in teams
-
-1. **Public API → PascalCase.**
-2. **Parameters & locals → camelCase.**
-3. **Private fields → _camelCase** (or camelCase if your team prefers).
-4. **Constants → PascalCase.**
-5. **Interfaces → start with `I`.**
-6. **Be consistent across the codebase.** Follow Microsoft/.editorconfig rules if present.
-
-## Access Modifiers
+### Access Modifiers
 
 - Keywords that control the accessibility of classes and their members (properties, methods).
 - **`public`**: The member is accessible from anywhere, both inside and outside the class.
@@ -7548,281 +7222,31 @@ An abstract class is a **half-defined parent class** or a partially defined pare
 - **Virtual by Default**: Abstract methods in an abstract class are by default **virtual**. This is why they can be overridden in the child class using the `override` keyword.
 - **Simple Class vs. Abstract Class**: A simple parent class cannot be defined partially cleanly; attempting to do so requires "hack logic" (like `return null` or `throw new NotImplementedException`). An abstract class provides a "pure partial class" approach.
 
-Below is a **clean, beginner-friendly**, and **corrected** version of your Interface notes.
-The structure, intention, and flow remain close to your original material — just clearer, modern, and more relatable.
-
----
-
 ## Interfaces
 
-An **interface** is understood as a **contract**.
-It tells developers: *“Any class that implements this interface must provide these methods/properties.”*
+Interface is widely accepted as a **contract**. It is a legal binding between the developer creating the class and the consumer using the class.
 
-Think of it as a **rulebook** that classes must follow.
+### Characteristics of Interfaces
 
----
+- **Signature Only**: An interface only has **pure signatures**; you **cannot write any logic** inside an interface.
+- **Access Modifiers**: All methods, properties, and functions of an interface are **always public by default**. You cannot define them as `private` or `protected`.
+- **Implementation**: When a class implements an interface (e.g., `Class Customer : Icustomer`), it is promising to follow all the properties and methods religiously.
+- **Change Management**: By having a tight contract, OOP achieves better change management and impact analysis control. If the creator of the class changes a method name defined in the interface, a compile-time error occurs, alerting them to the breaking change.
+- **Instantiation**: You **cannot create an instance** of an interface.
 
-### Characteristics of Interfaces (Beginner-Friendly)
+### Handling Interface Changes (Multiple Inheritance)
 
-#### 1. **Only signatures (no implementation in classic usage)**
+If a requirement arises to add a new method to an interface (e.g., adding `CalculateInterest` to `ICustomer`), you should **not modify the current interface**.
 
-Traditionally, an interface contains **only method/property signatures** — no logic.
+- **Versioning**: Instead, create a **new interface** that inherits all the elements of the old interface and adds the new methods (e.g., `ICustomerWithInterest` inherits from `ICustomer`).
+- **Multiple Inheritance**: Interfaces support **multiple inheritance**. The customer class can implement both the old interface and the new interface (`ICustomer` and `ICustomerWithInterest`).
+- **Interface Segregation Principle (ISP)**: Splitting the interface in this manner (creating new, smaller interfaces for new functionality) follows the Interface Segregation Principle (ISP). ISP states that you do not force the client to use unnecessary methods which they are not supposed to use.
 
-```csharp
-public interface ICustomer
-{
-    void CalculateDiscount();
-    void UpdateKYC();
-}
-```
+## Interface vs. Abstract Class Comparison
 
-The interface says *what* must be done, not *how*.
-
-> **Note:**
-> In modern C# (8.0+), interfaces *can* have default implementations, but beginners should first learn the classic use case: **interfaces = signatures only**.
-
----
-
-#### 2. **Members are public by default**
-
-Everything in an interface is **public**. You cannot use `private` or `protected` for the outward-facing contract.
-
----
-
-#### 3. **A class must implement all interface members**
-
-When a class implements an interface, it is **agreeing to follow the entire contract**.
-
-```csharp
-public class Customer : ICustomer
-{
-    public void CalculateDiscount() { /* logic */ }
-    public void UpdateKYC() { /* logic */ }
-}
-```
-
----
-
-#### 4. **You cannot create an instance of an interface**
-
-```csharp
-ICustomer c = new ICustomer(); // ❌ Not allowed
-```
-
-Interfaces are like blueprints — you don’t build blueprints; you build objects *from* classes.
-
----
-
-#### 5. **Interfaces help with clean change-management**
-
-If you rename a method in an interface, every implementing class breaks at compile time.
-This is good because:
-
-- You get immediate feedback.
-- You cannot accidentally break the contract without fixing dependent classes.
-
----
-
-### Interfaces in Real Projects (Beginner Example)
-
-#### Imagine a **Banking Application**
-
-You might have different account types:
-
-- `SavingsAccount`
-- `CurrentAccount`
-- `LoanAccount`
-
-Many account types must follow some common rules, such as:
-
-- Calculate interest
-- Deposit money
-- Withdraw money
-
-So you create an interface:
-
-```csharp
-public interface IAccount
-{
-    void Deposit(decimal amount);
-    void Withdraw(decimal amount);
-    decimal CalculateInterest();
-}
-```
-
-#### Now each class implements the contract
-
-```csharp
-public class SavingsAccount : IAccount
-{
-    public void Deposit(decimal amount) { /* ... */ }
-    public void Withdraw(decimal amount) { /* ... */ }
-
-    public decimal CalculateInterest()
-    {
-        return 0.04m; // 4% interest
-    }
-}
-```
-
-```csharp
-public class LoanAccount : IAccount
-{
-    public void Deposit(decimal amount) { /* ... */ }
-    public void Withdraw(decimal amount) { /* ... */ }
-
-    public decimal CalculateInterest()
-    {
-        return 0.12m; // 12% loan interest
-    }
-}
-```
-
-#### **Why use an interface here?**
-
-Because:
-
-1. **Common behavior**: All account types must have Deposit/Withdraw/Interest features.
-2. **Flexibility**: Each class can implement these features differently.
-3. **Loose coupling**: Your application can work with `IAccount` rather than `SavingsAccount` directly.
-
-Example:
-
-```csharp
-void ShowInterest(IAccount account)
-{
-    Console.WriteLine(account.CalculateInterest());
-}
-```
-
-Your method works for all account types — **polymorphism** in action.
-
----
-
-### Multiple Interfaces in a Banking App
-
-A class can implement **many interfaces**.
-
-Example:
-
-#### Interface 1 — Account operations
-
-```csharp
-public interface IAccount
-{
-    void Deposit(decimal amount);
-    void Withdraw(decimal amount);
-}
-```
-
-#### Interface 2 — Audit feature
-
-```csharp
-public interface IAuditable
-{
-    void LogTransaction(string message);
-}
-```
-
-#### Interface 3 — KYC rules
-
-```csharp
-public interface IKYC
-{
-    void SubmitDocuments();
-}
-```
-
-#### A class can implement all three
-
-```csharp
-public class SavingsAccount : IAccount, IAuditable, IKYC
-{
-    // must implement all methods from all 3 interfaces
-}
-```
-
-This is a real example of **multiple inheritance** (something classes alone cannot do).
-
----
-
-### When an Interface Changes (Versioning Problem)
-
-Suppose `IAccount` originally had:
-
-```csharp
-public interface IAccount
-{
-    void Deposit(decimal amount);
-}
-```
-
-But now requirements change, and you want to add:
-
-- `CalculateInterest()`
-
-If you modify the existing interface:
-
-```csharp
-public interface IAccount
-{
-    void Deposit(decimal amount);
-    decimal CalculateInterest(); // ❗ new
-}
-```
-
-Every existing implementing class breaks — they must implement the new method.
-
-#### Better approach (beginner-friendly + industry practice)
-
-Create a **new interface** that extends the old one:
-
-```csharp
-public interface IAccountWithInterest : IAccount
-{
-    decimal CalculateInterest();
-}
-```
-
-#### Classes choose which version to implement
-
-```csharp
-public class SavingsAccount : IAccountWithInterest { /* ... */ }
-public class FixedDeposit : IAccountWithInterest { /* ... */ }
-public class Wallet : IAccount { /* no interest feature */ }
-```
-
-#### This follows the **Interface Segregation Principle (ISP)**
-
-“Clients should not be forced to depend on methods they do not use.”
-
----
-
-### Interface vs Abstract Class (Beginner Perspective)
-
-| Feature                     | Interface                                              | Abstract Class                                    |
-| --------------------------- | ------------------------------------------------------ | ------------------------------------------------- |
-| Multiple inheritance        | Yes (class can implement many interfaces)              | No (only one base class allowed)                  |
-| Contains implementation?    | Traditionally no; C# 8+ allows default implementations | Yes, can have both implemented + abstract methods |
-| Fields (instance variables) | Not allowed                                            | Allowed                                           |
-| When to use?                | When you need a **contract** for behavior              | When you need **common code** + **shared state**  |
-
-### Simple rule
-
-- Use **interfaces** for “what should the class do?”
-- Use **abstract classes** for “what should the class *share* and enforce?”
-
----
-
-### Final Beginner Summary
-
-- Interfaces describe **what must be done**, not how.
-- They ensure **consistency** across different classes.
-- They help keep the system **flexible and loosely coupled**.
-- You commonly create **multiple smaller interfaces** in real applications.
-- Interfaces enable **polymorphism** and **multiple inheritance of behavior**.
-
----
+- **Multiple Inheritance**: You **can** do multiple inheritance with an interface, but you **cannot** do multiple inheritance with an abstract class or a simple class.
+- **Implementation/Logic**: Abstract classes can have both defined implementation and undefined (abstract) methods. Interfaces can only have pure signatures (no implementation/logic).
+- **Technical Ambiguity**: If an abstract class makes *all* its methods abstract, technically, there is very little difference between that abstract class and an interface.
 
 ## Conclusion
 
@@ -8149,7 +7573,7 @@ public class Sailboat : IRental
 - Example of type casting using `is`:
 
 ```csharp
-foreach (var r in rentals)
+for each (var r in rentals)
 {
     if (r is Truck t)
     {
@@ -8161,79 +7585,14 @@ foreach (var r in rentals)
 
 - This approach ensures that the rental agency can flexibly add any rented object (even non-vehicles) to its list without forcing them into a complex or incorrect inheritance hierarchy.
 
-### Further Explanation
+### Further Resources
 
----
-
-#### 🟩 Multiple Interface Implementation (Unlimited in Practice)
-
-You can implement **multiple interfaces** in a single class — **no fixed limit** in the C# language specification.
-
-```csharp
-public class Car : LandVehicle, IRental, IEngineControl, IInspectable
-{
-    // Must implement all members of IRental, IEngineControl, and IInspectable
-}
-```
-
-- The only practical limits are **readability** and **design clarity**.
-- Internally, C# allows **hundreds of interfaces** (the technical limit is constrained only by metadata token size in IL, which is huge — effectively unreachable in normal use).
-
----
-
-### 🟩 General Design Guidance
-
-| Concept                           | Recommendation                                                                                        |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **Number of base classes**        | 1 (language-enforced)                                                                                 |
-| **Number of interfaces**          | Keep it **manageable** — 3–5 typically reasonable; more can hurt readability                          |
-| **When many interfaces are used** | Use them to define clear, **narrow responsibilities** (e.g., `ICloneable`, `IDisposable`, `ILogging`) |
-| **Base class purpose**            | Provide **shared implementation or state**                                                            |
-| **Interface purpose**             | Define **capabilities or contracts** without shared implementation                                    |
-
----
-
-#### 🟩 Example: Combining One Base Class with Multiple Interfaces
-
-```csharp
-public class Car : LandVehicle, IRental, IEngine, IMaintenance
-{
-    // Implementation of LandVehicle's logic is inherited
-    // Interfaces define specific behaviors or capabilities
-    public string RentalId { get; set; }
-    public bool IsRunning { get; private set; }
-
-    public void StartEngine() => IsRunning = true;    // From IEngine
-    public void StopEngine() => IsRunning = false;
-    public void PerformMaintenance() { }              // From IMaintenance
-    public void RentToCustomer(string customer) { }   // From IRental
-}
-```
-
-Here:
-
-- `LandVehicle` is the **single base class** → common engine, passenger logic.
-- `IRental`, `IEngine`, `IMaintenance` are **multiple interfaces** → modular behaviors.
-
----
-
-#### 🟩 Why This Design Works
-
-- You **reuse** concrete logic from one base class (`LandVehicle`).
-- You **compose** multiple behaviors through interfaces, keeping flexibility.
-- You can create various specialized classes (`Truck`, `Bus`, etc.) that share the same **base logic** but **implement different interfaces** based on their roles.
-
----
-
-### ✅ Key Takeaways
-
-| Feature                      | Description                                                       |
-| ---------------------------- | ----------------------------------------------------------------- |
-| **Base class inheritance**   | Only one allowed                                                  |
-| **Interface implementation** | Multiple allowed (no limit in practice)                           |
-| **Use base class for**       | Shared state and reusable implementation                          |
-| **Use interfaces for**       | Contracts or capabilities (no state)                              |
-| **Typical pattern**          | `public class MyClass : BaseClass, IInterface1, IInterface2, ...` |
+- The presenter has covered many other object-oriented programming topics, including:
+- SOLID principles: Single Responsibility Principle (SRP), Open/Closed Principle, Liskov Substitution Principle (LSP), Interface Segregation Principle (ISP), and Dependency Inversion Principle (DIP).
+- DRY (Don't Repeat Yourself).
+- Design patterns and principles.
+- Interfaces and abstract classes.
+- These resources are available by using the search bar found directly on the channel page.
 
 ---
 
