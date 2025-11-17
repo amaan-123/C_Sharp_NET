@@ -4,17 +4,21 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 ## Immediate TO-DO's
 
+- WebAPI
+  - Make & read notes
+  - A project that involves all CRUD Operations
+
 - C#
-  - BankingApp:
-    - implement intefaces by self
-      - why use?
-      - what needs to be modified in code that has already been written?
-    - what minimalistic changes to operate BankApp from a user-focused console menu
-    <!-- - password authentication/ etc?
   - complete masterclass.md assignments by self
     - 1. Adding items to cart at once, instead of one-by-one - dictionary?
       - Precedence of operators(* & /)?
-  - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful? -->
+  - BankingApp:
+    <!-- - implement intefaces by self
+      - why use?
+      - what needs to be modified in code that has already been written? -->
+    - what minimalistic changes to operate BankApp from a user-focused console menu
+    - password authentication/ etc?
+  <!-- - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful? -->
 <!-- - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman) -->
 <!-- - backend as suggested in  -->
 
