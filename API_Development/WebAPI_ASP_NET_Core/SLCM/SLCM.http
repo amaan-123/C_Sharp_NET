@@ -1,0 +1,6 @@
+@SLCM_HostAddress = http://localhost:5009
+
+GET {{SLCM_HostAddress}}/student/
+Accept: application/json
+
+###
