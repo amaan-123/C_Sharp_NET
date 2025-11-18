@@ -434,9 +434,101 @@ For PUT and DELETE:
 | **NoContent()**        | 204 success, no body                           | PUT, DELETE             |
 | **[FromBody]**         | Read JSON from request body                    | POST, PUT               |
 
+# Q) I have seen the Methods in Quick Summary Table above being used in return statements in "----Controller.cs" files. What is their general name. What are the most common/useful methods like these that I should know? What do I need to keep as the return type of the method that these are used in?
+
+# A) Below is the beginner-friendly, clear explanation
+
 ---
 
-# Q)
+## 1. **What is the general name of these methods?**
+
+They are called **Helper Methods for HTTP Responses** or more formally:
+
+**“Built-in helper methods of ControllerBase for returning HTTP responses.”**
+
+They help you easily send correct HTTP status codes and data from your controller actions.
+
+All of them come from the **ControllerBase** class.
+
+---
+
+## 2. **Most common/useful response helper methods**
+
+These are the ones you should remember and will use most in real APIs:
+
+#### **Success Responses**
+
+| Method                   | Status | Meaning                            | When to use  |
+| ------------------------ | ------ | ---------------------------------- | ------------ |
+| **Ok(data)**             | 200    | Success + data                     | GET success  |
+| **CreatedAtAction(...)** | 201    | New resource created               | POST success |
+| **Created(...)**         | 201    | Simpler version of CreatedAtAction | POST success |
+| **NoContent()**          | 204    | Success, no data returned          | PUT, DELETE  |
+
+#### **Client Error Responses (400-range)**
+
+| Method              | Status | Meaning                        | When to use               |
+| ------------------- | ------ | ------------------------------ | ------------------------- |
+| **BadRequest(msg)** | 400    | Client sent bad input          | Invalid ID, invalid model |
+| **NotFound()**      | 404    | Resource not found             | Item does not exist       |
+| **Unauthorized()**  | 401    | User not logged in             | Authentication required   |
+| **Forbid()**        | 403    | User logged in but not allowed | Authorization failed      |
+
+#### **Server Error Responses (500-range)**
+
+| Method              | Status | Meaning              |
+| ------------------- | ------ | -------------------- |
+| **StatusCode(500)** | 500    | General server error |
+
+These are enough to build fully working APIs.
+
+---
+
+## 3. **What return type should your action method have?**
+
+You should return:
+
+### Best Practice
+
+#### **`IActionResult`**
+
+or
+
+#### **`ActionResult<T>`** (when returning specific data)
+
+Examples:
+
+```csharp
+public IActionResult GetProduct(int id)
+{
+    return Ok(product);
+}
+```
+
+or:
+
+```csharp
+public ActionResult<Product> GetProduct(int id)
+{
+    return Ok(product);
+}
+```
+
+---
+
+### Summary Table (What you asked + one more)
+
+| Method                   | Status Code | Meaning                            |
+| ------------------------ | ----------- | ---------------------------------- |
+| **Ok(data)**             | 200         | Request successful, returning data |
+| **BadRequest(msg)**      | 400         | Invalid input from client          |
+| **NotFound()**           | 404         | Resource not found                 |
+| **CreatedAtAction(...)** | 201         | New item created successfully      |
+| **NoContent()**          | 204         | Success but no data to return      |
+
+---
+
+# Q) Can we have multiple actions with the same HTTP verb?
 
 # A) Yes, you can have multiple `[HttpGet]` methods in the same controller **as long as their routes are different**
 
@@ -515,9 +607,9 @@ Each (Verb + Route) combination must be unique.
 
 **You can have multiple actions with the same HTTP verb only if their routes are different.**
 
-## Q) I used two actions with **same verb** + **same route** [HttpGet]
+## Example of above Q) I used two actions with **same verb** + **same route** [HttpGet]
 
-## A) The error is because both methods map to the same HTTP method + path (GET /Student). You need unique method+ path combinations. Common fixes
+## Example of above A) The error is because both methods map to the same HTTP method + path (GET /Student). You need unique method+ path combinations. Common fixes
 
 * Give one or both actions explicit route templates (recommended).
 * Remove/hide the duplicate action from routing (use `[NonAction]` or `[ApiExplorerSettings(IgnoreApi = true)]`).
