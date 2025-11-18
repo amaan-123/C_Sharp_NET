@@ -7,10 +7,10 @@ namespace SLCM.Controllers
     [Route("[controller]")]
     public class StudentController : ControllerBase
     {
-        [HttpGet("message")]
+        [HttpGet("WelcomeMessage")]
         public string ReturnString()
         {
-            return "returning a string";
+            return "Welcome to Student Lifecycle Management System!";
         }
 
         //commented when I moved it to SchoolRepository.cs
@@ -45,6 +45,25 @@ namespace SLCM.Controllers
 
             return Ok(student);
         }
+
+        [HttpDelete("{id:int}")]
+
+        public ActionResult<Student> DeleteStudent(int id)
+        {
+            var student = SchoolRepository.students.FirstOrDefault(s => s.Id == id);
+            if (student == null)
+                return false;
+
+            return SchoolRepository.students.Remove(student);
+        }
+        //public bool DeleteStudent(int id)
+        //{
+        //    var student = SchoolRepository.students.FirstOrDefault(s => s.Id == id);
+        //    if (student == null)
+        //        return false;
+
+        //    return SchoolRepository.students.Remove(student);
+        //}
 
 
     }
