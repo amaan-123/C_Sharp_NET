@@ -26,7 +26,7 @@ namespace SLCM.Controllers
             return SchoolRepository.students;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public ActionResult<Student> GetStudentById(int id)
         {
             var student = SchoolRepository.students.FirstOrDefault(s => s.Id == id);
@@ -34,6 +34,16 @@ namespace SLCM.Controllers
                 return NotFound(); // 404
 
             return Ok(student); // 200 + payload
+        }
+
+        [HttpGet("{name:alpha}")]
+        public ActionResult<Student> GetStudentByName(string name)
+        {
+            var student = SchoolRepository.students.FirstOrDefault(s => s.Name.Contains(name));
+            if (student == null)
+                return NotFound();
+
+            return Ok(student);
         }
 
 
