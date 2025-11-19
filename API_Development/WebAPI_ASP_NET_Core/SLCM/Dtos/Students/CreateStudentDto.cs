@@ -1,8 +1,7 @@
-﻿namespace SLCM.Model
+﻿namespace SLCM.Dtos.Students
 {
-    public class Student
+    public class CreateStudentDto
     {
-        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
