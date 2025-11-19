@@ -7,7 +7,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 - WebAPI
   - Make & read notes
   - A project that involves all CRUD Operations
-
+  
 - C#
   - complete masterclass.md assignments by self
     - 1. Adding items to cart at once, instead of one-by-one - dictionary?
@@ -18,8 +18,10 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
       - what needs to be modified in code that has already been written? -->
     - what minimalistic changes to operate BankApp from a user-focused console menu
     - password authentication/ etc?
+  - Downloads/sort.txt(List <---> ArrayList)
   <!-- - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful? -->
 <!-- - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman) -->
+<!-- Interesting info for project: ASP.NET Core provides a built-in user database with support for multi-factor authentication and external authentication with Google, X, and more. -->
 <!-- - backend as suggested in  -->
 
 > ✅ Checkbox States
