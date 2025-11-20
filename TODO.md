@@ -7,6 +7,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 - WebAPI
   - Make & read notes
   - A project that involves all CRUD Operations
+  <!-- - Interesting info for project: ASP.NET Core provides a built-in user database with support for multi-factor authentication and external authentication with Google, X, and more. -->
   
 - C#
   - complete masterclass.md assignments by self
@@ -19,10 +20,9 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
     - what minimalistic changes to operate BankApp from a user-focused console menu
     - password authentication/ etc?
   - Downloads/sort.txt(List <---> ArrayList)
+  - Regular Expressions(Regex pattern)/ Pattern Matching/Delegates/Struct & Record
   <!-- - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful? -->
 <!-- - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman) -->
-<!-- Interesting info for project: ASP.NET Core provides a built-in user database with support for multi-factor authentication and external authentication with Google, X, and more. -->
-<!-- - backend as suggested in  -->
 
 > ✅ Checkbox States
 >
