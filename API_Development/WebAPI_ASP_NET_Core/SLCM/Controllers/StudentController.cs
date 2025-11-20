@@ -85,6 +85,8 @@ namespace SLCM.Controllers
         }
 
         // POST: api/student
+        // Controllers: 
+        // Accept DTOs from requests, convert them to Models, and send ResponseDTOs back.
         [HttpPost]
         public ActionResult<StudentResponseDto> Create(CreateStudentDto dto)
         {
