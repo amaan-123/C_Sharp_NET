@@ -142,6 +142,9 @@ Use this free, high-quality tutorial (covers exactly what I listed):
 (Hands-on, short, focused, official)
 Search: *"Create a web API with ASP.NET Core - Microsoft Learn"*
 
+*"Tutorial: Create a controller-based web API with ASP.NET Core"*
+> <https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-10.0&tabs=visual-studio>
+
 It walks you through a Todo API:
 
 * Controllers

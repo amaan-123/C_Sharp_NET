@@ -1,6 +1,35 @@
 @SLCM_HostAddress = http://localhost:5009
 
-GET {{SLCM_HostAddress}}/student/
+GET {{SLCM_HostAddress}}/api/student/
 Accept: application/json
+
+###
+
+GET {{SLCM_HostAddress}}/api/student/3
+Accept: application/json
+
+###
+
+POST {{SLCM_HostAddress}}/api/student/
+Content-Type: application/json
+{
+  "name": "Fourier",
+  "email": "transform@example.com",
+  "phone": "7777777777"
+}
+
+###
+
+PUT {{SLCM_HostAddress}}/api/student/3
+Content-Type: application/json
+{
+  "name": "threeYa",
+  "email": "3ya@example.com",
+  "phone": "33443334443"
+}
+
+###
+
+DELETE {{SLCM_HostAddress}}/api/student/4
 
 ###
