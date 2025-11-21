@@ -6,7 +6,12 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 - WebAPI
   - Make & read notes
-  - A project that involves all CRUD Operations
+    - 1st Priority: Complete assignments
+      - SLCM EF Core Extension: Courses, Enrolment
+    - If free time:
+      - Contacts Assignment
+      - ProductAPI from its README.md
+  <!-- - Make the .NET CLI run the ContosoPizza project <https://learn.microsoft.com/en-us/training/modules/build-web-api-aspnet-core/3-exercise-create-web-api> -->
   <!-- - Interesting info for project: ASP.NET Core provides a built-in user database with support for multi-factor authentication and external authentication with Google, X, and more. -->
   
 - C#
@@ -23,6 +28,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
   - Regular Expressions(Regex pattern)/ Pattern Matching/Delegates/Struct & Record
   <!-- - later after methods & in debug: watch window, debug key equivalents of bar; call stack useful? -->
 <!-- - Browser Reading list (.NET, Azure OpenAI service, API Key safety, Postman) -->
+<!-- What is WSL? & What is the one that shows in VS Code? -->
 
 > ✅ Checkbox States
 >
