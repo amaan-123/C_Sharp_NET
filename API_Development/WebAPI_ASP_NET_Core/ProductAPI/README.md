@@ -291,10 +291,3 @@ Example POST body:
 * [ ] Run and test with Swagger / Postman.
 
 ---
-
-If you want, I can:
-
-* Provide the exact EF Core `AppDbContext` + EF repository + migration commands, **or**
-* Produce the full, ready-to-paste `ProductsController.cs` that exactly imports your DTO/model namespaces and compiles with the in-memory repository.
-
-Which of those should I generate next?
