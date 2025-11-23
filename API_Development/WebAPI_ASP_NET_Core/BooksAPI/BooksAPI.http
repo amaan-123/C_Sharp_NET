@@ -1,6 +1,45 @@
 @BooksAPI_HostAddress = http://localhost:5020
 
-GET {{BooksAPI_HostAddress}}/books/
+GET {{BooksAPI_HostAddress}}/api/books/
+Accept: application/json
+
+###
+
+GET {{BooksAPI_HostAddress}}/api/books/1
+Accept: application/json
+
+###
+
+POST {{BooksAPI_HostAddress}}/api/books/
+Content-Type: application/json
+{
+  "id": 3,
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "pages": 180,
+  "genre": "Fiction",
+  "publishedDate": "1925-04-10T00:00:00"
+}
+
+###
+
+PUT {{BooksAPI_HostAddress}}/api/books/2
+Content-Type: application/json
+{
+  "id": 2,
+  "title": "Changed Book",
+  "author": "F. Scott Fitzgerald",
+  "pages": 180,
+  "genre": "Fiction",
+  "publishedDate": "1925-04-10T00:00:00"
+}
+
+###
+DELETE {{BooksAPI_HostAddress}}/api/books/3
+
+###
+
+GET {{BooksAPI_HostAddress}}/api/books/
 Accept: application/json
 
 ###

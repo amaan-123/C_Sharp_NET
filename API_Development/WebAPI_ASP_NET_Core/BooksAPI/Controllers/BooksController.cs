@@ -7,22 +7,21 @@ namespace BooksAPI.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private static List<Book> books = new List<Book>
-    {
-        new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", Pages = 180, Genre = "Fiction", PublishedDate = new DateTime(1925, 4, 10) },
-        new Book { Id = 2, Title = "To Kill a Mockingbird", Author = "Harper Lee", Pages = 281, Genre = "Fiction", PublishedDate = new DateTime(1960, 7, 11) }
-    };
-
         [HttpGet]
-        public IActionResult GetAllBooks()
+        public ActionResult<IEnumerable<Book>> GetAllBooks()
         {
-            return Ok(books);
+            return Ok(BookRepository.books);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetBook(int id)
+        public ActionResult<Book> GetBookById(int id)
         {
-            var book = books.FirstOrDefault(b => b.Id == id);
+            //before
+            if (id <= 0)
+            {
+                return BadRequest("No negative Id's please");
+            }
+            var book = BookRepository.books.FirstOrDefault(b => b.Id == id);
             if (book == null)
                 return NotFound($"Book with ID {id} not found");
 
@@ -30,15 +29,74 @@ namespace BooksAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBook([FromBody] Book book)
+        public ActionResult<Book> CreateBook([FromBody] Book book)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            book.Id = books.Max(b => b.Id) + 1;
-            books.Add(book);
+            var nextId = BookRepository.books.Count != 0 ? BookRepository.books.Max(b => b.Id) + 1 : 1;
+            book.Id = nextId;
+            BookRepository.books.Add(book);
 
-            return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
+            return CreatedAtAction(nameof(GetBookById), new { id = book.Id }, book);
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateBook(int id, [FromBody] Book updatedBook)
+        {
+            if (updatedBook == null)
+                return BadRequest("Request body is null.");
+            if (id <= 0)
+            {
+                return BadRequest("No negative Id's please");
+            }
+
+            if (updatedBook.Id != 0 && updatedBook.Id != id)
+                ModelState.AddModelError("Id", "ID in body must match ID in URL."); //
+
+            if (!TryValidateModel(updatedBook)) //
+                return BadRequest(ModelState);
+
+            var book = BookRepository.books.FirstOrDefault(b => b.Id == id);
+
+            if (book == null)
+                return NotFound($"Book with ID {id} not found");
+
+            book.Title = updatedBook.Title;
+            book.Author = updatedBook.Author;
+            book.Genre = updatedBook.Genre;
+            book.Pages = updatedBook.Pages;
+            book.PublishedDate = updatedBook.PublishedDate;
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteBook(int id)
+        {
+            var book = BookRepository.books.FirstOrDefault(b => b.Id == id);
+            if (id <= 0)
+            {
+                return BadRequest("No negative Id's please");
+            }
+            if (book == null)
+                return NotFound($"Book with ID {id} not found");
+
+            BookRepository.books.Remove(book);
+            return NoContent();
+        }
+
+        [HttpGet("{genre:alpha}")]
+        public ActionResult<IEnumerable<Book>> GetBooksByGenre(string genre)
+        {
+            if (string.IsNullOrWhiteSpace(genre))
+                return BadRequest("Query parameter 'genre' is required.");
+
+            var booksOfGenre = BookRepository.books
+        .Where(b => b.Genre.Contains(genre))
+        .ToList();
+
+            // return 200 + empty list if none found (recommended for filter endpoints)
+            return Ok(booksOfGenre);
         }
     }
 }
