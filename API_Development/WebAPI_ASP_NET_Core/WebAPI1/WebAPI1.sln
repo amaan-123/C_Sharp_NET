@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLCM", "..\SLCM\SLCM.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksAPI", "..\BooksAPI\BooksAPI.csproj", "{26B4D3C3-B945-49F2-A0E2-C9D22BE7F28C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS_API", "..\LMS_API\LMS_API.csproj", "{CC704262-A1CD-4A93-88A6-1CCF054AE7DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{26B4D3C3-B945-49F2-A0E2-C9D22BE7F28C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B4D3C3-B945-49F2-A0E2-C9D22BE7F28C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26B4D3C3-B945-49F2-A0E2-C9D22BE7F28C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC704262-A1CD-4A93-88A6-1CCF054AE7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC704262-A1CD-4A93-88A6-1CCF054AE7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC704262-A1CD-4A93-88A6-1CCF054AE7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC704262-A1CD-4A93-88A6-1CCF054AE7DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
