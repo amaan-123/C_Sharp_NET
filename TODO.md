@@ -7,7 +7,13 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 - WebAPI
   - Make & read notes
     - 1st Priority: Complete assignments
-      - SLCM EF Core Extension: Courses, Enrolment
+    - Why we need EF Core?
+      - TODO of SLCM POST
+      - Dependency Injection
+      - Logging
+      - Exception Handling, Validation ([ApiController])
+      - Program.cs: for service: AddScoped, Singleton, Transient
+      - SLCM EF Core Extension: Courses, Enrollment
     - If free time:
       - Contacts Assignment
       - ProductAPI from its README.md
