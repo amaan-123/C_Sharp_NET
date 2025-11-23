@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using SLCM.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,7 +7,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<SLCMContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<SLCMContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register repositories (in-memory)
+builder.Services.AddSingleton<SLCM.Repositories.IStudentRepository, SLCM.Repositories.StudentRepository>();
+builder.Services.AddSingleton<SLCM.Repositories.ICourseRepository, SLCM.Repositories.CourseRepository>();
+
 
 var app = builder.Build();
 
