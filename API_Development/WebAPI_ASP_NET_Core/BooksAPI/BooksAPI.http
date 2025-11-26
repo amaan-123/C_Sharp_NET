@@ -39,7 +39,7 @@ DELETE {{BooksAPI_HostAddress}}/api/books/3
 
 ###
 
-GET {{BooksAPI_HostAddress}}/api/books/
+GET {{BooksAPI_HostAddress}}/api/books/bel
 Accept: application/json
 
 ###
