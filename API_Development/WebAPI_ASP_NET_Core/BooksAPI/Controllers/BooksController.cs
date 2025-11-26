@@ -92,7 +92,7 @@ namespace BooksAPI.Controllers
                 return BadRequest("Query parameter 'genre' is required.");
 
             var booksOfGenre = BookRepository.books
-        .Where(b => b.Genre.Contains(genre))
+        .Where(b => b.Genre.Contains(genre, StringComparison.OrdinalIgnoreCase))
         .ToList();
 
             // return 200 + empty list if none found (recommended for filter endpoints)
