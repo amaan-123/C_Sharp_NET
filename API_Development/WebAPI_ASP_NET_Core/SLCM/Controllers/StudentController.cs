@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SLCM.Dtos.Students;
 using SLCM.Models;
 using SLCM.Repositories;
+
 namespace SLCM.Controllers
 {
     [ApiController]
@@ -12,57 +13,61 @@ namespace SLCM.Controllers
 
         public StudentsController(IStudentRepository repo) => _repo = repo;
 
-        // GET api/students
+        // GET: api/students
         [HttpGet]
-        public ActionResult<IEnumerable<StudentResponseDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<StudentResponseDto>>> GetAll()
         {
-            var dtos = _repo.GetAll().Select(s => MapToResponse(s));
+            var students = await _repo.GetAllAsync();
+            var dtos = students.Select(MapToResponse);
             return Ok(dtos);
         }
 
-        // GET api/students/{id}
+        // GET: api/students/{id}
         [HttpGet("{id:int}")]
-        public ActionResult<StudentResponseDto> GetById(int id)
+        public async Task<ActionResult<StudentResponseDto>> GetById(int id)
         {
-            var s = _repo.GetById(id);
+            var s = await _repo.GetByIdAsync(id);
             if (s == null) return NotFound();
             return Ok(MapToResponse(s));
         }
 
-        // GET api/students/department/{department}
+        // GET: api/students/department/{department}
         [HttpGet("department/{department}")]
-        public ActionResult<IEnumerable<StudentResponseDto>> GetByDepartment(string department)
+        public async Task<ActionResult<IEnumerable<StudentResponseDto>>> GetByDepartment(string department)
         {
-            var dtos = _repo.GetByDepartment(department).Select(s => MapToResponse(s));
+            var students = await _repo.GetByDepartmentAsync(department);
+            var dtos = students.Select(MapToResponse);
             return Ok(dtos);
         }
 
-        // GET api/students/year/{year}
+        // GET: api/students/year/{year}
         [HttpGet("year/{year:int}")]
-        public ActionResult<IEnumerable<StudentResponseDto>> GetByYear(int year)
+        public async Task<ActionResult<IEnumerable<StudentResponseDto>>> GetByYear(int year)
         {
-            var dtos = _repo.GetByYear(year).Select(s => MapToResponse(s));
+            var students = await _repo.GetByYearAsync(year);
+            var dtos = students.Select(MapToResponse);
             return Ok(dtos);
         }
 
-        // GET api/students/{id}/gpa
+        // GET: api/students/{id}/gpa
         [HttpGet("{id:int}/gpa")]
-        public ActionResult GetGpaStatus(int id)
+        public async Task<ActionResult> GetGpaStatus(int id)
         {
-            var s = _repo.GetById(id);
+            var s = await _repo.GetByIdAsync(id);
             if (s == null) return NotFound();
 
             var status = s.GPA > 2.0 ? "Pass" : "Fail";
             return Ok(new { Id = s.Id, Gpa = s.GPA, Status = status });
         }
 
-        // POST api/students
+        // POST: api/students
         [HttpPost]
-        public ActionResult<StudentResponseDto> Create([FromBody] CreateStudentDto dto)
+        public async Task<ActionResult<StudentResponseDto>> Create([FromBody] CreateStudentDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (_repo.EmailExists(dto.Email)) return Conflict(new { message = "Email already exists." });
+            if (await _repo.EmailExistsAsync(dto.Email))
+                return Conflict(new { message = "Email already exists." });
 
             var student = new Student
             {
@@ -77,21 +82,22 @@ namespace SLCM.Controllers
                 IsActive = dto.IsActive
             };
 
-            var created = _repo.Create(student);
+            var created = await _repo.CreateAsync(student);
             var response = MapToResponse(created);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, response);
         }
 
-        // PUT api/students/{id}
+        // PUT: api/students/{id}
         [HttpPut("{id:int}")]
-        public IActionResult Update(int id, [FromBody] UpdateStudentDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateStudentDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var existing = _repo.GetById(id);
+            var existing = await _repo.GetByIdAsync(id);
             if (existing == null) return NotFound();
 
-            if (_repo.EmailExists(dto.Email, exceptId: id)) return Conflict(new { message = "Email already exists." });
+            if (await _repo.EmailExistsAsync(dto.Email, exceptId: id))
+                return Conflict(new { message = "Email already exists." });
 
             existing.FirstName = dto.FirstName;
             existing.LastName = dto.LastName;
@@ -102,21 +108,21 @@ namespace SLCM.Controllers
             existing.GPA = dto.GPA;
             existing.IsActive = dto.IsActive;
 
-            var ok = _repo.Update(existing);
+            var ok = await _repo.UpdateAsync(existing);
             if (!ok) return StatusCode(500);
             return NoContent();
         }
 
-        // DELETE api/students/{id}
+        // DELETE: api/students/{id}
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var success = _repo.Delete(id);
+            var success = await _repo.DeleteAsync(id);
             if (!success) return NotFound();
             return NoContent();
         }
 
-        // mapping
+        // mapping helper
         private static StudentResponseDto MapToResponse(Student s) => new StudentResponseDto
         {
             Id = s.Id,
@@ -132,6 +138,7 @@ namespace SLCM.Controllers
         };
     }
 }
+
 
 //////commented when I moved it to SchoolRepository.cs
 //////List<Student> students = new List<Student>()

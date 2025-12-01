@@ -1,55 +1,58 @@
-﻿using SLCM.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SLCM.Data;
 using SLCM.Models;
+
 namespace SLCM.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        private static readonly object _lock = new();
+        private readonly AppDbContext _db;
+        public CourseRepository(AppDbContext db) => _db = db;
 
-        public IEnumerable<Course> GetAll() => SchoolData.Courses;
+        public async Task<IEnumerable<Course>> GetAllAsync() => await _db.Courses.AsNoTracking().ToListAsync();
 
-        public Course? GetById(int id) => SchoolData.Courses.FirstOrDefault(c => c.Id == id);
+        public async Task<Course?> GetByIdAsync(int id) => await _db.Courses.FirstOrDefaultAsync(c => c.Id == id);
 
-        public Course Create(Course course)
+        public async Task<Course> CreateAsync(Course course)
         {
-            lock (_lock)
-            {
-                var newId = SchoolData.Courses.Any() ? SchoolData.Courses.Max(c => c.Id) + 1 : 1;
-                course.Id = newId;
-                SchoolData.Courses.Add(course);
-                return course;
-            }
+
+            _db.Courses.Add(course);
+            await _db.SaveChangesAsync();
+            return course;
         }
 
-        public bool Update(Course course)
+        public async Task<bool> UpdateAsync(Course course)
         {
-            lock (_lock)
-            {
-                var existing = GetById(course.Id);
-                if (existing == null) return false;
-                existing.CourseCode = course.CourseCode;
-                existing.CourseName = course.CourseName;
-                existing.Credits = course.Credits;
-                existing.Department = course.Department;
-                existing.Instructor = course.Instructor;
-                return true;
-            }
+            var existing = await _db.Courses.FindAsync(course.Id);
+            if (existing == null) return false;
+
+            existing.CourseCode = course.CourseCode;
+            existing.CourseName = course.CourseName;
+            existing.Credits = course.Credits;
+            existing.Department = course.Department;
+            existing.Instructor = course.Instructor;
+
+            await _db.SaveChangesAsync();
+            return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            lock (_lock)
-            {
-                var existing = GetById(id);
-                if (existing == null) return false;
-                return SchoolData.Courses.Remove(existing);
-            }
+            var existing = await _db.Courses.FindAsync(id);
+            if (existing == null) return false;
+            _db.Courses.Remove(existing);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
-        public bool CourseCodeExists(string courseCode, int? exceptId = null)
-            => SchoolData.Courses.Any(c => c.CourseCode.Equals(courseCode, System.StringComparison.OrdinalIgnoreCase) && (!exceptId.HasValue || c.Id != exceptId.Value));
+        public async Task<bool> CourseCodeExistsAsync(string courseCode, int? exceptId = null)
+        {
+            return await _db.Courses.AnyAsync(c => c.CourseCode.Equals(courseCode, System.StringComparison.OrdinalIgnoreCase) && (!exceptId.HasValue || c.Id != exceptId.Value));
+        }
 
-        public IEnumerable<Course> GetByDepartment(string department)
-            => SchoolData.Courses.Where(c => string.Equals(c.Department, department, System.StringComparison.OrdinalIgnoreCase));
+        public async Task<IEnumerable<Course>> GetByDepartmentAsync(string department)
+        {
+            return await _db.Courses.Where(c => string.Equals(c.Department, department, System.StringComparison.OrdinalIgnoreCase)).ToListAsync();
+        }
     }
 }

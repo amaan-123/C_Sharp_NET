@@ -1,60 +1,67 @@
-﻿using SLCM.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SLCM.Data;
 using SLCM.Models;
 namespace SLCM.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        private static readonly object _lock = new();
-        public IEnumerable<Student> GetAll() => SchoolData.Students;
+        private readonly AppDbContext _db;
+        public StudentRepository(AppDbContext db) => _db = db;
 
-        public Student? GetById(int id) => SchoolData.Students.FirstOrDefault(s => s.Id == id);
+        public async Task<IEnumerable<Student>> GetAllAsync() =>
+            await _db.Students.AsNoTracking().ToListAsync();
 
-        public Student Create(Student student)
+        public async Task<Student?> GetByIdAsync(int id) =>
+           await _db.Students.FindAsync(id);
+
+        public async Task<Student> CreateAsync(Student student)
         {
-            lock (_lock)
-            {
-                var newId = SchoolData.Students.Any() ? SchoolData.Students.Max(s => s.Id) + 1 : 1;
-                student.Id = newId;
-                SchoolData.Students.Add(student);
-                return student;
-            }
+            _db.Students.Add(student);
+            await _db.SaveChangesAsync();
+            return student;
         }
 
-        public bool Update(Student student)
+        public async Task<bool> UpdateAsync(Student student)
         {
-            lock (_lock)
-            {
-                var existing = GetById(student.Id);
-                if (existing == null) return false;
-                existing.FirstName = student.FirstName;
-                existing.LastName = student.LastName;
-                existing.Email = student.Email;
-                existing.PhoneNumber = student.PhoneNumber;
-                existing.Department = student.Department;
-                existing.Year = student.Year;
-                existing.GPA = student.GPA;
-                existing.IsActive = student.IsActive;
-                return true;
-            }
+            var existing = await _db.Students.FindAsync(student.Id);
+            if (existing == null) return false;
+
+            existing.FirstName = student.FirstName;
+            existing.LastName = student.LastName;
+            existing.Email = student.Email;
+            existing.PhoneNumber = student.PhoneNumber;
+            existing.Department = student.Department;
+            existing.Year = student.Year;
+            existing.GPA = student.GPA;
+            existing.IsActive = student.IsActive;
+
+            await _db.SaveChangesAsync();
+            return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            lock (_lock)
-            {
-                var existing = GetById(id);
-                if (existing == null) return false;
-                return SchoolData.Students.Remove(existing);
-            }
+            var existing = await _db.Students.FindAsync(id);
+            if (existing == null) return false;
+            _db.Students.Remove(existing);
+            await _db.SaveChangesAsync();
+            return true;
         }
 
-        public IEnumerable<Student> GetByDepartment(string department)
-            => SchoolData.Students.Where(s => string.Equals(s.Department, department, System.StringComparison.OrdinalIgnoreCase));
+        public async Task<IEnumerable<Student>> GetByDepartmentAsync(string department)
+            => await _db.Students
+            .Where(s => string.Equals(s.Department, department, StringComparison.OrdinalIgnoreCase))
+            .ToListAsync();
 
-        public IEnumerable<Student> GetByYear(int year)
-            => SchoolData.Students.Where(s => s.Year == year);
+        public async Task<IEnumerable<Student>> GetByYearAsync(int year)
+            => await _db.Students
+            .Where(s => s.Year == year)
+            .ToListAsync();
 
-        public bool EmailExists(string email, int? exceptId = null)
-            => SchoolData.Students.Any(s => s.Email.Equals(email, System.StringComparison.OrdinalIgnoreCase) && (!exceptId.HasValue || s.Id != exceptId.Value));
+        //public async Task<bool> EmailExistsAsync(string email, int? exceptId = null)
+        //    => await _db.Students.AnyAsync(s => s.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && (!exceptId.HasValue || s.Id != exceptId.Value));//modified
+        public async Task<bool> EmailExistsAsync(string email, int? exceptId = null) =>
+            await _db.Students.AnyAsync(s => s.Email.ToLower() == email.ToLower() && (!exceptId.HasValue || s.Id != exceptId));
+
     }
 }

@@ -3,13 +3,13 @@ namespace SLCM.Repositories
 {
     public interface IStudentRepository
     {
-        IEnumerable<Student> GetAll();
-        Student? GetById(int id);
-        Student Create(Student student);
-        bool Update(Student student);
-        bool Delete(int id);
-        IEnumerable<Student> GetByDepartment(string department);
-        IEnumerable<Student> GetByYear(int year);
-        bool EmailExists(string email, int? exceptId = null);
+        Task<IEnumerable<Student>> GetAllAsync();
+        Task<Student?> GetByIdAsync(int id);
+        Task<Student> CreateAsync(Student student);
+        Task<bool> UpdateAsync(Student student);
+        Task<bool> DeleteAsync(int id);
+        Task<IEnumerable<Student>> GetByDepartmentAsync(string department);
+        Task<IEnumerable<Student>> GetByYearAsync(int year);
+        Task<bool> EmailExistsAsync(string email, int? exceptId = null);
     }
 }
