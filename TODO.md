@@ -2,8 +2,38 @@
 
 Markdown tracker with interactive checkboxes for revision and to-do items, and **three simple understanding level tags**.
 
+- Avoid theory overload: limit new info per session to prevent cognitive overload.  
+- Follow the experiential cycle: do → observe results → decide what to change → experiment again.  
+- Balance learning: pair every theory chunk with immediate practice.  
+- Slow down to speed up: prioritize gradual learning so skills become habits.  
+- Automate habits: practice until skills use fewer cognitive resources before adding new theory.  
+- Use the 5:1 rule: aim for ~5 hours practice per 1 hour theory; adjust by how fast you form habits.
+
 ## Immediate TO-DO's
 
+- MVC
+  - MS learn hands-on, then
+  - Masterclass notes, focussing on completing DI, Services, etc that was common
+  - Assignment
+  - Re-read once the MS Learn on Friday Night
+
+- ReactJS
+  - ~~class Component vs functional Component. Why do we use functional component?~~
+  ~~- what are & why we use hooks?~~
+  - w3 schools only - read on hooks
+    - Asg 2a - useEffect why?
+    - useRef
+    - useContext
+    - avoid prop drilling - ContextApi
+    - react router
+  - Asg 2b
+    - try editing/adding student on same page
+  - Asg 1:
+    - try map instead of forEach
+    - task 4 variants
+          - proptype(less imp)  
+  - post-list-typicode
+    - limiting number of posts per page(say 10 instead of 100)
 - WebAPI
   - Make & read notes
     - 1st Priority: Complete assignments
@@ -12,8 +42,8 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
       - Dependency Injection
       - Logging
       - Exception Handling, Validation ([ApiController])
-      - Program.cs: for service: AddScoped, Singleton, Transient
-      - SLCM EF Core Extension: Courses, Enrollment
+      - Program.cs: for service(or for repository?): AddScoped, Singleton, Transient
+      - ~~SLCM EF Core Extension: Courses~~, Enrollment
     - If free time:
       - Contacts Assignment
       - ProductAPI from its README.md
@@ -57,22 +87,22 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## 2. C# (using Visual Studio 2022)
 
 - [x] 🟢 Hello World, variables, data types
-- [x] 🔴 Control structures (if, loops)
-- [x] 🔴 Methods and parameters
-- [x] 🔴 Classes and Objects
-- [ ] 🔴 Properties and constructors
-- [ ] 🔴 Namespaces
-- [x] 🔴 Interfaces and inheritance
-- [ ] 🔴 Exception handling
-- [x] 🔴 Collections (List, Dictionary)
+- [x] 🟢 Control structures (if, loops)
+- [x] 🟢 Methods and parameters
+- [x] 🟢 Classes and Objects
+- [x] 🟡 Properties and constructors
+- [x] 🟡 Namespaces
+- [x] 🟡 Interfaces and inheritance
+- [x] 🟡 Exception handling
+- [x] 🟡 Collections (List, Dictionary)
 - [ ] 🔴 File I/O
-- [ ] 🔴 LINQ
+- [x] 🟡 LINQ
 - [ ] 🔴 Consuming APIs with `HttpClient`
-- [ ] 🔴 Building a Web API with ASP.NET Core
-- [ ] 🔴 Routing, controllers, attributes
+- [x] 🟡 Building a Web API with ASP.NET Core
+- [x] 🟡 Routing, controllers, attributes
 - [ ] 🔴 Model-View-Controller pattern
-- [ ] 🔴 Entity Framework Core basics
-- [ ] 🔴 Swagger integration
+- [x] 🟡 Entity Framework Core basics
+- [x] 🟡 Swagger integration
 
 ---
 
@@ -103,6 +133,6 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 - [ ] 🔴 Time Complexity (Big O notation)
 - [x] 🔴 Common JavaScript Questions (Closures, `this` keyword, Event Loop)
 - [ ] 🔴 System Design Basics (Load Balancing, Caching)
-- [x] 🔴 Behavioral Questions (STAR method)
+- [x] 🟢 Behavioral Questions (STAR method)
 
 ---
