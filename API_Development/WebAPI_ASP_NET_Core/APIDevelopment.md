@@ -155,6 +155,8 @@ The following notes focus on making the API data persistent by connecting to a S
 
 ## Entity Framework Core (EF Core)
 
+<https://learn.microsoft.com/en-us/ef/core/>
+
 - EF Core is a framework/tool that enables interaction with the database using C# code.
 - Configurations and data structure are specified in C# and then migrated to the database.
 
@@ -264,7 +266,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 - Verification in SSMS confirms the five books have been successfully migrated to the database table.
 
-# ## Updating CRUD Operations to Use EF Core
+## Updating CRUD Operations to Use EF Core
 
 - All controller methods must be modified to access the database via the Context class instead of the static list.
 - **Dependency Injection:** The `FirstAPIContext` is injected into the controller's constructor.
