@@ -14,7 +14,8 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 - MVC
   - MS learn hands-on, then
   - Masterclass notes, focussing on completing DI, Services, etc that was common
-  - Assignment
+  - Assignment from Masterclass
+  - **IMPORTANT**: Recreate that SLCM CRUD via MVC
   - Re-read once the MS Learn on Friday Night
 
 - ReactJS
