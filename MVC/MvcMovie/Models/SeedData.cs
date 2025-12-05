@@ -58,7 +58,7 @@ public static class SeedData
                 {
                     Title = $"HHHRRRMMMM {i}",
                     ReleaseDate = DateTime.Now.AddDays(-i * 30),
-                    Genre = i % 3 == 0 ? "Comedy" : i % 3 == 1 ? "Drama" : "Action",
+                    Genre = i % 3 == 0 ? "Comedy" : (i % 3 == 1 ? "Drama" : "Action"),
                     Price = 4.99m + (i % 10),
                     Rating = (i % 2 == 0) ? "PG" : "R"
                 });

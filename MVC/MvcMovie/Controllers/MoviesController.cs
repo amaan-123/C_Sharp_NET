@@ -16,38 +16,94 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(
+            string? movieGenre,
+            string? searchString,
+            string? sortOrder,
+            int pageNumber = 1,   // default page number
+            int pageSize = 10)   // default page size
         {
             if (_context.Movie == null)
             {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+                return Problem("Entity set 'MvcMovieContext.Movie' is null.");
             }
 
-            // Use LINQ to get list of genres.
+            // Record current sort and compute toggles using ViewData for view links
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : ""; // empty = title asc
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
+
+            // Base queries (deferred; not executed yet)
             IQueryable<string> genreQuery = from m in _context.Movie
                                             orderby m.Genre
                                             select m.Genre;
-            var movies = from m in _context.Movie
-                         select m;
 
+            var moviesQuery = from m in _context.Movie
+                              select m;
+
+
+            // Apply search filter (case-insensitive)
             if (!string.IsNullOrEmpty(searchString))
             {
-                movies = movies.Where(s => s.Title!.ToUpper().Contains(searchString.ToUpper()));
+                moviesQuery = moviesQuery.Where(s => s.Title!.ToUpper().Contains(searchString.ToUpper()));
             }
 
+            // Apply genre filter
             if (!string.IsNullOrEmpty(movieGenre))
             {
-                movies = movies.Where(x => x.Genre == movieGenre);
+                moviesQuery = moviesQuery.Where(x => x.Genre == movieGenre);
             }
+
+            // Important: Apply ordering to the IQueryable before Skip/Take to guarantee deterministic results.
+            // Choose the column you want to order by (title ascending is default).
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    moviesQuery = moviesQuery.OrderByDescending(m => m.Title);
+                    break;
+                case "Date":
+                    moviesQuery = moviesQuery.OrderBy(m => m.ReleaseDate);
+                    break;
+                case "date_desc":
+                    moviesQuery = moviesQuery.OrderByDescending(m => m.ReleaseDate);
+                    break;
+                case "Price":
+                    moviesQuery = moviesQuery.OrderBy(m => m.Price);
+                    break;
+                case "price_desc":
+                    moviesQuery = moviesQuery.OrderByDescending(m => m.Price);
+                    break;
+                default: // title ascending
+                    moviesQuery = moviesQuery.OrderBy(m => m.Title);
+                    break;
+            }
+
+            // Count total results (execute COUNT(*) query)
+            var totalCount = await moviesQuery.CountAsync();
+
+            // Apply paging
+            var pagedMovies = await moviesQuery
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             var movieGenreVM = new MovieGenreViewModel
             {
                 Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-                Movies = await movies.ToListAsync()
+                Movies = pagedMovies,
+                MovieGenre = movieGenre,
+                SearchString = searchString,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                SizeSelection = new SelectList(new[] { 25, 50 }, 10),
+                SortOrder = sortOrder,
+                TotalCount = totalCount
             };
 
             return View(movieGenreVM);
         }
+
 
         [HttpPost]
         public string Index(string searchString, bool notUsed)
