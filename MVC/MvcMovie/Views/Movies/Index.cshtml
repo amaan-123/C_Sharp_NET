@@ -19,6 +19,12 @@
 
         <label>Title: <input type="text" asp-for="SearchString" /></label>
         <input type="submit" value="Filter" />
+
+        <label>Items Per Page:
+        <select asp-for="PageSize" asp-items="Model.SizeSelection">
+            <option value="">10(default)</option>
+        </select>
+        </label>
     </p>
 </form>
 
@@ -26,19 +32,64 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Movies![0].Title)
+                <a asp-action="Index"
+                       asp-route-sortOrder="@(ViewData["TitleSortParm"])"
+                       asp-route-pageNumber="1"
+                       asp-route-pageSize="@Model.PageSize"
+                       asp-route-searchString="@Model.SearchString"
+                       asp-route-movieGenre="@Model.MovieGenre">
+                    Title
+                </a>
+                @if ((string?)ViewData["CurrentSort"] == "")
+                {
+                    <span>▲</span>
+                }
+                else if ((string?)ViewData["CurrentSort"] == "title_desc")
+                {
+                    <span>▼</span>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies![0].ReleaseDate)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@(ViewData["DateSortParm"])"
+                   asp-route-pageNumber="1"
+                   asp-route-pageSize="@Model.PageSize"
+                   asp-route-searchString="@Model.SearchString"
+                   asp-route-movieGenre="@Model.MovieGenre">
+                   Release Date
+                </a>
+                @if ((string?)ViewData["CurrentSort"] == "Date")
+                {
+                    <span>▲</span>
+                }
+                else if ((string?)ViewData["CurrentSort"] == "date_desc")
+                {
+                    <span>▼</span>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies![0].Genre)
+                Genre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies![0].Price)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@(ViewData["PriceSortParm"])"
+                   asp-route-pageNumber="1"
+                   asp-route-pageSize="@Model.PageSize"
+                   asp-route-searchString="@Model.SearchString"
+                   asp-route-movieGenre="@Model.MovieGenre">
+                   Price
+                </a>
+                @if ((string?)ViewData["CurrentSort"] == "Price")
+                {
+                    <span>▲</span>
+                }
+                else if ((string?)ViewData["CurrentSort"] == "price_desc")
+                {
+                    <span>▼</span>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies![0].Rating)
+                Rating
             </th>
             <th></th>
         </tr>
@@ -70,3 +121,43 @@
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @* Previous button *@
+        <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+            <a class="page-link"
+               asp-action="Index"
+               asp-route-pageNumber="@(Model.PageNumber - 1)"
+               asp-route-pageSize="@Model.PageSize"
+               asp-route-searchString="@Model.SearchString"
+               asp-route-movieGenre="@Model.MovieGenre"
+               asp-route-sortOrder="@Model.SortOrder">Previous</a>
+        </li>
+
+        @* Page number links *@
+        @for (int p = 1; p <= Model.TotalPages; p++)
+        {
+            <li class="page-item @(p == Model.PageNumber ? "active" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-pageNumber="@p"
+                   asp-route-pageSize="@Model.PageSize"
+                   asp-route-searchString="@Model.SearchString"
+                   asp-route-movieGenre="@Model.MovieGenre"
+                   asp-route-sortOrder="@Model.SortOrder">@p</a>
+            </li>
+        }
+
+        @* Next button *@
+        <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+            <a class="page-link"
+               asp-action="Index"
+               asp-route-pageNumber="@(Model.PageNumber + 1)"
+               asp-route-pageSize="@Model.PageSize"
+               asp-route-searchString="@Model.SearchString"
+               asp-route-movieGenre="@Model.MovieGenre"
+               asp-route-sortOrder="@Model.SortOrder">Next</a>
+        </li>
+    </ul>
+</nav>
