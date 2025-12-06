@@ -12,11 +12,26 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## Immediate TO-DO's
 
 - MVC
-  - MS learn hands-on, then
-  - Masterclass notes, focussing on completing DI, Services, etc that was common
-  - Assignment from Masterclass
-  - **IMPORTANT**: Recreate that SLCM CRUD via MVC
+  - ~~MS learn hands-on, then~~
   - Re-read once the MS Learn on Friday Night
+  - Assignment from Masterclass
+  - Relationship between models (foreignkey, include(), eager loading...)
+    - When deleting author selected:
+      - if books present, redirect to view where user can delete them first
+  - ILogger:
+    - if dependency injection correct, but not registered as services in program.cs, auto-registered on WebBuilderApp line?
+    - _logger in which index method based on that
+    - log levels: by default how many?
+      - loginformation("accessed??") in CMD console
+      - logerror
+      - or write to file/database
+  - Development & Production: appsettings.___.json & launchsettings.json
+
+  - Masterclass notes, focussing on completing DI, Services, etc that was common
+  - Put/Delete vs Post in MVC Action methods controllers. In WebAPI, there is Kestrel also.
+  - Combining multiple Models to show in one view
+  - Read on IIS
+  - **IMPORTANT**: Recreate that SLCM CRUD via MVC
 
 - ReactJS
   - ~~class Component vs functional Component. Why do we use functional component?~~
