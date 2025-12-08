@@ -9,10 +9,12 @@ namespace MvcMovie.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly ILogger<MoviesController> _logger;
         private readonly MvcMovieContext _context;
 
-        public MoviesController(MvcMovieContext context)
+        public MoviesController(ILogger<MoviesController> logger, MvcMovieContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
@@ -25,6 +27,10 @@ namespace MvcMovie.Controllers
             int pageNumber = 1,   // default page number
             int pageSize = 10)   // default page size
         {
+            _logger.LogInformation("Accessed Movies/Index at {Time}", DateTime.Now);
+            // optional: log user info
+            _logger.LogInformation("User: {User}", User.Identity?.Name ?? "Anonymous");
+
             if (_context.Movie == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Movie' is null.");

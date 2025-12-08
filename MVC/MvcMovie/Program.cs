@@ -6,10 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MvcMovieContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MvcMovieContext") ?? throw new InvalidOperationException("Connection string 'MvcMovieContext' not found.")));
 
+// Memory hook: "AddDbContext = bind app to DB"
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MvcMovieContext") ?? throw new InvalidOperationException("Connection string 'MvcMovieContext' not found.")));
 
-// Memory hook: "AddDbContext = bind app to DB"
+// Memory hook: "AddDefaultIdentity = basic auth & users;
+// AddRoles = add roles;
+// AddEntityFrameworkStores = store users in your DB."
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false; // true for production email confirmation
@@ -80,6 +83,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+// The scaffolded Identity UI is implemented as Razor Pages under Areas/Identity,
+// MapRazorPages() wires up endpoints for Razor Pages, so the /Identity/Account/Login and /Identity/Account/Register, etc pages become routable.
 app.MapRazorPages();
 
 app.Run();
