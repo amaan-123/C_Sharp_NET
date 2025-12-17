@@ -11,6 +11,12 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 ## Immediate TO-DO's
 
+- Architecture:
+  - What resource to follow?
+  - Layered Architecture:
+    - is core an industry practice?
+    - repository(DAL) & service(BLL) code so far looks same to me. How should a dev differentiate on what goes where?
+- Design Patterns: Learn
 - MVC
   - Assignment from Masterclass
     - .cshtml.cs & .cs files when using identity
