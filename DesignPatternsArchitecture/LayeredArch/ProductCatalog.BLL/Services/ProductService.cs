@@ -19,7 +19,24 @@ public class ProductService : IProductService
 
     public Product Add(Product product)
     {
-        // Business rules
+        Validate(product);
+        return _repository.Add(product);
+    }
+
+    public bool Update(Product product)
+    {
+        Validate(product);
+        return _repository.Update(product);
+    }
+    public bool Delete(int id)
+    {
+        if (id <= 0)
+            throw new ArgumentException("Invalid product id");
+
+        return _repository.Delete(id);
+    }
+    private static void Validate(Product product)
+    {
         if (string.IsNullOrWhiteSpace(product.Name))
             throw new ArgumentException("Product name is required");
 
@@ -28,7 +45,5 @@ public class ProductService : IProductService
 
         if (product.Stock < 0)
             throw new ArgumentException("Stock cannot be negative");
-
-        return _repository.Add(product);
     }
 }

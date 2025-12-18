@@ -23,4 +23,25 @@ public class ProductRepository : IProductRepository
         _products.Add(product);
         return product;
     }
+    public bool Update(Product product)
+    {
+        var existing = GetById(product.Id);
+        if (existing is null) return false;
+
+        existing.Name = product.Name;
+        existing.Price = product.Price;
+        existing.Stock = product.Stock;
+        existing.Category = product.Category;
+
+        return true;
+    }
+    public bool Delete(int id)
+    {
+        var product = GetById(id);
+        if (product is null) return false;
+
+        _products.Remove(product);
+        return true;
+    }
+
 }

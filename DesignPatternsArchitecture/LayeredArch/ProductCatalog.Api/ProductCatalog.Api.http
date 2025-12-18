@@ -1,16 +1,38 @@
 @ProductCatalog.Api_HostAddress = http://localhost:5185
 
-GET {{ProductCatalog.Api_HostAddress}}/api/products
+GET {{ProductCatalog.Api_HostAddress}}/api/products/
 Accept: application/json
 
 ###
 
-POST {{ProductCatalog.Api_HostAddress}}/api/products
+POST {{ProductCatalog.Api_HostAddress}}/api/products/
 Content-Type: application/json
-
 {
-"name": "Laptop",
-"price": 75000,
-"stock": 5,
+"name": "Phone",
+"price": 35000,
+"stock": 11,
 "category": "Electronics"
 }
+### {
+### "name": "Laptop",
+### "price": 75000,
+### "stock": 5,
+### "category": "Electronics"
+### }
+###
+
+PUT {{ProductCatalog.Api_HostAddress}}/api/products/2
+Content-Type: application/json
+{
+"name": "Samsung Note X",
+"price": 175000,
+"stock": 2,
+"category": "Electronics"
+}
+
+###
+
+DELETE {{ProductCatalog.Api_HostAddress}}/api/products/2
+Accept: application/json
+
+###
