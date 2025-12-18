@@ -16,6 +16,10 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
   - Layered Architecture:
     - is core an industry practice?
     - repository(DAL) & service(BLL) code so far looks same to me. How should a dev differentiate on what goes where?
+    - Can I remove Web API and still test business rules? → Yes
+      Can I swap in EF Core later? → Yes
+      Does DAL know business rules? → No
+      Does BLL know HTTP? → No
 - Design Patterns: Learn
 - MVC
   - Assignment from Masterclass
