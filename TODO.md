@@ -13,13 +13,8 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 - Architecture:
   - What resource to follow?
-  - Layered Architecture:
+  - Layered Architecture: revise plan.md pre-eval
     - is core an industry practice?
-    - repository(DAL) & service(BLL) code so far looks same to me. How should a dev differentiate on what goes where?
-    - Can I remove Web API and still test business rules? → Yes
-      Can I swap in EF Core later? → Yes
-      Does DAL know business rules? → No
-      Does BLL know HTTP? → No
 - Design Patterns: Learn
 - MVC
   - Assignment from Masterclass
@@ -41,6 +36,12 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
   - Masterclass notes, focussing on completing DI, Services, etc that was common
   - Put/Delete vs Post in MVC Action methods controllers. In WebAPI, there is Kestrel also.
   - Read on IIS
+  - ✔ What you should focus on next
+    - Understanding policies: Build rules like "User must be Admin OR MovieOwner".(How to enforce policy-based authorization (more powerful than roles))
+    - Extending user profile: Add custom fields like FirstName, or link Movies to Users.
+    - Building an Admin dashboard: Manage users, roles, and permissions.
+    - Email confirmation & password reset: Essential in real-world apps.
+    - Moving to ViewModels for Identity: Learn how Identity UI logic is structured.
   ~~- Re-read once the MS Learn on Friday Night~~
   - ~~MS learn hands-on, then~~
     ~~- Don't even show CRUD buttons to non-admin.~~
