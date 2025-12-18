@@ -37,6 +37,9 @@ public class ProductService : IProductService
     }
     private static void Validate(Product product)
     {
+        // Business rules must fail fast
+        ArgumentNullException.ThrowIfNull(product);
+
         if (string.IsNullOrWhiteSpace(product.Name))
             throw new ArgumentException("Product name is required");
 

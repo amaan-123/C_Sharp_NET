@@ -4,8 +4,10 @@ namespace ProductCatalog.BLL.Services;
 
 public interface IProductService
 {
-    IEnumerable<Product> GetAll();
-    Product Add(Product product);
-    bool Update(Product product);
-    bool Delete(int id);
+    // Light CQRS(Command–Query Responsibility Segregation) concept:
+    // Commands change state; queries only read.
+    IEnumerable<Product> GetAll();      // Query
+    Product Add(Product product);       // Command
+    bool Update(Product product);       // Command
+    bool Delete(int id);                // Command
 }
