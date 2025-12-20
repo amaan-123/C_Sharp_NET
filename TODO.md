@@ -12,9 +12,13 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 ## Immediate TO-DO's
 
 - Architecture:
-  - What resource to follow?
-  - Layered Architecture: revise plan.md pre-eval
-    - is core an industry practice?
+  <!-- - What resource to follow? -->
+  - Program.cs: for service(or for repository?): AddScoped, Singleton, Transient
+  - Use EF Core in both (keep In-Memory)
+  - revise plan.md pre-eval
+  <!-- - Clean Architecture:
+  - Layered Architecture:
+    - is core an industry practice? -->
 - Design Patterns: Learn
 - MVC
   - Assignment from Masterclass
@@ -22,7 +26,7 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
     - Relationship between models (foreignkey, include(), eager loading...)
       - When deleting author selected:
         - if books present, redirect to view where user can delete them first
-    - Tests & Logging (ILogger)
+    <!-- - Tests & Logging (ILogger)
       - Add simple unit tests for controller actions (mock DbContext with in-memory provider).
       - Add ILogger<T> to controllers and log events (read/updates/errors).
         - _logger in which index method based on that
@@ -30,25 +34,25 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
       - log levels: by default how many?
         - loginformation("accessed??") in CMD console
         - logerror
-        - or write to file/database
+        - or write to file/database -->
     - Development & Production: appsettings.___.json & launchsettings.json
     - Combining multiple Models to show in one view
   - Masterclass notes, focussing on completing DI, Services, etc that was common
   - Put/Delete vs Post in MVC Action methods controllers. In WebAPI, there is Kestrel also.
   - Read on IIS
-  - ✔ What you should focus on next
+  <!-- - ✔ What you should focus on next
     - Understanding policies: Build rules like "User must be Admin OR MovieOwner".(How to enforce policy-based authorization (more powerful than roles))
     - Extending user profile: Add custom fields like FirstName, or link Movies to Users.
     - Building an Admin dashboard: Manage users, roles, and permissions.
     - Email confirmation & password reset: Essential in real-world apps.
-    - Moving to ViewModels for Identity: Learn how Identity UI logic is structured.
-  ~~- Re-read once the MS Learn on Friday Night~~
+    - Moving to ViewModels for Identity: Learn how Identity UI logic is structured. -->
+  <!-- ~~- Re-read once the MS Learn on Friday Night~~
   - ~~MS learn hands-on, then~~
-    ~~- Don't even show CRUD buttons to non-admin.~~
+    ~~- Don't even show CRUD buttons to non-admin.~~ -->
 
 - ReactJS
-  - ~~class Component vs functional Component. Why do we use functional component?~~
-  ~~- what are & why we use hooks?~~
+  <!-- - ~~class Component vs functional Component. Why do we use functional component?~~
+  ~~- what are & why we use hooks?~~ -->
   - w3 schools only - read on hooks
     - Asg 2a - useEffect why?
     - useRef
@@ -68,9 +72,9 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
     - 1st Priority: Complete assignments
     - Why we need EF Core?
       - TODO of SLCM POST
-      - Dependency Injection
-      - Logging
-      - Exception Handling, Validation ([ApiController])
+      <!-- - Dependency Injection
+      - Logging -->
+      <!-- - Exception Handling, Validation ([ApiController]) -->
       - Program.cs: for service(or for repository?): AddScoped, Singleton, Transient
       - ~~SLCM EF Core Extension: Courses~~, Enrollment
     - If free time:

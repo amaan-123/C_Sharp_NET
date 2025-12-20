@@ -50,3 +50,4 @@ public class ProductService : IProductService
             throw new ArgumentException("Stock cannot be negative");
     }
 }
+
