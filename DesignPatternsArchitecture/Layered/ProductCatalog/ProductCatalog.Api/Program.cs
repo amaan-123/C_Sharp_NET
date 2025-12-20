@@ -2,8 +2,8 @@
 using ProductCatalog.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
+builder.Services.AddOpenApi();
 
 // Dependency Injection (Layer wiring)
 
@@ -27,5 +27,12 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
