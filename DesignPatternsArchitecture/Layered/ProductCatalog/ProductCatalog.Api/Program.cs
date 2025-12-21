@@ -1,12 +1,20 @@
-﻿using ProductCatalog.BLL.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductCatalog.BLL.Services;
+using ProductCatalog.DAL.Data;
 using ProductCatalog.DAL.Repositories;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<ProductCatalogDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddOpenApi();
 
-// Dependency Injection (Layer wiring)
 
+// Dependency Injection (Layer wiring)
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // Learning point:
 // builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // AddScoped means:
@@ -21,7 +29,7 @@ builder.Services.AddOpenApi();
 //Now:
 //One repository instance
 //One shared in-memory list
-builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+//builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 
