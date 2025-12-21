@@ -3,6 +3,14 @@ using ProductCatalog.Domain.Entities;
 
 namespace ProductCatalog.Application.Services;
 
+//The critical rule(memorize this)
+//You add an interface when the consumer needs protection from change.
+
+//Ask:
+//Will this service vary?
+//Will this service be replaced?
+//Will this service be consumed by multiple systems?
+//If the answer is no, an interface is optional.
 public class ProductService //: IProductService
 {
     private readonly IProductRepository _repository;
@@ -13,7 +21,7 @@ public class ProductService //: IProductService
     }
     // 1) Contd.: Why the above abstraction via interface DI fixes it
     //    Business logic depends on abstraction
-    //    Infrastructure is pushed outward
+    //    implementation is pushed outward to infrastructure
     //    Dependency direction is inward only
     public IEnumerable<Product> GetAll()
     {

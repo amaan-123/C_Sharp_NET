@@ -16,13 +16,8 @@ builder.Services.AddScoped<ProductService>();
 // Here: Clean Architecture mindset:
 // “Interfaces belong at volatile boundaries, not everywhere.”
 // “Clean Architecture is not about adding abstractions. It’s about placing abstractions where change is expected.”
-
-// The boundary here is:
-// Application ↔ Infrastructure
-// NOT:
-// Controller ↔ Application
-
-
+// Repository = volatile boundary
+// Why? => since External technology changes
 
 //// Contd. 4) Improved testability of business rules
 //// ✅ Clean Architecture – easy test (your structure)
