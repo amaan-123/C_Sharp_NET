@@ -1,14 +1,23 @@
-﻿using ProductCatalog.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductCatalog.Application.Interfaces;
 using ProductCatalog.Application.Services;
+using ProductCatalog.Infrastructure.Data;
 using ProductCatalog.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
+builder.Services.AddDbContext<ProductCatalogDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Add services to the container.
-builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ProductService>();
+
+//For in-memory
+//builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 // Why no IProductService?
 // Earlier: Layered Architecture mindset:
 // “Everything has an interface”

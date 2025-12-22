@@ -13,12 +13,12 @@ Content-Type: application/json
 # "stock": 11,
 # "category": "Electronics"
 # }
-# {
-# "name": "Laptop",
-# "price": 75000,
-# "stock": 5,
-# "category": "Electronics"
-# }
+{
+"name": "Laptop",
+"price": 75000,
+"stock": 5,
+"category": "Electronics"
+}
 ###
 
 PUT {{ProductCatalog.Api_HostAddress}}/api/products/2

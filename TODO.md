@@ -11,15 +11,10 @@ Markdown tracker with interactive checkboxes for revision and to-do items, and *
 
 ## Immediate TO-DO's
 
+- Design Patterns: Learn and implement
 - Architecture:
   <!-- - What resource to follow? -->
-  - Program.cs: for service(or for repository?): AddScoped, Singleton, Transient
-  - Use EF Core in both (keep In-Memory)
   - revise plan.md pre-eval
-  <!-- - Clean Architecture:
-  - Layered Architecture:
-    - is core an industry practice? -->
-- Design Patterns: Learn
 - MVC
   - Assignment from Masterclass
     - .cshtml.cs & .cs files when using identity
