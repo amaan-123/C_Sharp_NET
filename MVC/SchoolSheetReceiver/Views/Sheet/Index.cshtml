@@ -1,0 +1,49 @@
+﻿@model List<SchoolSheetReceiver.Models.SheetSubmission>
+
+@{
+    ViewData["Title"] = "Submissions";
+}
+
+<div class="container mt-5">
+    <h2>Google Sheet Submissions</h2>
+    <p>Incoming data from the school application.</p>
+
+    <a href="javascript:window.location.reload();" class="btn btn-primary mb-3">Refresh List</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Version</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No submissions yet. Waiting for Google Sheets...</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SubmittedOn</td>
+                        <td>@item.SubmittedBy</td>
+                        <td>
+                            <span class="badge bg-success">@item.SubmissionStatus</span>
+                        </td>
+                        <td>@item.TemplateVersion</td>
+                        <td>
+                            <a href="@item.SheetUrl" target="_blank" class="btn btn-sm btn-outline-primary">Open Sheet</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
