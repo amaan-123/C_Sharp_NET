@@ -1,0 +1,155 @@
+A deep breath — then the conversion.
+
+Below is a self-contained example that replaces the untyped `ArrayList` with strongly typed `List<T>` usages and shows:
+- sorting `List<string>` (with culture/ignore-case options),
+- sorting `List<int>` (ascending/descending),
+- converting a mixed collection into `List<string>` and `List<double>` safely,
+- and a small custom comparer that sorts numerics by numeric value when possible and falls back to string comparison.
+
+```csharp
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+class TypedListSortExamples
+{
+    static void Main()
+    {
+        // Example 1: Typed List<string>
+        var words = new List<string> { "10", "2", "a1", "Apple", "apple", "banana" };
+        Console.WriteLine("Words BEFORE sort:");
+        Console.WriteLine(string.Join(", ", words));
+
+        // Default sort (uses string.CompareTo)
+        words.Sort();
+        Console.WriteLine("\nWords AFTER default Sort():");
+        Console.WriteLine(string.Join(", ", words));
+
+        // Case-insensitive ordinal sort
+        words.Sort(StringComparer.OrdinalIgnoreCase);
+        Console.WriteLine("\nWords AFTER Sort(StringComparer.OrdinalIgnoreCase):");
+        Console.WriteLine(string.Join(", ", words));
+
+        Console.WriteLine("\n---");
+
+        // Example 2: Typed List<int>
+        var numbers = new List<int> { 1, 6, 40, 10, 5, 3, 2, 4 };
+        Console.WriteLine("Numbers BEFORE sort:");
+        Console.WriteLine(string.Join(", ", numbers));
+
+        // Ascending
+        numbers.Sort();
+        Console.WriteLine("\nNumbers AFTER Sort() (ascending):");
+        Console.WriteLine(string.Join(", ", numbers));
+
+        // Descending using Comparison delegate
+        numbers.Sort((a, b) => b.CompareTo(a));
+        Console.WriteLine("\nNumbers AFTER Sort((a,b)=>b.CompareTo(a)) (descending):");
+        Console.WriteLine(string.Join(", ", numbers));
+
+        Console.WriteLine("\n---");
+
+        // Example 3: Convert mixed data to typed lists and sort
+        object[] mixed = new object[]
+        {
+            12.56, "GeeksforGeeks", null, 'G', 1234,
+            'G','E','E','K','S','F','O','R','G','E','E','K','S',
+            1, 6, 40, 10, 5, 3, 2, 4, "10", "2", "3.5", "a1"
+        };
+
+        // Convert everything non-null to strings and sort using a numeric-aware comparer
+        var asStrings = mixed.Where(x => x != null).Select(x => x!.ToString()!).ToList();
+        Console.WriteLine("Mixed values as strings BEFORE numeric-aware sort:");
+        Console.WriteLine(string.Join(", ", asStrings));
+
+        asStrings.Sort(new NumericAwareStringComparer());
+        Console.WriteLine("\nMixed values as strings AFTER numeric-aware sort:");
+        Console.WriteLine(string.Join(", ", asStrings));
+
+        // Extract numeric values (where possible) into List<double> and sort numerically
+        var numericList = new List<double>();
+        foreach (var item in mixed)
+        {
+            if (TryGetDouble(item, out double d))
+                numericList.Add(d);
+        }
+
+        Console.WriteLine("\nNumeric values BEFORE sort:");
+        Console.WriteLine(string.Join(", ", numericList));
+
+        numericList.Sort();
+        Console.WriteLine("\nNumeric values AFTER Sort():");
+        Console.WriteLine(string.Join(", ", numericList));
+    }
+
+    // Tries to produce a double from the object (handles boxed numeric types, numeric strings, digit chars)
+    static bool TryGetDouble(object? o, out double value)
+    {
+        value = default;
+        if (o is null) return false;
+
+        switch (o)
+        {
+            case double d: value = d; return true;
+            case float f: value = f; return true;
+            case int i: value = i; return true;
+            case long l: value = l; return true;
+            case short s: value = s; return true;
+            case byte b: value = b; return true;
+            case decimal dec: value = (double)dec; return true;
+            case char c:
+                if (char.IsDigit(c))
+                {
+                    value = c - '0';
+                    return true;
+                }
+                return false;
+            case string str:
+                return double.TryParse(str, NumberStyles.Any, CultureInfo.InvariantCulture, out value);
+            default:
+                // Try general convertible path
+                if (o is IConvertible conv)
+                {
+                    try
+                    {
+                        value = Convert.ToDouble(conv, CultureInfo.InvariantCulture);
+                        return true;
+                    }
+                    catch { return false; }
+                }
+                return false;
+        }
+    }
+
+    // Comparer: when both strings represent numbers, compare numerically; otherwise fallback to ordinal ignore-case.
+    class NumericAwareStringComparer : IComparer<string>
+    {
+        public int Compare(string? x, string? y)
+        {
+            if (ReferenceEquals(x, y)) return 0;
+            if (x is null) return -1;
+            if (y is null) return 1;
+
+            if (double.TryParse(x, NumberStyles.Any, CultureInfo.InvariantCulture, out double dx) &&
+                double.TryParse(y, NumberStyles.Any, CultureInfo.InvariantCulture, out double dy))
+            {
+                return dx.CompareTo(dy);
+            }
+
+            // fallback to case-insensitive ordinal compare
+            return StringComparer.OrdinalIgnoreCase.Compare(x, y);
+        }
+    }
+}
+```
+
+What I changed and why
+- Removed the untyped `ArrayList` approach and provided examples with `List<string>` and `List<int>` so you get compile-time type safety and predictable sorting behavior.
+- Demonstrated `List<T>.Sort()` default behavior and overloads (`IComparer<T>` and `Comparison<T>`).
+- Added a numeric-aware comparer and a numeric extraction helper so mixed data can be sorted sensibly (numeric values by numeric value, other items by string order). This avoids runtime comparison errors that happen when `ArrayList.Sort()` attempts to compare incompatible types.
+
+If you want, I can:
+- Replace the original file in your project with this example (I can patch `IntermediateTopics.cs`), or
+- Provide a small unit-test or demo that shows failure of `ArrayList.Sort()` when mixed types are present so you can compare behaviors.
