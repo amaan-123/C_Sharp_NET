@@ -21,6 +21,7 @@ namespace SchoolSheetReceiver.Controllers
         // 2. THE API: Receives data from Google Sheets
         // URL: /api/receivesheet
         [HttpPost("api/receivesheet")]
+        [IgnoreAntiforgeryToken]
         public IActionResult Receive([FromBody] SheetSubmission data)
         {
             if (data == null)
