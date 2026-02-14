@@ -7,20 +7,20 @@ Accept: application/json
 
 POST {{ProductCatalog.Api_HostAddress}}/api/products/
 Content-Type: application/json
+# {
+# "name": "Phone",
+# "price": 35000,
+# "stock": 11,
+# "category": "Electronics"
+# }
 {
-"name": "Phone",
-"price": 35000,
-"stock": 11,
+"name": "Laptop",
+"price": 75000,
+"stock": 5,
 "category": "Electronics"
 }
-### {
-### "name": "Laptop",
-### "price": 75000,
-### "stock": 5,
-### "category": "Electronics"
-### }
-###
 
+###
 PUT {{ProductCatalog.Api_HostAddress}}/api/products/2
 Content-Type: application/json
 {

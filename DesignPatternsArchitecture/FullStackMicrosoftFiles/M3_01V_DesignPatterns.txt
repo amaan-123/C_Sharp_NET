@@ -1,0 +1,92 @@
+As software development
+has evolved, engineers continue
+to learn how to construct programs
+that are efficient, easier to maintain,
+and scalable. The common solutions
+that contribute to building software like this
+are called design patterns. Software engineers
+have created a set of patterns that all
+developers should follow. In this video, you will learn how to explain the importance of design patterns in
+object-oriented programming. Design patterns are
+reusable solutions to common problems that provide a standardized approach to architectural challenges
+in software design. They provide the developer
+with a template for how to solve an architectural problem when designing an application. Using a design pattern means
+following best practices. Because the pattern is
+common among developers, it helps improve how readable the code is, making
+maintenance easier. These patterns also make
+code run more efficiently. Let's explore a simple example. The singleton pattern is a design pattern that specifies
+that a class can have only one instance
+and should provide a single point of
+access to it that is available from anywhere
+in the application. This is useful for
+managing shared resources like a configuration manager
+or a database connection. Now that we've explored
+the singleton pattern, which helps manage the creation
+of objects efficiently, let's dive into other
+types of design patterns that address different challenges in
+software development. Creational patterns specify how developers should create
+objects in an application. The pattern focuses on writing
+code in a way that creates objects that are suitable to the situation in which
+they'll be used. For instance, even
+though creating global variables might be
+easier and less complex, overusing them could make
+an application less secure, consume more memory, and make
+code maintenance difficult. Creating a local
+variable that exists in a particular scenario and then is destroyed as a better
+pattern in general. Another category called
+structural patterns deals with how objects are composed and how
+classes and objects can be combined to form
+larger structures. Developers use these patterns to organize the
+relationships between objects and classes
+in a way that minimizes the impact of changes. One example of a structural pattern is the adapter pattern. Let's examine how this pattern
+works with an example. Suppose an object doesn't
+have an interface that is compatible with the
+interface of another object. Developers can use
+the adapter pattern to enable them to work together. If they later change the
+way one object works, they might only need
+to update the adapter, not the entire system. This minimizes impact
+to the system. For example, let's say you
+have an application with a square peg class and
+a round hole class. The round hole class expects objects to have a method
+for getting a radius, but the square peg class has a method for getting
+its width instead. The adapter pattern
+can help you write an interface so that these
+two objects work together. Now, let's examine
+the final category of development patterns
+that focuses on how objects interact. Behavioral patterns focus
+on defining the rules and methods for how objects and
+classes operate together. They establish clear protocols
+for how tasks are divided among different parts of the program and how data
+flows between them. When developers effectively
+apply behavioral patterns, different components
+of the system will work together
+more efficiently, even as the system
+grows or changes. These three categories describe design patterns that
+developers should follow in creating software
+that's easier to maintain and that runs
+more efficiently. But developers might
+ignore patterns, so engineers have
+created tools to help software developers follow
+and enforce design patterns. Modern software
+development tools like Visual Studio Code are
+equipped with extensions that assist developers
+in writing code that aligns with established
+design patterns. For example, some extensions
+can analyze your code as you write and suggest refactorings that align with common patterns, such as converting
+repetitive code blocks into reusable
+functions or classes. Visual Studio Code's integrated development
+environment can analyze code and detect
+deviations from best practices, including the improper
+use of patterns. When they detect a deviation, they can alert the developer
+so they can make changes. These tools help developers
+write code that is consistent and adheres to
+the architectural patterns. Using a combination of
+tools and practices, developers should continually
+work towards writing software that adheres to
+accepted design patterns. This will make code easier to maintain and will
+help them create powerful systems that can
+more easily grow and evolve. In this video, you learned
+how to explain the importance of design patterns in
+object-oriented programming, including creational,
+structural, and behavioral patterns. By applying these patterns, you can write efficient,
+maintainable, and scalable code.
