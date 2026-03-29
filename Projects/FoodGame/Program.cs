@@ -1,8 +1,10 @@
-﻿Random random = new Random();
-Console.CursorVisible = false;
+﻿Console.CursorVisible = false;
 int height = Console.WindowHeight - 1;
 int width = Console.WindowWidth - 5;
 bool shouldExit = false;
+
+// Tracks which food characters have been overwritten by the player
+bool[] foodCovered = Array.Empty<bool>();
 
 // Console position of the player
 int playerX = 0;
@@ -25,8 +27,6 @@ int food = 0;
 InitializeGame();
 while (!shouldExit)
 {
-    Move();
-    //my addition:
     if (TerminalResized())
     {
         Console.Clear();
@@ -34,6 +34,39 @@ while (!shouldExit)
         Console.WriteLine("Console was resized. Program exiting.");
         continue;
     }
+
+    if (Console.KeyAvailable)
+    {
+        ConsoleKey keyPressed = Console.ReadKey(true).Key;
+
+        if (ShouldFreezePlayer())
+        {
+            FreezePlayer();
+        }
+        else
+        {
+            int movementSpeed = ShouldIncreaseSpeed() ? 3 : 1;
+            Move(keyPressed, movementSpeed);
+        }
+    }
+
+    if (FoodConsumed())
+    {
+        ChangePlayer();
+        ShowFood();
+    }
+}
+
+// Returns true if the player is frozen
+bool ShouldFreezePlayer()
+{
+    return player == states[2];
+}
+
+// Returns true if the player should move faster
+bool ShouldIncreaseSpeed()
+{
+    return player == states[1];
 }
 
 // Returns true if the Terminal was resized 
@@ -46,11 +79,13 @@ bool TerminalResized()
 void ShowFood()
 {
     // Update food to a random index
-    food = random.Next(0, foods.Length);
+    food = Random.Shared.Next(0, foods.Length);
 
     // Update food position to a random location
-    foodX = random.Next(0, width - player.Length);
-    foodY = random.Next(0, height - 1);
+    foodX = Random.Shared.Next(0, width - player.Length);
+    foodY = Random.Shared.Next(0, height - 1);
+
+    foodCovered = new bool[foods[food].Length];
 
     // Display the food at the location
     Console.SetCursorPosition(foodX, foodY);
@@ -73,12 +108,12 @@ void FreezePlayer()
 }
 
 // Reads directional input from the Console and moves the player
-void Move()
+void Move(ConsoleKey keyPressed, int movementSpeed = 1)
 {
     int lastX = playerX;
     int lastY = playerY;
 
-    switch (Console.ReadKey(true).Key)
+    switch (keyPressed)
     {
         case ConsoleKey.UpArrow:
             playerY--;
@@ -87,17 +122,15 @@ void Move()
             playerY++;
             break;
         case ConsoleKey.LeftArrow:
-            playerX--;
+            playerX -= movementSpeed;
             break;
         case ConsoleKey.RightArrow:
-            playerX++;
+            playerX += movementSpeed;
             break;
-        case ConsoleKey.Escape:
-            shouldExit = true;
-            break;
+        default:
+            return; // ignore non-directional keys
     }
 
-    // Clear the characters at the previous position
     Console.SetCursorPosition(lastX, lastY);
     for (int i = 0; i < player.Length; i++)
     {
@@ -120,4 +153,40 @@ void InitializeGame()
     ShowFood();
     Console.SetCursorPosition(0, 0);
     Console.Write(player);
+}
+
+// if food consumed completely, redisplay food
+// use position variables of food, player
+// return useful value
+// 
+bool FoodConsumed()
+{
+    if (playerY == foodY)
+    {
+        int playerLeft = playerX;
+        int playerRight = playerX + player.Length - 1;
+        int foodLeft = foodX;
+        int foodRight = foodX + foods[food].Length - 1;
+
+        int overlapStart = Math.Max(playerLeft, foodLeft);
+        int overlapEnd = Math.Min(playerRight, foodRight);
+
+        if (overlapStart <= overlapEnd)
+        {
+            for (int x = overlapStart; x <= overlapEnd; x++)
+            {
+                foodCovered[x - foodLeft] = true;
+            }
+        }
+    }
+
+    for (int i = 0; i < foodCovered.Length; i++)
+    {
+        if (!foodCovered[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
